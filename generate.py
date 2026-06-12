@@ -143,29 +143,34 @@ def fetch_top_stories(n: int = TOP_N) -> List[Dict[str, Any]]:
     """Fetch story metadata and recursively collect comments."""
     ids = fetch_story_ids(n)
     stories = []
-    for story_id in ids:
-        data = hn_get(f"item/{story_id}")
-        if not data or data.get("deleted") or data.get("dead"):
+    for idx, story_id in enumerate(ids, 1):
+        try:
+            data = hn_get(f"item/{story_id}")
+            if not data or data.get("deleted") or data.get("dead"):
+                continue
+
+            comments = []
+            for child_id in (data.get("kids") or [])[:MAX_TOP_LEVEL]:
+                c = build_comment_tree(child_id, depth=0)
+                if c:
+                    comments.append(c)
+
+            stories.append(
+                {
+                    "id": story_id,
+                    "title": data.get("title"),
+                    "url": data.get("url"),
+                    "by": data.get("by"),
+                    "score": data.get("score"),
+                    "descendants": data.get("descendants"),
+                    "time": data.get("time"),
+                    "comments": comments,
+                }
+            )
+            print(f"  [{idx}/{len(ids)}] Fetched story {story_id}: {data.get('title','')[:60]}")
+        except Exception as exc:
+            print(f"  [{idx}/{len(ids)}] Skipping story {story_id}: {exc}", file=sys.stderr)
             continue
-
-        comments = []
-        for child_id in (data.get("kids") or [])[:MAX_TOP_LEVEL]:
-            c = build_comment_tree(child_id, depth=0)
-            if c:
-                comments.append(c)
-
-        stories.append(
-            {
-                "id": story_id,
-                "title": data.get("title"),
-                "url": data.get("url"),
-                "by": data.get("by"),
-                "score": data.get("score"),
-                "descendants": data.get("descendants"),
-                "time": data.get("time"),
-                "comments": comments,
-            }
-        )
     return stories
 
 

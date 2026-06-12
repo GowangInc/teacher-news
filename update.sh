@@ -14,13 +14,12 @@ export TOP_N="${TOP_N:-10}"
 echo "[$(date -Iseconds)] Starting update..."
 python3 generate.py
 
-if git diff --quiet -- data.json index.html; then
+# Commit and push any new content. Use force-with-lease to handle divergent branches.
+if ! git diff --quiet -- data.json index.html; then
+  git add data.json index.html raw_hn.json teacher_news.db
+  git commit -m "Update content from local cron [local-update]"
+  git push origin main || git push --force-with-lease origin main
+  echo "[$(date -Iseconds)] Update pushed."
+else
   echo "[$(date -Iseconds)] No changes to publish."
-  exit 0
 fi
-
-git add data.json index.html
-git commit -m "Update content from local cron [local-update]"
-git push origin main
-
-echo "[$(date -Iseconds)] Update pushed."

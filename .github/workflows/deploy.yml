@@ -4,8 +4,6 @@ on:
   push:
     branches: [main]
   workflow_dispatch:
-  schedule:
-    - cron: '0 */3 * * *'
 
 permissions:
   contents: write
@@ -25,27 +23,6 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-
-      - name: Set up Python
-        uses: actions/setup-python@v5
-        with:
-          python-version: '3.12'
-
-      - name: Install dependencies
-        run: pip install requests
-
-      - name: Generate fresh parody data
-        if: ${{ !contains(github.event.head_commit.message, '[local-update]') }}
-        env:
-          TOP_N: ${{ vars.TOP_N || '10' }}
-        run: python3 generate.py
-
-      - name: Commit generated data
-        if: ${{ !contains(github.event.head_commit.message, '[local-update]') }}
-        uses: stefanzweifel/git-auto-commit-action@v5
-        with:
-          commit_message: "Update data.json and index.html [skip ci]"
-          file_pattern: data.json index.html
 
       - name: Setup Pages
         uses: actions/configure-pages@v5
