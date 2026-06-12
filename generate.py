@@ -104,7 +104,7 @@ def fetch_story_ids(n: int = TOP_N, max_age_hours: int = MAX_AGE_HOURS) -> List[
         "numericFilters": f"created_at_i>{cutoff}",
         "hitsPerPage": n,
     }
-    resp = _get_with_retry("https://hn.algolia.com/api/v1/search", params=params, timeout=30)
+    resp = _get_with_retry("http://hn.algolia.com/api/v1/search", params=params, timeout=30)
     data = resp.json()
     return [int(hit["objectID"]) for hit in data.get("hits", [])[:n]]
 
@@ -141,7 +141,7 @@ def fetch_top_stories(n: int = TOP_N) -> List[Dict[str, Any]]:
     for story_id in ids:
         try:
             resp = _get_with_retry(
-                f"https://hn.algolia.com/api/v1/items/{story_id}", timeout=30
+                f"http://hn.algolia.com/api/v1/items/{story_id}", timeout=30
             )
             data = resp.json()
         except Exception as e:
