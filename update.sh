@@ -9,10 +9,17 @@ set -euo pipefail
 REPO_DIR="$(cd "$(dirname "$0")" && pwd)"
 cd "$REPO_DIR"
 
+# Load local secrets if present. DO NOT commit .env to git.
+if [ -f "$REPO_DIR/.env" ]; then
+  set -a
+  source "$REPO_DIR/.env"
+  set +a
+fi
+
 # Adjust these to taste.
 export MAX_TOP_LEVEL="${MAX_TOP_LEVEL:-50}"
 export MAX_DEPTH="${MAX_DEPTH:-3}"
-export BATCH_SIZE="${BATCH_SIZE:-12}"
+export BATCH_SIZE="${BATCH_SIZE:-25}"
 export MAX_AGE_HOURS="${MAX_AGE_HOURS:-12}"
 export TOP_N="${TOP_N:-10}"
 
