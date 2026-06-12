@@ -9,38 +9,17 @@ set -euo pipefail
 REPO_DIR="$(cd "$(dirname "$0")" && pwd)"
 cd "$REPO_DIR"
 
-# Load local secrets if present. DO NOT commit .env to git.
-if [ -f "$REPO_DIR/.env" ]; then
-  set -a
-  source "$REPO_DIR/.env"
-  set +a
-fi
-
-# If we have a DeepSeek key, make sure the generic OpenAI-compatible client uses it.
-if [ -n "$DEEPSEEK_API_KEY" ]; then
-  export OPENAI_API_KEY="$DEEPSEEK_API_KEY"
-fi
-
-# Adjust these to taste.
-export MAX_TOP_LEVEL="${MAX_TOP_LEVEL:-50}"
-export MAX_REPLIES_PER_NODE="${MAX_REPLIES_PER_NODE:-5}"
-export MAX_DEPTH="${MAX_DEPTH:-5}"
-export BATCH_SIZE="${BATCH_SIZE:-25}"
-export MAX_AGE_HOURS="${MAX_AGE_HOURS:-12}"
 export TOP_N="${TOP_N:-10}"
-
-# Default to local Ollama; override with OPENAI_API_KEY etc. for DeepSeek/OpenAI.
-export OLLAMA_MODEL="${OLLAMA_MODEL:-gemma4:e4b}"
 
 echo "[$(date -Iseconds)] Starting update..."
 python3 generate.py
 
-if git diff --quiet -- data.json raw_hn.json teacher_news.db; then
+if git diff --quiet -- data.json index.html; then
   echo "[$(date -Iseconds)] No changes to publish."
   exit 0
 fi
 
-git add data.json raw_hn.json teacher_news.db
+git add data.json index.html
 git commit -m "Update content from local cron [local-update]"
 git push origin main
 
