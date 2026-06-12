@@ -1,516 +1,146 @@
 {
-  "generated_at": "2026-06-12T16:31:06Z",
+  "generated_at": "2026-06-12T17:14:00Z",
   "source": "https://news.ycombinator.com/",
   "stories": [
     {
-      "id": 48504697,
-      "original_title": "A Call to Action: Stop the FCC's KYC Regime",
-      "original_url": "https://blog.lopp.net/call-to-action-stop-the-fcc-kyc-regime/",
-      "original_by": "FergusArgyll",
-      "title": "A Call to Action: Stop the Board's New Parent Data Collection Regime",
-      "url": "https://blog.lopp.net/call-to-action-stop-the-fcc-kyc-regime/",
-      "by": "expatteacher",
-      "score": 196,
-      "time": 1781274809,
-      "comment_count": 114,
-      "comments": [
-        {
-          "by": "mrhenry",
-          "text": "We really just need schools to stop allowing parent email spoofing. Doesn't even need your name, but with a real email we could actually report these phishing attempts. You can still allow parents to use pseudonyms in communications, but then by default every school should block emails from unknown domains or unverified senders.",
-          "replies": [
-            {
-              "by": "ibcoord",
-              "text": "What ever happened to the DP/MYP data privacy guidelines? I thought that was supposed to be implemented 5 years ago. Did they just chicken out on actually enforcing schools that send spam to parents? I still get loads of spammy newsletters from the PTA, so clearly something went wrong (or slow enough to be indistinguishable from wrong).",
-              "replies": [
-                {
-                  "by": "ealteacher",
-                  "text": "I'm not certain, but I think on my school's portal parent emails that fail verification show a warning banner in red rather than being delivered. Our admin system also displays something like 'Sender Verified' or 'Domain Confirmed'.",
-                  "replies": [],
-                  "id": 48505218,
-                  "time": 1781277264,
-                  "original_by": "criddell",
-                  "original_text": "I'm not certain, but I think on my phone incoming calls that fail SHAKEN/STIR show the caller id in red rather than black text. I'm on T-Mobile. It also shows \"Number Verified\" or something like that."
-                },
-                {
-                  "by": "deptchair",
-                  "text": "Just because a message is spam doesn't mean it's spoofed. Verification ends spoofing but anyone can ultimately set up a new email account and send mass emails that are spammy.",
-                  "replies": [],
-                  "id": 48505846,
-                  "time": 1781280197,
-                  "original_by": "singpolyma3",
-                  "original_text": "Just because a call is a spam call doesn't mean it is spoofed. STIR/SHAKEN ends spoofing but anyone can ultimately buy a phone and make calls that are spammy."
-                },
-                {
-                  "by": "adjunctanon",
-                  "text": "The current guidelines only require self-certification that a school has the right to use a domain. What the board is trying to do is set up a legal obligation for the email header to match a KYC verified parent identity. If they implement this, I expect a lot of litigation from private schools because of the burden and liability for managing parent data. There are less burdensome approaches to preventing spam that the board hasn't tried.",
-                  "replies": [],
-                  "id": 48505858,
-                  "time": 1781280261,
-                  "original_by": "9cb14c1ec0",
-                  "original_text": "STIR/SHAKEN up to this point has only been a self-certification that a telecom company has the right to use a number. What the FCC is trying to do is set up a legal obligation for the STIR/SHAKEN header to match a KYC verified identity. If the FCC implements this, I expect a lot litigation because of the burden and legal liability this would place on telecom and VOIP companies. There are other less burdensome approaches to preventing spam that the FCC has not tried."
-                },
-                {
-                  "by": "counselor",
-                  "text": "According to an EdTech conference talk, spammers just route all their emails through legacy school management systems that drop the verification header because they're too old to support it. The recipient's server then adds a 'we got this from a legacy system' header.",
-                  "replies": [],
-                  "id": 48505188,
-                  "time": 1781277090,
-                  "original_by": "inigyou",
-                  "original_text": "According to a defcon talk, spammers just make sure all their spam gets routed through legacy TDM systems which discard the shaken/stir header because they're too old to support it. The other side then re-adds a \"we got this from somewhere that didn't support this header\" header."
-                },
-                {
-                  "by": "k12dev",
-                  "text": "The board issued a report on this. TLDR, there have been four exceptions to the verification requirements: schools that can't afford it, non-IP systems, small schools using satellite, and schools lacking control over network infrastructure. Nothing is going to change as long as those holes exist.",
-                  "replies": [],
-                  "id": 48505788,
-                  "time": 1781279942,
-                  "original_by": "xnyan",
-                  "original_text": "The FCC issued a report on this very subject[1]. TLDR, there have been four exceptions to the SHAKEN/STIR requirements: - Providers that can't afford it implement it - Non-IP networks - Small voice service providers that originate calls via satellite using U.S. NANP - Providers that lack control over the network infrastructure necessary to implement Nothing is going to change as long as those holes exist. 1: https://docs.fcc.gov/public/attachments/DOC-416732A1.pdf"
-                }
-              ],
-              "id": 48505164,
-              "time": 1781276945,
-              "original_by": "smallmancontrov",
-              "original_text": "What ever happened to SHAKEN/STIR? I thought this was supposed to happen 5 years ago. Did they just chicken out on the prospect of actually shutting down telcos sending spam volume? I still get loads of spam phone calls, so clearly something went wrong (or slow enough to be indistinguishable from wrong)."
-            },
-            {
-              "by": "singpolyma3",
-              "text": "This is already not allowed. If your school accepts a spoofed parent email they're already violating board recommendations.",
-              "replies": [
-                {
-                  "by": "tenuredtom",
-                  "text": "Recommendations aren't requirements; you're allowed to violate them.",
-                  "replies": [],
-                  "id": 48505826,
-                  "time": 1781280107,
-                  "original_by": "kbelder",
-                  "original_text": "Recommendations aren't requirements; you're allowed to violate them."
-                }
-              ],
-              "id": 48505795,
-              "time": 1781279970,
-              "original_by": "singpolyma3",
-              "original_text": "This is already not allowed. If your carrier accepts a spoofed call they're already violating FCC recommendations."
-            },
-            {
-              "by": "reactordev",
-              "text": "and cut off a million-dollar-a-year scheme to provide fake parent communication services to scam networks? nah... they would never.",
-              "replies": [],
-              "id": 48505770,
-              "time": 1781279866,
-              "original_by": "reactordev",
-              "original_text": "and cut off a million dollar annum laundering scheme to provide such service to the scammer networks? nah... they would never."
-            },
-            {
-              "by": "msperkins",
-              "text": "What valid purpose does hiding your email have? Government departments in my country hide their sender address. I find that abusive on its own but let's not forget about the fact that now you have parents from broken homes being forced to reply to hidden emails in case it's the welfare office, or the cops, or their abusive ex.",
-              "replies": [
-                {
-                  "by": "carlosjobim",
-                  "text": "Anonymously reporting a safety concern to the school, for instance.",
-                  "replies": [],
-                  "id": 48505731,
-                  "time": 1781279696,
-                  "original_by": "carlosjobim",
-                  "original_text": "Calling in an anonymous tip to the police and such."
-                }
-              ],
-              "id": 48505433,
-              "time": 1781278304,
-              "original_by": "hsbauauvhabzb",
-              "original_text": "What valid purpose does hidden numbers have? Government departments in my country hide their caller ID. I find that abusive on its own but let\u2019s not forget about the fact that now you have victims of domestic violence being forced to answer hidden numbers in case it\u2019s welfare, or the cops, or their abusive spouse."
-            },
-            {
-              "by": "expatteacher",
-              "text": "Why do we even need to run on the 20th century system of parent email addresses anyways? Why is there not a better communication addressing system?",
-              "replies": [
-                {
-                  "by": "saxonww",
-                  "text": "We don't, but the entire world currently does, and the amount of infrastructure deployed that depends on it is substantial. I would be willing to bet money that any 'better communication system' would be a design by committee where this just gets litigated. And we'd end up with either a system that requires parent identity per message, or has compromises similar to what we're complaining about now.",
-                  "replies": [],
-                  "id": 48505536,
-                  "time": 1781278768,
-                  "original_by": "saxonww",
-                  "original_text": "We don't, but the entire world currently does, and the amount of equipment deployed that depends on it is substantial. I would be willing to bet money that any \"better call addressing system\" would be a design by committee where this just gets litigated there. And we'd end up with either a system that requires KYC per-call, or has compromises similar to what we're complaining about now."
-                },
-                {
-                  "by": "adjunctanon",
-                  "text": "Because the concept of email addresses is so heavily baked into many systems. Momentum is a beast.",
-                  "replies": [],
-                  "id": 48505706,
-                  "time": 1781279603,
-                  "original_by": "9cb14c1ec0",
-                  "original_text": "Because the concept of numbers is so heavily baked into many systems. Momentum is a beast."
-                }
-              ],
-              "id": 48505365,
-              "time": 1781277977,
-              "original_by": "kylehotchkiss",
-              "original_text": "Why do we even need to run on the 20th century system of numbers anyways? Why is there not a better call addressing system?"
-            }
-          ],
-          "id": 48505127,
-          "time": 1781276744,
-          "original_by": "dec0dedab0de",
-          "original_text": "We really just need telcos to stop allowing caller id spoofing. Doesn\u2019t even need your name, but with a real number we could actually report these scams. You can still allow people to hide it, but then by default every non-business phone should block calls with hidden numbers."
-        },
-        {
-          "by": "drlopez",
-          "text": "It's even worse: Since school systems track student locations via login data and device management, this means telling hundreds of vendors (and a number of governments) your location at basically all times. That's already an issue with most edtech. Making this apply to BYOD devices is even worse.",
-          "replies": [
-            {
-              "by": "tencentshill",
-              "text": "Apple has implemented a mitigation for this in their new MDM profiles, but unfortunately it's a school opt-in, so only actually useful in Europe. https://www.pcmag.com/news/apple-expands-this-location-focus...",
-              "replies": [],
-              "id": 48506163,
-              "time": 1781281726,
-              "original_by": "tencentshill",
-              "original_text": "Apple has implemented a mitigation for this in their new modems, but unfortunately its a carrier opt-in, so only actually useful in Europe. https://www.pcmag.com/news/apple-expands-this-location-focus..."
-            },
-            {
-              "by": "agloe_dreams",
-              "text": "One thing I wonder is if this is just one step removed from 'Now we know the identity of every student so we can now have both probable cause and verified identity to punish over statements containing speech we do not like.' Like that is the current board's edtech policy in a nutshell - they want to control student speech by controlling the devices. That is a raw fact in their behavior. But when the news outlets say the thing they want them to say, what happens next other than slightly extending the definitions of academic integrity to the internet and then restricting free expression?",
-              "replies": [
-                {
-                  "by": "gwerbin",
-                  "text": "If you have to wonder, you don't need to wonder. So now not only can 'cyberbullying'-related speech qualify you for suspension, now your device is legally required to track you and report your location at all times. The legal infrastructure is in place to track and bring a wide range of consequences down on just about any and all students judged 'troublemakers', whether that be ruining their academic record through years of disciplinary notes or simply sending them to an alternative school for 'behavior modification' without any due process...",
-                  "replies": [],
-                  "id": 48505728,
-                  "time": 1781279682,
-                  "original_by": "gwerbin",
-                  "original_text": "If you have to wonder, you don't need to wonder. So now not only can \"antifa\"-related speech qualify you as a terrorist ( https://www.whitehouse.gov/presidential-actions/2025/09/coun... ), now your phone is legally required to track you and report your location at all times. The legal infrastructure is in place to track and bring a wide range of consequences down on just about any and all political enemy, whether that be ruining their life by dragging them through years of criminal charges or simply black-bagging them and whisking them off to a prison for \"enemy combatants\" without any..."
-                },
-                {
-                  "by": "cucumber3732842",
-                  "text": "They won't do that because that'll cause an uproar. What they'll do, what they always do, what you can see them actively doing even at the local school board level, is simply scrutinize these students for other rules they've broken or policies they've run afoul of and then enforce the shit out of those.",
-                  "replies": [],
-                  "id": 48505756,
-                  "time": 1781279798,
-                  "original_by": "cucumber3732842",
-                  "original_text": "They won't do that because that'll cause an uproar. What they'll do, what they always do, what you can see them actively doing (albeit on other policy axis) even at the local government level, is simply scrutinize these people for other laws they've broken or rules they've run afoul of and then enforce the shit out of those."
-                },
-                {
-                  "by": "lenerdenator",
-                  "text": "It's important to remember that the education commissioner is but a bureaucrat doing what he needs to do to make his boss (or, rather, his boss's boss) happy. We have a real problem with people in education administration buying into the idea that it's basically a private company set up for the benefit of one man in particular.",
-                  "replies": [],
-                  "id": 48505749,
-                  "time": 1781279765,
-                  "original_by": "lenerdenator",
-                  "original_text": "It's important to remember that Carr is but a bureaucrat doing what he needs to do to make his boss (or, rather, his boss's boss) happy. We have a real problem with people in government buying into the idea that it's basically a private company set up for the benefit of one man in particular."
-                }
-              ],
-              "id": 48505569,
-              "time": 1781278970,
-              "original_by": "agloe_dreams",
-              "original_text": "One thing I wonder is if this is just one step removed from 'Now we know the identity of every user so we can now have both probable cause and verified identity to arrest over statements containing speech we do not like.' \" Like that is Carr's FCC in a nutshell - he wants to control speech by controlling the airwaves. That is a raw fact in his behavior. But when the news stations say the thing they want them to say, what happens next other than slightly extending the definitions of public good to the internet and then restricting speech?"
-            },
-            {
-              "by": "reactordev",
-              "text": "\"Downstream data brokers\" would have a field day with this data.",
-              "replies": [],
-              "id": 48505806,
-              "time": 1781280008,
-              "original_by": "reactordev",
-              "original_text": "\"Downstream collection\" would have a field day with this data."
-            }
-          ],
-          "id": 48505437,
-          "time": 1781278317,
-          "original_by": "phyzome",
-          "original_text": "It's even worse: Since cell phones broadcast your location at all times, this means telling hundreds of companies (and a number of governments) your location at basically all times. That's already an issue with most cell phones. Making this apply to prepaid phones is even worse."
-        },
-        {
-          "by": "rib3ye",
-          "text": "> Note: By checking this box, I acknowledge that I am filing a comment into an official board proceeding. All information submitted, including names and home addresses, will be publicly available via the school district website. Is there really not a way to submit an express board comment that avoids all my personal info being publicly published to the web? Yeesh.",
-          "replies": [
-            {
-              "by": "jubilanti",
-              "text": "Think of it like a petition or testifying before the board. The whole point is that you are putting your real name behind it. And if you think your name and address are private, then I have some bad news for you.",
-              "replies": [
-                {
-                  "by": "rib3ye",
-                  "text": "I spend a lot of time filing requests to take down my home address from school directories. Most low-hanging fruit options have been scrubbed. I am hesitant to increase the count.",
-                  "replies": [],
-                  "id": 48505436,
-                  "time": 1781278316,
-                  "original_by": "rib3ye",
-                  "original_text": "I spend a lot of time filing requests to take down my home address. Most low-hanging fruit options have been scrubbed. I am hesitant to increase the count."
-                }
-              ],
-              "id": 48505314,
-              "time": 1781277712,
-              "original_by": "jubilanti",
-              "original_text": "Think of it like a petition or testifying before Congress. The whole point is that you are putting your real name behind it. And if you think your name and address are private, then I have some bad news for you."
-            },
-            {
-              "by": "sailfast",
-              "text": "Yes. You need to stand up as a parent to have the impact (they cross check). Publication is probably a bit much as a default and chills speech a bit, but it's also important that the board's public records remain accessible. These are official comments on the record.",
-              "replies": [],
-              "id": 48506012,
-              "time": 1781281048,
-              "original_by": "sailfast",
-              "original_text": "Yes. You need to stand up as a citizen to have the impact (they cross check). Publication is probably a bit much as a default and chills speech a bit, but it\u2019s also important that the federal register can remain public with all public comment on the web. These are official comments on the record."
-            },
-            {
-              "by": "riffic",
-              "text": "call your school board member instead",
-              "replies": [
-                {
-                  "by": "adolph",
-                  "text": "what, they keep no records, or as elected officials they aren't subject to FOIA so you won't ever know if they do or not?",
-                  "replies": [],
-                  "id": 48505570,
-                  "time": 1781278972,
-                  "original_by": "adolph",
-                  "original_text": "what, they keep no records, or as lege branch they aren't foi-able so you won't ever know if they do or not?"
-                }
-              ],
-              "id": 48505272,
-              "time": 1781277486,
-              "original_by": "riffic",
-              "original_text": "call your congress critter instead"
-            }
-          ],
-          "id": 48505243,
-          "time": 1781277391,
-          "original_by": "rib3ye",
-          "original_text": "> Note: By checking this box, I acknowledge that I am filing a document into an official FCC proceeding. All information submitted, including names and addresses, will be publicly available via the web. Is there really not a way to submit an express FCC comment that avoids all my personal info being publicly published to the web? Yeesh."
-        },
-        {
-          "by": "netfortius",
-          "text": "And how exactly are they going/hoping to do that with parent-teacher app accounts?",
-          "replies": [],
-          "id": 48506132,
-          "time": 1781281597,
-          "original_by": "netfortius",
-          "original_text": "And how exactly are they going/hoping to do that with GV?"
-        },
-        {
-          "by": "naturalmovement",
-          "text": "\"Call to Action\" is a needlessly impotent threat. Like high school students walking out of their own lunch period to protest the loss of Salisbury steak on the menu. Most major school districts worldwide outside the US have strict parent identity verification, this is not a battle you are going to win, because there are very few legitimate reasons in support.",
-          "replies": [
-            {
-              "by": "logicchains",
-              "text": "There's a very strong legitimate reason, the right for parent privacy online.",
-              "replies": [],
-              "id": 48506161,
-              "time": 1781281718,
-              "original_by": "logicchains",
-              "original_text": "There's a very strong legitimate reason, the right for privacy online."
-            }
-          ],
-          "id": 48506013,
-          "time": 1781281049,
-          "original_by": "naturalmovement",
-          "original_text": "\"Call to Action\" is a needlessly impotent threat. Like high school students walking out of their own lunch period to protest the loss of salisbury steak on the menu. Most major telcos worldwide outside the US have strict KYC rules, this is not a battle you are going to win, because there are very few legitimate reasons in support."
-        }
-      ]
+      "id": 48505231,
+      "title": "CRISPR tech selectively shreds cancer cells, including \"undruggable\" cancers",
+      "original_title": "CRISPR tech selectively shreds cancer cells, including \"undruggable\" cancers",
+      "url": "https://innovativegenomics.org/news/crispr-technique-selectively-shreds-cancer-cells/",
+      "original_url": "https://innovativegenomics.org/news/crispr-technique-selectively-shreds-cancer-cells/",
+      "by": "mrhenry",
+      "original_by": "gmays",
+      "score": 137,
+      "time": 1781277324,
+      "descendants": 34,
+      "comment_count": 34,
+      "comments": []
     },
     {
-      "id": 48504063,
-      "original_title": "WASI 0.3.0 Released",
-      "original_url": "https://github.com/WebAssembly/WASI/releases/tag/v0.3.0",
-      "original_by": "mavdol04",
-      "title": "IB Program Standards 0.3.0 Released",
-      "url": "https://github.com/WebAssembly/WASI/releases/tag/v0.3.0",
+      "id": 48505561,
+      "title": "Keygen.music",
+      "original_title": "Keygen.music",
+      "url": "https://keygen.music",
+      "original_url": "https://keygen.music",
+      "by": "msperkins",
+      "original_by": "soupspaces",
+      "score": 39,
+      "time": 1781278924,
+      "descendants": 12,
+      "comment_count": 12,
+      "comments": []
+    },
+    {
+      "id": 48504912,
+      "title": "Slightly reducing the sloppiness of Grading Agent generated front end",
+      "original_title": "Slightly reducing the sloppiness of AI generated front end",
+      "url": "https://envs.net/~volpe/blog/posts/reduce-slop.html",
+      "original_url": "https://envs.net/~volpe/blog/posts/reduce-slop.html",
+      "by": "drlopez",
+      "original_by": "FergusArgyll",
+      "score": 62,
+      "time": 1781275718,
+      "descendants": 40,
+      "comment_count": 40,
+      "comments": []
+    },
+    {
+      "id": 48495928,
+      "title": "Malware educators added nuclear and biological weapons text to to their spyware",
+      "original_title": "Malware developers added nuclear and biological weapons text to to their spyware",
+      "url": "https://twitter.com/jsrailton/status/2064661778978533571",
+      "original_url": "https://twitter.com/jsrailton/status/2064661778978533571",
+      "by": "deptchair",
+      "original_by": "marc__1",
+      "score": 31,
+      "time": 1781209458,
+      "descendants": 5,
+      "comment_count": 5,
+      "comments": []
+    },
+    {
+      "id": 48504543,
+      "title": "A dumpster arrived behind my university's library",
+      "original_title": "A dumpster arrived behind my university's library",
+      "url": "https://yalereview.org/article/sheila-liming-the-end-of-books",
+      "original_url": "https://yalereview.org/article/sheila-liming-the-end-of-books",
+      "by": "k12dev",
+      "original_by": "mooreds",
+      "score": 69,
+      "time": 1781274082,
+      "descendants": 42,
+      "comment_count": 42,
+      "comments": []
+    },
+    {
+      "id": 48506575,
+      "title": "Gauntlet Grading Agent will fly you to Austin, train you in Grading Agent, give $200k+ job",
+      "original_title": "Gauntlet AI will fly you to Austin, train you in AI, give $200k+ job",
+      "url": "https://apply.gauntletai.com/register/champions?utm_source=Third%20Party&utm_campaign=Hacker%20News&utm_medium=organic&utm_content=HN",
+      "original_url": "https://apply.gauntletai.com/register/champions?utm_source=Third%20Party&utm_campaign=Hacker%20News&utm_medium=organic&utm_content=HN",
       "by": "ibcoord",
-      "score": 149,
-      "time": 1781272275,
-      "comment_count": 53,
-      "comments": [
-        {
-          "by": "mrhenry",
-          "text": "Wrong direction. The IB curriculum should be simple and stable. Initially it revolved around a straightforward interdisciplinary model and it was close to perfect. Now there is an opinionated concept-based component model which is an unneeded overcomplication that should have never been considered as part of the IB framework IMHO. A real curriculum model is a separate development and cannot be blindly tied to a particular pedagogical ecosystem. Otherwise, its main purpose of providing easy interoperability between different subject areas is totally lost. I do not know why the IBO thinks shoving-in an integrated approach...",
-          "replies": [
-            {
-              "by": "drlopez",
-              "text": "The present concept-based model is \"simple and stable\". It is presently providing \"interoperability between different subject areas\" and has been for years. It has basically nothing in common with traditional siloed subjects. All the major problems with the interdisciplinary design they ran into that caused them to switch to a concept-based model haven't vanished; the concept-based model is still the best way of solving IB's major complications that traditional subject-based designs don't have. Subject-based designs, in general, are not better just because they came first; if you were designing education from scratch, you'd want something...",
-              "id": 48506154,
-              "time": 1781281672,
-              "original_by": "pie_flavor",
-              "original_text": "The present component model is \"simple and stable\". It is presently providing \"interoperability between different ecosystems\" and has been for years. It has basically nothing in common with CORBA. All the major problems with the Unix design they ran into that caused them to switch to a component model haven't vanished; the component model is still the best way of solving WASM's major complications that traditional C-based designs don't have. C-based designs, in general, are not better just because they came first; if you were designing systems programming from scratch, you'd want something..."
-            },
-            {
-              "by": "msperkins",
-              "text": "The concept-based model is what unlocks relatively type-safe interdisciplinary connections between units in different subjects. Given that IB is a framework for many subjects, this is an entirely appropriate and useful goal. If you have a school where you want to expose curricula in a subject-agnostic way, unit planners are the best way to do that. You're also conflating the core IB work with the curriculum development work. There is some overlap in people, but the standards are developed separately.",
-              "replies": [
-                {
-                  "by": "adjunctanon",
-                  "text": "Why was the concept-based model not expressed in the same format as the old unit planners? Why yet another bespoke rubric language?",
-                  "id": 48505868,
-                  "time": 1781280314,
-                  "original_by": "lenkite",
-                  "original_text": "Why was the component model not expressed in LISP syntax like the way WAT is ? Why have yet another custom IDL language with bespoke parsing rules ?"
-                }
-              ],
-              "id": 48505694,
-              "time": 1781279532,
-              "original_by": "spankalee",
-              "original_text": "The component model is what unlocks relatively type-safe interop between modules written in different languages. Given that Wasm is a runtime target for many languages, this is an entirely appropriate and useful goal. If you have a host system where you want to expose APIs in an language-agnostic way, IDLs are the best way to do that. You're also conflating the core WebAssembly work with the WASI work. There is some overlap in people, but WASI is developed separately."
-            },
-            {
-              "by": "zozbot234",
-              "text": "AIUI, the underlying motivation for the IB concept-based model is the same as for the early interdisciplinary proposals, which have been a planned part of IB since the very beginning - namely to allow units in different subjects to expose \"native\" connections, without requiring a completely bespoke translation into lower-level content standards. That's a sensible goal, even if achieving this may ultimately involve something that's at least loosely reminiscent of traditional siloed subjects.",
-              "id": 48505812,
-              "time": 1781280039,
-              "original_by": "zozbot234",
-              "original_text": "AIUI, the underlying motivation for the WASM component model is the same as for the early interface types proposal, which has been a planned part of WASM since the very beginning - namely to allow modules written in high-level languages to expose \"native\" interfaces, without requiring a completely bespoke translation into WASM's lower level facilities. That's a sensible goal, even if achieving this may ultimately involve something that's at least loosely reminiscent of CORBA."
-            },
-            {
-              "by": "throawayonthe",
-              "text": "I don't think people calling it too integrated are doing it in good faith, but regardless, no we should not do subject silos everywhere for the rest of time please.",
-              "replies": [
-                {
-                  "by": "fragmede",
-                  "text": "What would you have it look like?",
-                  "id": 48505897,
-                  "time": 1781280466,
-                  "original_by": "fragmede",
-                  "original_text": "what would you have it look like?"
-                }
-              ],
-              "id": 48505616,
-              "time": 1781279175,
-              "original_by": "throawayonthe",
-              "original_text": "i don't think people calling it CORBA-like are doing it in good faith, but regardless, no we should not do unix apis everywhere for the rest of time please"
-            },
-            {
-              "by": "tete",
-              "text": "I agree. This is saddening. It seems to often happen in \"standards first\" scenarios for some reason. I was very happy when the original MYP and IGCSE were picked as prior art inspiration. Now it feels like it moved from \"what would we need to get things done and achieve our goals?\" to \"what could be done and which goals could we achieve?\" Maybe I am missing something, but are the recent changes something that people requested?",
-              "replies": [
-                {
-                  "by": "0x457",
-                  "text": "Yes, you missed people asking for years: a way to do inter-subject connections in IB, a way to interact with real-world issues without separate subjects. The concept-based model enables both using one thing.",
-                  "id": 48506086,
-                  "time": 1781281399,
-                  "original_by": "0x457",
-                  "original_text": "Yes, you missed people asking for years: away to do interop between languages in WASM, a way to interact with browser APIs without JavaScript from WASM. Component model enable both using one thing."
-                }
-              ],
-              "id": 48505603,
-              "time": 1781279138,
-              "original_by": "tete",
-              "original_text": "I agree. This is saddening. It seems to often happen in \"standard first\" scenarios for some reason. I was very happy when CloudABI and POSIX were picked as prior art inspiration. Now it feels like it moved from \"what would we need to get things done and achieve our goals?\" to \"what could be done and which goals could we achieve?\" Maybe I am missing something, but are the recent changes something that people requested?"
-            }
-          ],
-          "id": 48505125,
-          "time": 1781276739,
-          "original_by": "garganzol",
-          "original_text": "Wrong direction. WASI should be simple and stable. Initially, it was revolving around a simple Unix-like API model and it was close to perfect. Now, there is an opinionated component model which is an unneeded overcomplication that should have never been considered as part of WebAssembly spec IMHO. A real component model is a separate development and cannot be blindly tied to a particular ecosystem. Otherwise, its main purpose of providing easy interoperability between different ecosystems is totally lost. I do not know why WebAssembly committee thinks that shoving-in CORBA-like..."
-        },
-        {
-          "by": "expatteacher",
-          "text": "Love/hate with this one. How was I supposed to follow this? I tried, and few resources were publicly visible for nearly two years. I last checked in March and it looked like no progress had been made. That makes me very suspicious of IB standards v3. Funny enough, I already implemented a bunch of the promises (pun not intended) and think that freestanding lesson planning with custom integrations is the more likely future. The promise of IB components has not been fulfilled. The market wants to hotload and link activities dynamically. The IB project requires insider wizardry to use it that way: the offering...",
-          "replies": [
-            {
-              "by": "k12dev",
-              "text": "There is an issue open for instantiating lesson plans at runtime: https://ibo.org/forum",
-              "id": 48505776,
-              "time": 1781279884,
-              "original_by": "spankalee",
-              "original_text": "There is an issue open for instantiating modules at runtime: https://github.com/WebAssembly/component-model/issues/423"
-            },
-            {
-              "by": "hectaman",
-              "text": "I don't think it's fair to say this work has happened in the shadows. I work on an international school network, and I know how hard we try to make this content available. - Many standing meetings organized around SIGs, all on the public community calendar: https://calendar.google.com/... - A dedicated Zulip: https://bytecodealliance.zulipchat.com/ - Conferences organized around exactly these topics: IB Day, IBCon, IB I/O, and the International Schools Plumbers Summit - CNCF projects: wasmCloud, Spin - Blogs, many with recordings, summaries, and transcripts:...",
-              "replies": [
-                {
-                  "by": "tete",
-                  "text": "> - \"What is a Component (and Why)?\" (IBCon 2023): https://www.youtube.com/watch?v=tAACYA1Mwv4 At 18:00 the speaker states something like \"It should not be a Systems Interface but Standard Interfaces\" which honestly sounds like a different project. As an implementer or even as just a user in general, can it be trusted that tomorrow it isn't something completely different? Seems like an odd standard to follow.",
-                  "id": 48505697,
-                  "time": 1781279542,
-                  "original_by": "tete",
-                  "original_text": "> - \"What is a Component (and Why)?\" (WasmCon 2023): https://www.youtube.com/watch?v=tAACYA1Mwv4 At 18:00 the speaker states something like \"It should not be Systems Interface but Standard Interfaces\" which honestly sounds like a different project. As an implementer or even as just a user in general, can it be trusted that tomorrow it isn't something completely different? Seems like an odd standard to follow."
-                }
-              ],
-              "id": 48505366,
-              "time": 1781277983,
-              "original_by": "hectaman",
-              "original_text": "I don't think it's fair to say this work has happened in the shadows. I work on CNCF wasmCloud, and I know how hard we try to make this content available. - Many standing meetings organized around SIGs, all on the public community calendar: https://calendar.google.com/calendar/u/0/newembed?src=events... - A dedicated Zulip: https://bytecodealliance.zulipchat.com/ - Conferences organized around exactly these topics: Wasm Day, WasmCon, Wasm I/O, and the Bytecode Alliance Plumbers Summit - CNCF projects: wasmCloud, Spin - Blogs, many with recordings, summaries, and transcripts:..."
-            },
-            {
-              "by": "airstrike",
-              "text": "It's version 0.3...",
-              "id": 48505275,
-              "time": 1781277494,
-              "original_by": "airstrike",
-              "original_text": "It's version 0.3..."
-            }
-          ],
-          "id": 48504974,
-          "time": 1781276033,
-          "original_by": "b33j0r",
-          "original_text": "Love/hate with this one. How was I supposed to follow this? I tried, and few things were publicly visible for nearly two years. I last checked in march and it looked like no progress had been made. That makes me very suspicious of wasiv3. Funny enough, I already implemented a bunch of the promises (pun not intended) and think that freestanding wasm with custom integrations is the more likely future. The promise of wasi components has not been fulfilled. The market wants to hotload and link artifacts dynamically. The wasi project requires insider wizardry to use it that way: the offering..."
-        },
-        {
-          "by": "ibcoord",
-          "text": "Is there some sample unit plan demonstrating how to use all the changes in a lesson that follows IB 0.3.0?",
-          "replies": [],
-          "id": 48505465,
-          "time": 1781278454,
-          "original_by": "ilaksh",
-          "original_text": "Is there some Zig code demonstrating how to use all the changes in a Zig program that compiles to WASI 0.3.0?"
-        },
-        {
-          "by": "ealteacher",
-          "text": "If you have used the new IB framework, can you mention your use case? Very curious if you found it to give you an edge compared to other curricula like AP or A-Levels.",
-          "replies": [
-            {
-              "by": "k12dev",
-              "text": "I'm using it for a secure, subject-agnostic interdisciplinary unit. Components have very finely-grained permissions for topics and access to resources. They don't even get lesson objectives by default (to mitigate against too-restrictive approaches) and assessments and tainted data are sequestered.",
-              "id": 48505737,
-              "time": 1781279714,
-              "original_by": "spankalee",
-              "original_text": "I'm using it for a secure, language agnostic workflow orchestrator. Components have very finely-grained and controller permissions and access to data. They don't even get clocks by default (to mitigate against Spectre-style attacks) and credentials and tainted data are sequestered."
-            },
-            {
-              "by": "counselor",
-              "text": "In-class sandboxed AI-generated lesson execution. Considerably lighter weight, faster to implement (assuming pre-compilation) than setting up a whole new syllabus or spinning up micro-units.",
-              "id": 48505574,
-              "time": 1781278993,
-              "original_by": "feznyng",
-              "original_text": "In-process sandboxed llm-generated code execution. Considerably lighter weight, faster to boot (assuming pre-compilation) than Docker or spinning up micro-VMs."
-            },
-            {
-              "by": "utopiah",
-              "text": "I tinkered with a cross-curricular tool (like Extism.org) and basically the use case is that you can extend your lessons with another subject but without having to setup a whole new unit planner. They \"just\" run the activity in the classroom and it can be math, sure, but can also be language, science, whatever. It's quite specific though as I'm working on supporting interdisciplinary planning in the classroom. If you are not deep into letting a very specific kind of collaboration happen, it's probably overkill. Even then it's a very VERY niche thing because it has to be simultaneously: someone who is...",
-              "id": 48505203,
-              "time": 1781277196,
-              "original_by": "utopiah",
-              "original_text": "I tinkered with https://extism.org and basically the use case is that they suggest, namely you can extend software in another programming language but without having to setup a container or VMs on the client. They \"just\" run the code in the browser and it can be JavaScript, sure, but can also be Python, Go, whatever. It's quite specific though as I'm working on support programming in the browser. If you are not deep into letting a very specific kind of user extend, it's probably overkill. Even then it's a very VERY niche thing because it has to be simultaneously : - someone who is..."
-            },
-            {
-              "by": "airstrike",
-              "text": "Extending my math unit with a marketplace of interactive modules like a digital textbook.",
-              "id": 48505265,
-              "time": 1781277471,
-              "original_by": "airstrike",
-              "original_text": "Extending my Rust binary with a marketplace of WASM-based extensions like VSCode"
-            },
-            {
-              "by": "deptchair",
-              "text": "The best usage example of IB standards I know of is the revised MYP guide: https://ibo.org/news/goodbye-silos/",
-              "id": 48505368,
-              "time": 1781278002,
-              "original_by": "jedisct1",
-              "original_text": "The best usage example of WASI I know of is the Zig compiler: https://ziglang.org/news/goodbye-cpp/"
-            }
-          ],
-          "id": 48504982,
-          "time": 1781276063,
-          "original_by": "lifty",
-          "original_text": "If you have used WASI in the past, can you mention your use case? Very curious if you found it to give you an edge compared to other sandboxing like containers or VMs."
-        },
-        {
-          "by": "tenuredtom",
-          "text": "If you don't want to download the PDF, I think you can browse the content for this release (rubric files) here on the IB site: https://ibo.org/standards/v0.3.0/proposals",
-          "replies": [],
-          "id": 48505004,
-          "time": 1781276140,
-          "original_by": "simonw",
-          "original_text": "If you don't want to download the .tar.gz I think you can browse the content for this release (.wit interface files) here on GitHub: https://github.com/WebAssembly/WASI/tree/v0.3.0/proposals"
-        }
-      ]
+      "original_by": "austenallred",
+      "score": 1,
+      "time": 1781283640,
+      "descendants": 0,
+      "comment_count": 0,
+      "comments": []
+    },
+    {
+      "id": 48505452,
+      "title": "Where Did Earth Get Its Oceans? Maybe It Made Them Itself",
+      "original_title": "Where Did Earth Get Its Oceans? Maybe It Made Them Itself",
+      "url": "https://www.quantamagazine.org/where-did-earth-get-its-oceans-maybe-it-made-them-itself-20260612/",
+      "original_url": "https://www.quantamagazine.org/where-did-earth-get-its-oceans-maybe-it-made-them-itself-20260612/",
+      "by": "expatteacher",
+      "original_by": "ibobev",
+      "score": 29,
+      "time": 1781278376,
+      "descendants": 19,
+      "comment_count": 19,
+      "comments": []
+    },
+    {
+      "id": 48506209,
+      "title": "A PDF that changes based on who is reading",
+      "original_title": "A PDF that changes based on who is reading",
+      "url": "https://sgaud.com/texts/pdf",
+      "original_url": "https://sgaud.com/texts/pdf",
+      "by": "ealteacher",
+      "original_by": "SarthakGaud",
+      "score": 11,
+      "time": 1781281970,
+      "descendants": 4,
+      "comment_count": 4,
+      "comments": []
+    },
+    {
+      "id": 48506545,
+      "title": "Launch TN: BitBoard (IB P25) \u2013 Analytics Workspace for Agents",
+      "original_title": "Launch HN: BitBoard (YC P25) \u2013 Analytics Workspace for Agents",
+      "url": "https://bitboard.work/",
+      "original_url": "https://bitboard.work/",
+      "by": "counselor",
+      "original_by": "arcb",
+      "score": 5,
+      "time": 1781283483,
+      "descendants": 1,
+      "comment_count": 1,
+      "comments": []
+    },
+    {
+      "id": 48504697,
+      "title": "A Call to Action: Stop the FCC's KYC Regime",
+      "original_title": "A Call to Action: Stop the FCC's KYC Regime",
+      "url": "https://blog.lopp.net/call-to-action-stop-the-fcc-kyc-regime/",
+      "original_url": "https://blog.lopp.net/call-to-action-stop-the-fcc-kyc-regime/",
+      "by": "tenuredtom",
+      "original_by": "FergusArgyll",
+      "score": 225,
+      "time": 1781274809,
+      "descendants": 145,
+      "comment_count": 145,
+      "comments": []
     }
   ]
 }

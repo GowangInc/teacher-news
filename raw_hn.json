@@ -1,237 +1,74 @@
 [
   {
-    "id": 48504697,
-    "title": "A Call to Action: Stop the FCC's KYC Regime",
-    "url": "https://blog.lopp.net/call-to-action-stop-the-fcc-kyc-regime/",
-    "by": "FergusArgyll",
-    "score": 196,
-    "descendants": 114,
-    "time": 1781274809,
+    "id": 48505231,
+    "title": "CRISPR tech selectively shreds cancer cells, including \"undruggable\" cancers",
+    "url": "https://innovativegenomics.org/news/crispr-technique-selectively-shreds-cancer-cells/",
+    "by": "gmays",
+    "score": 125,
+    "descendants": 31,
+    "time": 1781277324,
     "comments": [
       {
-        "id": 48505127,
-        "by": "dec0dedab0de",
-        "text": "We really just need telcos to stop allowing caller id spoofing. Doesn\u2019t even need your name, but with a real number we could actually report these scams. You can still allow people to hide it, but then by default every non-business phone should block calls with hidden numbers.",
-        "time": 1781276744,
-        "replies": [
-          {
-            "id": 48505164,
-            "by": "smallmancontrov",
-            "text": "What ever happened to SHAKEN/STIR? I thought this was supposed to happen 5 years ago. Did they just chicken out on the prospect of actually shutting down telcos sending spam volume? I still get loads of spam phone calls, so clearly something went wrong (or slow enough to be indistinguishable from wrong).",
-            "time": 1781276945,
-            "replies": [
-              {
-                "id": 48505218,
-                "by": "criddell",
-                "text": "I'm not certain, but I think on my phone incoming calls that fail SHAKEN/STIR show the caller id in red rather than black text. I'm on T-Mobile. It also shows \"Number Verified\" or something like that.",
-                "time": 1781277264,
-                "replies": []
-              },
-              {
-                "id": 48505846,
-                "by": "singpolyma3",
-                "text": "Just because a call is a spam call doesn't mean it is spoofed. STIR/SHAKEN ends spoofing but anyone can ultimately buy a phone and make calls that are spammy.",
-                "time": 1781280197,
-                "replies": []
-              },
-              {
-                "id": 48505858,
-                "by": "9cb14c1ec0",
-                "text": "STIR/SHAKEN up to this point has only been a self-certification that a telecom company has the right to use a number. What the FCC is trying to do is set up a legal obligation for the STIR/SHAKEN header to match a KYC verified identity. If the FCC implements this, I expect a lot litigation because of the burden and legal liability this would place on telecom and VOIP companies. There are other less burdensome approaches to preventing spam that the FCC has not tried.",
-                "time": 1781280261,
-                "replies": []
-              },
-              {
-                "id": 48505188,
-                "by": "inigyou",
-                "text": "According to a defcon talk, spammers just make sure all their spam gets routed through legacy TDM systems which discard the shaken/stir header because they're too old to support it. The other side then re-adds a \"we got this from somewhere that didn't support this header\" header.",
-                "time": 1781277090,
-                "replies": []
-              },
-              {
-                "id": 48505788,
-                "by": "xnyan",
-                "text": "The FCC issued a report on this very subject[1]. TLDR, there have been four exceptions to the SHAKEN/STIR requirements: - Providers that can't afford it implement it - Non-IP networks - Small voice service providers that originate calls via satellite using U.S. NANP - Providers that lack control over the network infrastructure necessary to implement Nothing is going to change as long as those holes exist. 1: https://docs.fcc.gov/public/attachments/DOC-416732A1.pdf",
-                "time": 1781279942,
-                "replies": []
-              }
-            ]
-          },
-          {
-            "id": 48505795,
-            "by": "singpolyma3",
-            "text": "This is already not allowed. If your carrier accepts a spoofed call they're already violating FCC recommendations.",
-            "time": 1781279970,
-            "replies": [
-              {
-                "id": 48505826,
-                "by": "kbelder",
-                "text": "Recommendations aren't requirements; you're allowed to violate them.",
-                "time": 1781280107,
-                "replies": []
-              }
-            ]
-          },
-          {
-            "id": 48505770,
-            "by": "reactordev",
-            "text": "and cut off a million dollar annum laundering scheme to provide such service to the scammer networks? nah... they would never.",
-            "time": 1781279866,
-            "replies": []
-          },
-          {
-            "id": 48505433,
-            "by": "hsbauauvhabzb",
-            "text": "What valid purpose does hidden numbers have? Government departments in my country hide their caller ID. I find that abusive on its own but let\u2019s not forget about the fact that now you have victims of domestic violence being forced to answer hidden numbers in case it\u2019s welfare, or the cops, or their abusive spouse.",
-            "time": 1781278304,
-            "replies": [
-              {
-                "id": 48505731,
-                "by": "carlosjobim",
-                "text": "Calling in an anonymous tip to the police and such.",
-                "time": 1781279696,
-                "replies": []
-              }
-            ]
-          },
-          {
-            "id": 48505365,
-            "by": "kylehotchkiss",
-            "text": "Why do we even need to run on the 20th century system of numbers anyways? Why is there not a better call addressing system?",
-            "time": 1781277977,
-            "replies": [
-              {
-                "id": 48505536,
-                "by": "saxonww",
-                "text": "We don't, but the entire world currently does, and the amount of equipment deployed that depends on it is substantial. I would be willing to bet money that any \"better call addressing system\" would be a design by committee where this just gets litigated there. And we'd end up with either a system that requires KYC per-call, or has compromises similar to what we're complaining about now.",
-                "time": 1781278768,
-                "replies": []
-              },
-              {
-                "id": 48505706,
-                "by": "9cb14c1ec0",
-                "text": "Because the concept of numbers is so heavily baked into many systems. Momentum is a beast.",
-                "time": 1781279603,
-                "replies": []
-              }
-            ]
-          }
-        ]
-      },
-      {
-        "id": 48505437,
-        "by": "phyzome",
-        "text": "It's even worse: Since cell phones broadcast your location at all times, this means telling hundreds of companies (and a number of governments) your location at basically all times. That's already an issue with most cell phones. Making this apply to prepaid phones is even worse.",
-        "time": 1781278317,
-        "replies": [
-          {
-            "id": 48506163,
-            "by": "tencentshill",
-            "text": "Apple has implemented a mitigation for this in their new modems, but unfortunately its a carrier opt-in, so only actually useful in Europe. https://www.pcmag.com/news/apple-expands-this-location-focus...",
-            "time": 1781281726,
-            "replies": []
-          },
-          {
-            "id": 48505569,
-            "by": "agloe_dreams",
-            "text": "One thing I wonder is if this is just one step removed from 'Now we know the identity of every user so we can now have both probable cause and verified identity to arrest over statements containing speech we do not like.' \" Like that is Carr's FCC in a nutshell - he wants to control speech by controlling the airwaves. That is a raw fact in his behavior. But when the news stations say the thing they want them to say, what happens next other than slightly extending the definitions of public good to the internet and then restricting speech?",
-            "time": 1781278970,
-            "replies": [
-              {
-                "id": 48505728,
-                "by": "gwerbin",
-                "text": "If you have to wonder, you don't need to wonder. So now not only can \"antifa\"-related speech qualify you as a terrorist ( https://www.whitehouse.gov/presidential-actions/2025/09/coun... ), now your phone is legally required to track you and report your location at all times. The legal infrastructure is in place to track and bring a wide range of consequences down on just about any and all political enemy, whether that be ruining their life by dragging them through years of criminal charges or simply black-bagging them and whisking them off to a prison for \"enemy combatants\" without any...",
-                "time": 1781279682,
-                "replies": []
-              },
-              {
-                "id": 48505756,
-                "by": "cucumber3732842",
-                "text": "They won't do that because that'll cause an uproar. What they'll do, what they always do, what you can see them actively doing (albeit on other policy axis) even at the local government level, is simply scrutinize these people for other laws they've broken or rules they've run afoul of and then enforce the shit out of those.",
-                "time": 1781279798,
-                "replies": []
-              },
-              {
-                "id": 48505749,
-                "by": "lenerdenator",
-                "text": "It's important to remember that Carr is but a bureaucrat doing what he needs to do to make his boss (or, rather, his boss's boss) happy. We have a real problem with people in government buying into the idea that it's basically a private company set up for the benefit of one man in particular.",
-                "time": 1781279765,
-                "replies": []
-              }
-            ]
-          },
-          {
-            "id": 48505806,
-            "by": "reactordev",
-            "text": "\"Downstream collection\" would have a field day with this data.",
-            "time": 1781280008,
-            "replies": []
-          }
-        ]
-      },
-      {
-        "id": 48505243,
-        "by": "rib3ye",
-        "text": "> Note: By checking this box, I acknowledge that I am filing a document into an official FCC proceeding. All information submitted, including names and addresses, will be publicly available via the web. Is there really not a way to submit an express FCC comment that avoids all my personal info being publicly published to the web? Yeesh.",
-        "time": 1781277391,
-        "replies": [
-          {
-            "id": 48505314,
-            "by": "jubilanti",
-            "text": "Think of it like a petition or testifying before Congress. The whole point is that you are putting your real name behind it. And if you think your name and address are private, then I have some bad news for you.",
-            "time": 1781277712,
-            "replies": [
-              {
-                "id": 48505436,
-                "by": "rib3ye",
-                "text": "I spend a lot of time filing requests to take down my home address. Most low-hanging fruit options have been scrubbed. I am hesitant to increase the count.",
-                "time": 1781278316,
-                "replies": []
-              }
-            ]
-          },
-          {
-            "id": 48506012,
-            "by": "sailfast",
-            "text": "Yes. You need to stand up as a citizen to have the impact (they cross check). Publication is probably a bit much as a default and chills speech a bit, but it\u2019s also important that the federal register can remain public with all public comment on the web. These are official comments on the record.",
-            "time": 1781281048,
-            "replies": []
-          },
-          {
-            "id": 48505272,
-            "by": "riffic",
-            "text": "call your congress critter instead",
-            "time": 1781277486,
-            "replies": [
-              {
-                "id": 48505570,
-                "by": "adolph",
-                "text": "what, they keep no records, or as lege branch they aren't foi-able so you won't ever know if they do or not?",
-                "time": 1781278972,
-                "replies": []
-              }
-            ]
-          }
-        ]
-      },
-      {
-        "id": 48506132,
-        "by": "netfortius",
-        "text": "And how exactly are they going/hoping to do that with GV?",
-        "time": 1781281597,
+        "id": 48506687,
+        "by": "ordinaryradical",
+        "text": "CRISPR is an extremely overhyped approach which found a marketing engine via popular science. There is 1 FDA approved CRISPR therapy as compared to 7 for AAV and 7 for Lentivirus. Counting all viral vector therapies that have been approved, we\u2019re sitting at 19 approved therapies versus 1 for CRISPR. I think CRISPR ideas in a lab are just an easy way into the mainstream press, but viral vector delivery is the real future. It just didn\u2019t get the same news cycle, for whatever reason.",
+        "time": 1781284154,
         "replies": []
       },
       {
-        "id": 48506013,
-        "by": "naturalmovement",
-        "text": "\"Call to Action\" is a needlessly impotent threat. Like high school students walking out of their own lunch period to protest the loss of salisbury steak on the menu. Most major telcos worldwide outside the US have strict KYC rules, this is not a battle you are going to win, because there are very few legitimate reasons in support.",
-        "time": 1781281049,
+        "id": 48506202,
+        "by": "bonsai_spool",
+        "text": "Here's their preprint from a month ago, in case you can't access the Nature paper: https://www.biorxiv.org/content/10.64898/2026.05.08.723607v1 Nature - https://www.nature.com/articles/s41586-026-10738-7",
+        "time": 1781281922,
+        "replies": []
+      },
+      {
+        "id": 48506681,
+        "by": "Almondsetat",
+        "text": "Can anyone point to some resources about how cancers might adapt to CRISPR treatments?",
+        "time": 1781284135,
+        "replies": []
+      },
+      {
+        "id": 48505923,
+        "by": "Ifkaluva",
+        "text": "I hope this finally works out. I remember almost exactly ten years ago I got excited about one of these proposed cancer cures, tried to talk about it at lunch with my coworkers, and they laughed at me for believing.",
+        "time": 1781280588,
         "replies": [
           {
-            "id": 48506161,
-            "by": "logicchains",
-            "text": "There's a very strong legitimate reason, the right for privacy online.",
-            "time": 1781281718,
+            "id": 48506053,
+            "by": "arcticfox",
+            "text": "I'm pretty optimistic. I think it's a threshold question where we need a number of basic technologies to all get over certain bars before the floodgates start to open. Over the past 1-2 decades there has been unbelievable progress at the basic technology level but most people are unimpressed because they haven't translated yet due to not individually being sufficient to cause an explosion of progress. IMO, we're starting to see it finally as so many different technologies have gotten so cheap, fast, and good.",
+            "time": 1781281258,
+            "replies": []
+          },
+          {
+            "id": 48506072,
+            "by": "colechristensen",
+            "text": "Real in vivo genetic engineering isn't going away and will indeed be a powerful tool to face cancer. Any particular effort is doubtful because this is a journey measured in decades. It is not the same story as any one particular wonder drug fizzling out to nothing, it is a class of tools that is maturing into the realm of early therapeutic deployment.",
+            "time": 1781281326,
+            "replies": []
+          }
+        ]
+      },
+      {
+        "id": 48506358,
+        "by": "perlgeek",
+        "text": "The article is pretty light on details, but > Much like other CRISPR therapies, delivery is a critical challenge, i.e., getting the large genome-cutting enzyme to all the targeted cells efficiently. makes me think this is in vitro so far. So, years to decades away from being available for actual treatment in humans. Still good news.",
+        "time": 1781282623,
+        "replies": [
+          {
+            "id": 48506622,
+            "by": "daedrdev",
+            "text": "Basically the issue is often that gene therapies end up in the liver since its the livers job to detoxify, but that may cause a dangerous immune response if the immune system notices it in the liver and attacks the organ, since the person could die from the damage.",
+            "time": 1781283886,
+            "replies": []
+          },
+          {
+            "id": 48506422,
+            "by": "amelius",
+            "text": "(removed)",
+            "time": 1781282920,
             "replies": []
           }
         ]
@@ -239,173 +76,490 @@
     ]
   },
   {
-    "id": 48504063,
-    "title": "WASI 0.3.0 Released",
-    "url": "https://github.com/WebAssembly/WASI/releases/tag/v0.3.0",
-    "by": "mavdol04",
-    "score": 149,
-    "descendants": 53,
-    "time": 1781272275,
+    "id": 48504912,
+    "title": "Slightly reducing the sloppiness of AI generated front end",
+    "url": "https://envs.net/~volpe/blog/posts/reduce-slop.html",
+    "by": "FergusArgyll",
+    "score": 61,
+    "descendants": 36,
+    "time": 1781275718,
     "comments": [
       {
-        "id": 48505125,
-        "by": "garganzol",
-        "text": "Wrong direction. WASI should be simple and stable. Initially, it was revolving around a simple Unix-like API model and it was close to perfect. Now, there is an opinionated component model which is an unneeded overcomplication that should have never been considered as part of WebAssembly spec IMHO. A real component model is a separate development and cannot be blindly tied to a particular ecosystem. Otherwise, its main purpose of providing easy interoperability between different ecosystems is totally lost. I do not know why WebAssembly committee thinks that shoving-in CORBA-like...",
-        "time": 1781276739,
-        "replies": [
-          {
-            "id": 48506154,
-            "by": "pie_flavor",
-            "text": "The present component model is \"simple and stable\". It is presently providing \"interoperability between different ecosystems\" and has been for years. It has basically nothing in common with CORBA. All the major problems with the Unix design they ran into that caused them to switch to a component model haven't vanished; the component model is still the best way of solving WASM's major complications that traditional C-based designs don't have. C-based designs, in general, are not better just because they came first; if you were designing systems programming from scratch, you'd want something...",
-            "time": 1781281672,
-            "replies": []
-          },
-          {
-            "id": 48505694,
-            "by": "spankalee",
-            "text": "The component model is what unlocks relatively type-safe interop between modules written in different languages. Given that Wasm is a runtime target for many languages, this is an entirely appropriate and useful goal. If you have a host system where you want to expose APIs in an language-agnostic way, IDLs are the best way to do that. You're also conflating the core WebAssembly work with the WASI work. There is some overlap in people, but WASI is developed separately.",
-            "time": 1781279532,
-            "replies": [
-              {
-                "id": 48505868,
-                "by": "lenkite",
-                "text": "Why was the component model not expressed in LISP syntax like the way WAT is ? Why have yet another custom IDL language with bespoke parsing rules ?",
-                "time": 1781280314,
-                "replies": []
-              }
-            ]
-          },
-          {
-            "id": 48505812,
-            "by": "zozbot234",
-            "text": "AIUI, the underlying motivation for the WASM component model is the same as for the early interface types proposal, which has been a planned part of WASM since the very beginning - namely to allow modules written in high-level languages to expose \"native\" interfaces, without requiring a completely bespoke translation into WASM's lower level facilities. That's a sensible goal, even if achieving this may ultimately involve something that's at least loosely reminiscent of CORBA.",
-            "time": 1781280039,
-            "replies": []
-          },
-          {
-            "id": 48505616,
-            "by": "throawayonthe",
-            "text": "i don't think people calling it CORBA-like are doing it in good faith, but regardless, no we should not do unix apis everywhere for the rest of time please",
-            "time": 1781279175,
-            "replies": [
-              {
-                "id": 48505897,
-                "by": "fragmede",
-                "text": "what would you have it look like?",
-                "time": 1781280466,
-                "replies": []
-              }
-            ]
-          },
-          {
-            "id": 48505603,
-            "by": "tete",
-            "text": "I agree. This is saddening. It seems to often happen in \"standard first\" scenarios for some reason. I was very happy when CloudABI and POSIX were picked as prior art inspiration. Now it feels like it moved from \"what would we need to get things done and achieve our goals?\" to \"what could be done and which goals could we achieve?\" Maybe I am missing something, but are the recent changes something that people requested?",
-            "time": 1781279138,
-            "replies": [
-              {
-                "id": 48506086,
-                "by": "0x457",
-                "text": "Yes, you missed people asking for years: away to do interop between languages in WASM, a way to interact with browser APIs without JavaScript from WASM. Component model enable both using one thing.",
-                "time": 1781281399,
-                "replies": []
-              }
-            ]
-          }
-        ]
-      },
-      {
-        "id": 48504974,
-        "by": "b33j0r",
-        "text": "Love/hate with this one. How was I supposed to follow this? I tried, and few things were publicly visible for nearly two years. I last checked in march and it looked like no progress had been made. That makes me very suspicious of wasiv3. Funny enough, I already implemented a bunch of the promises (pun not intended) and think that freestanding wasm with custom integrations is the more likely future. The promise of wasi components has not been fulfilled. The market wants to hotload and link artifacts dynamically. The wasi project requires insider wizardry to use it that way: the offering...",
-        "time": 1781276033,
-        "replies": [
-          {
-            "id": 48505776,
-            "by": "spankalee",
-            "text": "There is an issue open for instantiating modules at runtime: https://github.com/WebAssembly/component-model/issues/423",
-            "time": 1781279884,
-            "replies": []
-          },
-          {
-            "id": 48505366,
-            "by": "hectaman",
-            "text": "I don't think it's fair to say this work has happened in the shadows. I work on CNCF wasmCloud, and I know how hard we try to make this content available. - Many standing meetings organized around SIGs, all on the public community calendar: https://calendar.google.com/calendar/u/0/newembed?src=events... - A dedicated Zulip: https://bytecodealliance.zulipchat.com/ - Conferences organized around exactly these topics: Wasm Day, WasmCon, Wasm I/O, and the Bytecode Alliance Plumbers Summit - CNCF projects: wasmCloud, Spin - Blogs, many with recordings, summaries, and transcripts:...",
-            "time": 1781277983,
-            "replies": [
-              {
-                "id": 48505697,
-                "by": "tete",
-                "text": "> - \"What is a Component (and Why)?\" (WasmCon 2023): https://www.youtube.com/watch?v=tAACYA1Mwv4 At 18:00 the speaker states something like \"It should not be Systems Interface but Standard Interfaces\" which honestly sounds like a different project. As an implementer or even as just a user in general, can it be trusted that tomorrow it isn't something completely different? Seems like an odd standard to follow.",
-                "time": 1781279542,
-                "replies": []
-              }
-            ]
-          },
-          {
-            "id": 48505275,
-            "by": "airstrike",
-            "text": "It's version 0.3...",
-            "time": 1781277494,
-            "replies": []
-          }
-        ]
-      },
-      {
-        "id": 48505465,
-        "by": "ilaksh",
-        "text": "Is there some Zig code demonstrating how to use all the changes in a Zig program that compiles to WASI 0.3.0?",
-        "time": 1781278454,
+        "id": 48506646,
+        "by": "aviperl",
+        "text": "Only a small anecdote, but I'm 2 projects into telling Claude to \"make it look like Google podcasts\" and getting satisfactory results. Still smells like llm in parts, but overall it is not screaming low effort.",
+        "time": 1781283998,
         "replies": []
       },
       {
-        "id": 48504982,
-        "by": "lifty",
-        "text": "If you have used WASI in the past, can you mention your use case? Very curious if you found it to give you an edge compared to other sandboxing like containers or VMs.",
-        "time": 1781276063,
+        "id": 48505951,
+        "by": "iSnow",
+        "text": "Obviously this is a personal preference, but the multiple layers of beveled grey on the Qt UI is not something I like, as it forces a lot of grouping on the eye where it doesn't serve any purpose. I would go with the original, Apple or the Win11 one. Material would be good, what's with the lavender shades? I always try to reduce the palette: say two background shades max, no drop shadows, only as many foreground colors as needed and if it seems to bland, add more bells and whistles.",
+        "time": 1781280725,
         "replies": [
           {
-            "id": 48505737,
-            "by": "spankalee",
-            "text": "I'm using it for a secure, language agnostic workflow orchestrator. Components have very finely-grained and controller permissions and access to data. They don't even get clocks by default (to mitigate against Spectre-style attacks) and credentials and tainted data are sequestered.",
-            "time": 1781279714,
-            "replies": []
-          },
-          {
-            "id": 48505574,
-            "by": "feznyng",
-            "text": "In-process sandboxed llm-generated code execution. Considerably lighter weight, faster to boot (assuming pre-compilation) than Docker or spinning up micro-VMs.",
-            "time": 1781278993,
-            "replies": []
-          },
-          {
-            "id": 48505203,
-            "by": "utopiah",
-            "text": "I tinkered with https://extism.org and basically the use case is that they suggest, namely you can extend software in another programming language but without having to setup a container or VMs on the client. They \"just\" run the code in the browser and it can be JavaScript, sure, but can also be Python, Go, whatever. It's quite specific though as I'm working on support programming in the browser. If you are not deep into letting a very specific kind of user extend, it's probably overkill. Even then it's a very VERY niche thing because it has to be simultaneously : - someone who is...",
-            "time": 1781277196,
-            "replies": []
-          },
-          {
-            "id": 48505265,
-            "by": "airstrike",
-            "text": "Extending my Rust binary with a marketplace of WASM-based extensions like VSCode",
-            "time": 1781277471,
-            "replies": []
-          },
-          {
-            "id": 48505368,
-            "by": "jedisct1",
-            "text": "The best usage example of WASI I know of is the Zig compiler: https://ziglang.org/news/goodbye-cpp/",
-            "time": 1781278002,
+            "id": 48506394,
+            "by": "kwanbix",
+            "text": "I liked GTK and WIn11.",
+            "time": 1781282778,
             "replies": []
           }
         ]
       },
       {
-        "id": 48505004,
-        "by": "simonw",
-        "text": "If you don't want to download the .tar.gz I think you can browse the content for this release (.wit interface files) here on GitHub: https://github.com/WebAssembly/WASI/tree/v0.3.0/proposals",
-        "time": 1781276140,
+        "id": 48505610,
+        "by": "voxleone",
+        "text": "Qt is heavily represented in training data. Qt has existed for decades and the model has likely seen Qt tutorials, screenshots, source code, discussions, etc. As a result, \"Qt application\" is a highly coherent concept in the latent space. \"Qt app\" is almost like a named distribution.",
+        "time": 1781279154,
+        "replies": []
+      },
+      {
+        "id": 48506472,
+        "by": "petercooper",
+        "text": "If you're just having fun with it, there are a whole bunch of other things that produce interesting options, like asking it to theme according to a movie (think Clockwork Orange , Backrooms , anything with a strong aesthetic), or throw screenshots and photos at it and use it as a \"design system\" (magazine/print layouts can work well with this on stronger models).",
+        "time": 1781283129,
+        "replies": []
+      },
+      {
+        "id": 48505983,
+        "by": "stabbles",
+        "text": "This begs for a modern version of https://csszengarden.com/ , where the CSS is generated by different LLMs and prompts.",
+        "time": 1781280893,
+        "replies": [
+          {
+            "id": 48506297,
+            "by": "sevenseacat",
+            "text": "that'd be awesome",
+            "time": 1781282315,
+            "replies": []
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": 48505561,
+    "title": "Keygen.music",
+    "url": "https://keygen.music",
+    "by": "soupspaces",
+    "score": 33,
+    "descendants": 9,
+    "time": 1781278924,
+    "comments": [
+      {
+        "id": 48506628,
+        "by": "Rockjodd",
+        "text": "Bah, the user interface and design is horrible to navigate in, which just made me sad. Try to paginate, music stops etc. If you created this, spend some more effort in user testing before sharing if you want users to have a good experience. My 2 cents.",
+        "time": 1781283912,
+        "replies": []
+      },
+      {
+        "id": 48506562,
+        "by": "bityard",
+        "text": "From the aesthetic, this has probably been vibecoded to hell and back. (And it looks like the files were all yoinked from https://github.com/6512345/keygenmusic ) Archive.org also has some bundles of keygen music, but you have to sift a bit through the results to find them.",
+        "time": 1781283572,
+        "replies": []
+      },
+      {
+        "id": 48506529,
+        "by": "devin",
+        "text": "I think maybe this is getting hugged to death. I searched for an old favorite of mine: `radix - bright eyes`, and couldn't find it, but maybe I'm just doing it wrong.",
+        "time": 1781283370,
+        "replies": [
+          {
+            "id": 48506581,
+            "by": "soupspaces",
+            "text": "Try https://keygenmusic.tk earlier posted on HN",
+            "time": 1781283654,
+            "replies": []
+          }
+        ]
+      },
+      {
+        "id": 48506633,
+        "by": "ralusek",
+        "text": "ORiON Nero 6.6 was my shit. Please give it a spin. There were definitely many keygens I would open just to have on in the background.",
+        "time": 1781283938,
+        "replies": []
+      },
+      {
+        "id": 48506369,
+        "by": "sublinear",
+        "text": "Not that I've looked into it much, but a thought just occurred to me. Why don't we use AI to generate lofi samples for tracker music? Why aren't there trackers with that feature bolted on? I should be able to search for bespoke and unique sounds out of thin air. Surely that should be a very modest goal to achieve? (re: downvotes... I say \"AI\" as a synthesis method, not as a way to interfere with the creative process, but I guess I have to resign myself to the fact many downvoters might be ignorant of how these musical sausages are usually made)",
+        "time": 1781282673,
+        "replies": [
+          {
+            "id": 48506647,
+            "by": "4chandaily",
+            "text": "You can't mention \"AI\" and music together without a negative response. I think entrenched business interests as well as musicians and other music industry adjacent people, plus the well intentioned but poorly informed public have developed a visceral knee jerk reaction to the concept. Some of this is understandable, but I think it is mostly fueled by asrroturfing. I am a musician as well as a technology enthusiast, and I think this a very exciting time! To respond more directly to your point than your aside, there are a smattering of models out there that can take descriptions of sounds...",
+            "time": 1781284003,
+            "replies": []
+          },
+          {
+            "id": 48506518,
+            "by": "devin",
+            "text": "Could you say more? I don't really follow, and I've used trackers for a long time. Don't some trackers already have something akin to this in terms of \"randomizing\" wave forms inside some reasonable parameters? Why would you need AI for this problem?",
+            "time": 1781283315,
+            "replies": []
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": 48504543,
+    "title": "A dumpster arrived behind my university's library",
+    "url": "https://yalereview.org/article/sheila-liming-the-end-of-books",
+    "by": "mooreds",
+    "score": 66,
+    "descendants": 41,
+    "time": 1781274082,
+    "comments": [
+      {
+        "id": 48506034,
+        "by": "bastawhiz",
+        "text": "My first thought is how accessible these books are. If a book hasn't been checked out in years, and there's another library in the interlibrary loan network that has a copy, there's no practical reason to keep another copy. If you can request a book and have it arrive in a few days, that's not an issue in any real sense, especially for books that nobody is checking out in the first place. I used to work in a library, and this was often the case. Our basement was stuffed to the gills with romance novels that nobody was reading anymore, mysteries published decades ago, and kids books that...",
+        "time": 1781281191,
+        "replies": [
+          {
+            "id": 48506131,
+            "by": "fhdkweig",
+            "text": "40 years ago, my public middle school would periodically pick books that weren't checked out for a couple decades. They'd rubberstamp \"discard\" over the library's ownership mark and put them in a pile that said \"free books\" with the implicit declaration that those books were headed for the landfill. I ended up with a nice selection of books on nuclear energy and radioactivity including a nice non-fiction Asimov book on the neutrino and particle physics. Libraries are always filled to the rafters. The only way to fit new books in is to take old books out. If they didn't, they would only...",
+            "time": 1781281596,
+            "replies": []
+          },
+          {
+            "id": 48506424,
+            "by": "WillAdams",
+            "text": "That only works if all the libraries coordinate to determine which one will hold the last copy, and if the expense of moving such books around on request does not exceed that of storage. Given the number of books I've been unable to find when I wanted them save in the Library of Congress (which won't loan, necessitating a trip to DC, or finding and purchasing my own copy), and the number of times my ILL requests have been turned down, a last copy per system mechanism seems the best for preserving access.",
+            "time": 1781282922,
+            "replies": []
+          }
+        ]
+      },
+      {
+        "id": 48506363,
+        "by": "kristjansson",
+        "text": "> the shelves were being cleared to make space\u2014not for more books but for space itself. ... The new library has four floors. Two of them feature books Despite the frenzy of building at most American universities, the library is forced to serve dual purpose as space for study and collaboration as well as repository of printed material. The collection is not managed on merely its own merits, but subordinated to the other, competing demands even on its 'home' turf.",
+        "time": 1781282638,
+        "replies": []
+      },
+      {
+        "id": 48506370,
+        "by": "gammalost",
+        "text": "At the risk of sounding a bit pretentious: I think the relationship a lot of people have with books can best be described as commodity fetisishm. People see some value in the physical books themselves. They are sacred, discarding them becomes a crime against knowledge. Sure I get it, the nazis burned books; but these libraries are in no way comparable to that",
+        "time": 1781282679,
+        "replies": [
+          {
+            "id": 48506429,
+            "by": "ciscoriordan",
+            "text": "I stayed at an Airbnb that had fake books on the shelves! I looked them up and they aren't even especially cheap. But they probably get stolen a lot less.",
+            "time": 1781282953,
+            "replies": []
+          },
+          {
+            "id": 48506520,
+            "by": "the_af",
+            "text": "I don't know whether to call it fetishism, which has a negative undertone to me. But I do love physical books. Even unimposing books, I like reading them but also touching them, their smell, their covers. And for art books, I think it goes without saying that the experience of the digital version is markedly different to physical version. I love going to a used books store and simply perusing their shelves, occasionally buying something, and a digital library simply cannot replicate this.",
+            "time": 1781283338,
+            "replies": []
+          }
+        ]
+      },
+      {
+        "id": 48506063,
+        "by": "SMV279438",
+        "text": "I was at UVU recently with some time to spare, looking for old bound magazines just for some browsing. Decades ago there were rows and rows of bookshelves, with these bound magazines, going back to the 1880's. It was so interesting to look through them. But now there was nothing, zippo, left of that. Just huge areas with completely empty shelves. Apparently it happened fairly recently, and the bookshelves hadn't been removed yet. I asked the reference librarian where you could look through these, online. But she came up empty, unless you're actually a student and have access to their...",
+        "time": 1781281292,
+        "replies": [
+          {
+            "id": 48506416,
+            "by": "andrewla",
+            "text": "I have even experienced this in my personal life -- I like in NYC and when I moved here I had to get rid of a ton of books. The ones that I could not bring myself to part with ended up in boxes in my parent's basement where they remain to this day. Many of my fondest memories growing up was browsing the bookshelves in my childhood home, discovering books that I remember to this day. Now I read almost exclusively on my kindle and the browsing experience is just so terrible. I feel I have failed my children in a real way by not giving them access to this.",
+            "time": 1781282884,
+            "replies": []
+          },
+          {
+            "id": 48506227,
+            "by": "Walf",
+            "text": "Yes, exploration, discovery. One doesn't stumble across items available on inter-library loan. I could not count the number of books I picked up and enjoyed, even if only for a short while, whilst I was studying at uni.",
+            "time": 1781282043,
+            "replies": []
+          }
+        ]
+      },
+      {
+        "id": 48506667,
+        "by": "hedora",
+        "text": "It would be nice if there was a rule allowing unwanted books to be destructively scanned and put online in the public domain. Maybe publishers could have the right to purchase the books back at current list price or something if they want to block the shredding.",
+        "time": 1781284084,
+        "replies": []
+      }
+    ]
+  },
+  {
+    "id": 48495928,
+    "title": "Malware developers added nuclear and biological weapons text to to their spyware",
+    "url": "https://twitter.com/jsrailton/status/2064661778978533571",
+    "by": "marc__1",
+    "score": 24,
+    "descendants": 3,
+    "time": 1781209458,
+    "comments": [
+      {
+        "id": 48506696,
+        "by": "hurtigioll",
+        "text": "devs will say this is proof we need to remove all biological guidelines. think about that for a second",
+        "time": 1781284182,
+        "replies": []
+      },
+      {
+        "id": 48506603,
+        "by": "ipython",
+        "text": "good news, now we have pretty much a clear signal that there's something nefarious going on... after all, the first step to analyzing malware is to determine if it's malware at all.",
+        "time": 1781283809,
+        "replies": [
+          {
+            "id": 48506670,
+            "by": "hurtigioll",
+            "text": "yes, now a regexp can red-flag it quickly",
+            "time": 1781284097,
+            "replies": []
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": 48506575,
+    "title": "Gauntlet AI will fly you to Austin, train you in AI, give $200k+ job",
+    "url": "https://apply.gauntletai.com/register/champions?utm_source=Third%20Party&utm_campaign=Hacker%20News&utm_medium=organic&utm_content=HN",
+    "by": "austenallred",
+    "score": 1,
+    "descendants": null,
+    "time": 1781283640,
+    "comments": []
+  },
+  {
+    "id": 48505452,
+    "title": "Where Did Earth Get Its Oceans? Maybe It Made Them Itself",
+    "url": "https://www.quantamagazine.org/where-did-earth-get-its-oceans-maybe-it-made-them-itself-20260612/",
+    "by": "ibobev",
+    "score": 25,
+    "descendants": 16,
+    "time": 1781278376,
+    "comments": [
+      {
+        "id": 48505920,
+        "by": "thangalin",
+        "text": "My Impacts project depicts a scene from the prolonged bombardment, a time when Earth was cratered by asteroids and comets: * https://impacts.to/downloads/lowres/impacts.pdf#page=9 * https://impacts.to/bibliography.pdf",
+        "time": 1781280581,
+        "replies": []
+      },
+      {
+        "id": 48506249,
+        "by": "oneneptune",
+        "text": "Wow what an awesome art piece by Ada Zejun Shen that they commissioned(?) for this article!",
+        "time": 1781282147,
+        "replies": [
+          {
+            "id": 48506642,
+            "by": "burkaman",
+            "text": "Their portfolio is beautiful https://adazshen.com/",
+            "time": 1781283982,
+            "replies": []
+          },
+          {
+            "id": 48506497,
+            "by": "iknowstuff",
+            "text": "I thought it was ai generated lol",
+            "time": 1781283246,
+            "replies": []
+          }
+        ]
+      },
+      {
+        "id": 48506162,
+        "by": "jdw64",
+        "text": "Life began in the Ocean, but why did civilization begin on land? Is it because of fire? But I wonder if a different kind of civilization could have emerged",
+        "time": 1781281723,
+        "replies": [
+          {
+            "id": 48506536,
+            "by": "Calavar",
+            "text": "Brains are resource hungry, especially oxygen hungry. Earth's air is orders of magnitude richer in oxygen molecules than its water. This likely made it easier for intelligence to develop on land. It's worth noting that the smartest aquatic animals are air breathing mammals that spent much of their evolutionary history on land before returning to water.",
+            "time": 1781283426,
+            "replies": []
+          },
+          {
+            "id": 48506272,
+            "by": "vitally3643",
+            "text": "That's one theory, yes. Cooking food (with fire) makes more calories available, meaning less hunting required to support more individuals, and/or freeing up more time and calories for thinking. This allowed us to evolve bigger and more complex brains. While it's not a given that fire is a hard prerequisite for an industrial civilization, it certainly accelerated our technological development. Fact of the matter is, we know of exactly one civilization, which is not enough to draw any conclusions. There's no real reason we know of that aquatic species cannot evolve into a technological...",
+            "time": 1781282239,
+            "replies": []
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": 48506545,
+    "title": "Launch HN: BitBoard (YC P25) \u2013 Analytics Workspace for Agents",
+    "url": "https://bitboard.work/",
+    "by": "arcb",
+    "score": 5,
+    "descendants": 0,
+    "time": 1781283483,
+    "comments": []
+  },
+  {
+    "id": 48503014,
+    "title": "Maxproof",
+    "url": "https://arxiv.org/abs/2606.13473",
+    "by": "ilreb",
+    "score": 95,
+    "descendants": 8,
+    "time": 1781265602,
+    "comments": [
+      {
+        "id": 48503935,
+        "by": "daquisu",
+        "text": "\"I thought it was interesting and a bit underappreciated that the fraction of gold medalists at the 2025 IMO (72/630 = 11.4%) is the highest it\u2019s been since 1981. Crudely, IMO gold medals are awarded to the highest-scoring 1/12 of contestants.1 However, because scores are integers up to 42 and there\u2019s no provision for tiebreaking, it\u2019s possible for a lot of contestants to be tied around the threshold. In that case, either all of them get a gold medal or none do, and the fraction of gold medalists might deviate substantially from 1/12. That\u2019s what happened this year: 46 contestants all won...",
+        "time": 1781271606,
+        "replies": [
+          {
+            "id": 48504025,
+            "by": "quibono",
+            "text": "I was under the impression that IMO is conducted in an official \"exam\" capacity, on site and in a very formal setting. So I find it hard to believe _direct_ LLM usage would be a factor Then again - it very well could be a factor in the training and preparation? I imagine \"Write me a prep document for the IMO\" will surface all kinds of interesting things from the training set.",
+            "time": 1781272095,
+            "replies": []
+          },
+          {
+            "id": 48506445,
+            "by": "dooglius",
+            "text": "This is not bizarre, it's a reflection of how the IMO is scored: 6 questions with scores from 0-7 but partial credit is rare. It's really a score of 5/6.",
+            "time": 1781283032,
+            "replies": []
+          }
+        ]
+      },
+      {
+        "id": 48503995,
+        "by": "pfannl",
+        "text": "The real AGI test is apparently not solving the IMO, but getting caught in the same scoring traffic jam as 46 teenagers.",
+        "time": 1781271952,
+        "replies": []
+      },
+      {
+        "id": 48504570,
+        "by": "thierrydamiba",
+        "text": "Is the harness more valuable than the weights?",
+        "time": 1781274202,
+        "replies": []
+      },
+      {
+        "id": 48504849,
+        "by": "korbonits",
+        "text": "Proves the need for more formal verification :)",
+        "time": 1781275492,
+        "replies": []
+      },
+      {
+        "id": 48504772,
+        "by": "minimaxir",
+        "text": "not a good day to be named Max",
+        "time": 1781275116,
+        "replies": []
+      }
+    ]
+  },
+  {
+    "id": 48498385,
+    "title": "Nobody ever gets credit for fixing problems that never happened (2001) [pdf]",
+    "url": "https://web.mit.edu/nelsonr/www/Repenning=Sterman_CMR_su01_.pdf",
+    "by": "sam_bristow",
+    "score": 675,
+    "descendants": 220,
+    "time": 1781224691,
+    "comments": [
+      {
+        "id": 48503442,
+        "by": "markus_zhang",
+        "text": "The title reminds me of an interesting ancient Chinese anecdote. And it is also a bit ironic that Toyota has gotten itself into some scandals recently ( https://www.bbc.com/news/articles/c1wwj1p2wdyo ). King Wen of Wei asked Bian Que: \u201cOf you three brothers, all physicians, who is the finest in the healing art?\u201d Bian Que replied: \u201cMy eldest brother is the finest; my second brother comes next; I, Bian Que, am the least of the three.\u201d King Wen said: \u201cMay I hear why?\u201d Bian Que answered: \u201cMy eldest brother sees illness in the spirit, before it has taken shape, and removes it unseen; therefore...",
+        "time": 1781268393,
+        "replies": [
+          {
+            "id": 48505649,
+            "by": "sorokod",
+            "text": "Can you share the source of the anecdote? I tried to find it in Zhuangzi and was not successful.",
+            "time": 1781279339,
+            "replies": []
+          },
+          {
+            "id": 48506078,
+            "by": "valbaca",
+            "text": "or a simpler version: \"A stitch in time saves nine...but I charge by the stitch\"",
+            "time": 1781281371,
+            "replies": []
+          }
+        ]
+      },
+      {
+        "id": 48498945,
+        "by": "keyle",
+        "text": "I've been in those companies where \"struggling departments\" ended up getting all the praises and raise in budgets the following quarter because of the heroic saves they did, and raising awareness on how important they are... For stuff they totally caused on themselves. Meanwhile, my perfectly purring department was struggling to keep the lights on. It's a serious problem in this industry due to the disconnect between non-technical management (who understands how to double click) and engineering (who holds the company standing). I'm not sure how we solve this, other than having management...",
+        "time": 1781229592,
+        "replies": [
+          {
+            "id": 48499841,
+            "by": "dchevell",
+            "text": "By building pain into the system. If your hands dealt with injury directly without sending pain signals up to your brain, you'd never change the behaviour that led to that harm or reconsider your priorities. Like it or not, sometimes the best thing for an organisation isn't to just fix every problem and prevent it from bubbling up; it needs to be treated like a learning opportunity for org leadership, which means sending the pain signals upward before just repairing it. Building the right incentives around that can be tricky, those incentives need to ensure the highest levels of management...",
+            "time": 1781237631,
+            "replies": []
+          },
+          {
+            "id": 48502222,
+            "by": "netfortius",
+            "text": "In my 35+ years in IT, the \"hero attitude\" was the one in the top three I most hated traits in a person working with or for me. And talking about traits, I considered crucial to always have in my teams a \"saboteur\" engineer - the one who thoght, found, come up with all the way we could break a design, service, infra components, app, etc., when all the others were designing or operating for perfect or normal conditions.",
+            "time": 1781259918,
+            "replies": []
+          }
+        ]
+      },
+      {
+        "id": 48505503,
+        "by": "harimau777",
+        "text": "I had this problem at a previous job. I spent almost all of my time taking care of the behind the scenes administrative work (scheduling meetings, making sure that people had the information they needed to come into the meetings prepared, etc.). However, when performance review came around I was told that the only thing that they cared about was that I hadn't completed many story points because I was too busy keeping things from falling apart. So I stopped doing all the administrative work and focused on just completing story points. A week or two later my manager asks the team \"how come...",
+        "time": 1781278568,
+        "replies": []
+      },
+      {
+        "id": 48498828,
+        "by": "timmg",
+        "text": "There are a lot of things like this. My favorite is how elegant solutions often look simple in retrospect. So if you noodle on a problem for a while and then come up with a clever solution: once you explain it to someone they'll be like, \"yeah, of course.\" Meanwhile the guy next to you that overcomplicates the problem ends up getting kudos for building something so difficult :D",
+        "time": 1781228691,
+        "replies": [
+          {
+            "id": 48499220,
+            "by": "fugaziboutit",
+            "text": "\"Je n'ai fait celle-ci plus longue que parce que je n'ai pas eu le loisir de la faire plus courte.\" (\"I have made this longer than usual, only because I have not had the time to make it shorter.\") Blaise Pascal",
+            "time": 1781232024,
+            "replies": []
+          },
+          {
+            "id": 48499017,
+            "by": "npunt",
+            "text": "I feel like AI coding is accelerating everyone's work toward greater solution complexity and I think it's pushing people to build defenses and be more averse to someone else's complexity rather than being impressed by it. Bigco's are probably well behind the curve on this and are still impressed by complexity, but for people on the receiving end of AI stuff either directly via your own hand or indirectly via others, it seems like complexity is not as impressive as it once was.",
+            "time": 1781230172,
+            "replies": []
+          }
+        ]
+      },
+      {
+        "id": 48506542,
+        "by": "pugworthy",
+        "text": "This brings to mind Neil Rickert's \"The Parable of the Two Programmers\", which was published in the ACM SIG Software Engineering newsletter, January 1985. https://dl.acm.org/action/showFmPdf?doi=10.1145%2F1012443 for the original, or https://realmensch.org/2017/08/25/the-parable-of-the-two-pro... for a reprint.",
+        "time": 1781283463,
         "replies": []
       }
     ]

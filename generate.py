@@ -1,448 +1,190 @@
 #!/usr/bin/env python3
-"""Generate a Teacher News parody dataset from Hacker News.
+"""Simple Teacher News generator — fetches HN top stories, applies light education-themed substitutions.
 
-Fetches the current HN front page, recursively collects comments, then rewrites
-them as an education-themed parody using a local Ollama model or an
-OpenAI-compatible API (DeepSeek, OpenAI, OpenRouter, etc.).
+No LLM calls, no comment fetching, no SQLite. Just fast, reliable story titles with a teacher spin.
 
 Outputs:
-    raw_hn.json        - fetched HN stories and comments
-    data.json          - parody dataset for the static site
-    teacher_news.db    - SQLite archive of originals and parodies
-
-Environment variables:
-    TOP_N                       number of stories (default 10)
-    MAX_AGE_HOURS               story window via Algolia fallback (default 12)
-    MAX_TOP_LEVEL               top-level comments per story (default 50)
-    MAX_REPLIES_PER_NODE        replies per comment node (default 5)
-    MAX_DEPTH                   reply nesting depth (default 5)
-    COMMENT_TRUNCATE            max chars for raw comment text (default 600)
-    BATCH_SIZE                  comments per LLM prompt (default 5; 0 = all)
-    CONCURRENCY                 stories processed in parallel (default 3)
-    OLLAMA_MODEL                default gemma4:e4b
-    OPENAI_API_KEY / OPENAI_BASE_URL / OPENAI_MODEL
-    DEEPSEEK_API_KEY            uses https://api.deepseek.com/v1 automatically
+    data.json   - dataset for the static site
+    index.html  - fully rendered static page with stories baked in
 """
 
 import html
 import json
 import os
 import re
-import sys
 import time
-from concurrent.futures import ThreadPoolExecutor, as_completed
 from pathlib import Path
 from typing import Any, Dict, List
+from urllib.parse import urlparse
 
 import requests
 
-from database import save_dataset
-
 TOP_N = int(os.environ.get("TOP_N", "10"))
-MAX_AGE_HOURS = int(os.environ.get("MAX_AGE_HOURS", "12"))
-MAX_TOP_LEVEL = int(os.environ.get("MAX_TOP_LEVEL", "50"))
-MAX_REPLIES_PER_NODE = int(os.environ.get("MAX_REPLIES_PER_NODE", "5"))
-MAX_DEPTH = int(os.environ.get("MAX_DEPTH", "5"))
-COMMENT_TRUNCATE = int(os.environ.get("COMMENT_TRUNCATE", "600"))
-BATCH_SIZE = int(os.environ.get("BATCH_SIZE", "5"))
-CONCURRENCY = int(os.environ.get("CONCURRENCY", "3"))
-
-OLLAMA_URL = os.environ.get("OLLAMA_URL", "http://localhost:11434/api/chat")
-OLLAMA_MODEL = os.environ.get("OLLAMA_MODEL", "gemma4:e4b")
-
-# Support both OPENAI_API_KEY (generic) and DEEPSEEK_API_KEY (official DeepSeek API).
-# DEEPSEEK_API_KEY takes precedence so a stale OPENAI_API_KEY in the environment
-# doesn't override it.
-DEEPSEEK_API_KEY = os.environ.get("DEEPSEEK_API_KEY")
-OPENAI_API_KEY = os.environ.get("OPENAI_API_KEY")
-if DEEPSEEK_API_KEY:
-    OPENAI_API_KEY = DEEPSEEK_API_KEY
-    OPENAI_BASE_URL = os.environ.get("OPENAI_BASE_URL", "https://api.deepseek.com/v1")
-elif OPENAI_API_KEY:
-    OPENAI_BASE_URL = os.environ.get("OPENAI_BASE_URL", "https://api.openai.com/v1")
-else:
-    OPENAI_BASE_URL = os.environ.get("OPENAI_BASE_URL", "https://api.openai.com/v1")
-REQUEST_TIMEOUT = int(os.environ.get("REQUEST_TIMEOUT", "600"))
-
 HN_SESSION = requests.Session()
 
+# Simple regex substitutions: HN → Education
+# Patterns are applied in order; longer/more specific patterns first.
+TITLE_SUBS = [
+    (r'\bY Combinator\b', 'International Baccalaureate'),
+    (r'\bMachine Learning\b', 'differentiated instruction'),
+    (r'\bDeep Learning\b', 'inquiry-based learning'),
+    (r'\bNeural Network\b', 'parent-teacher network'),
+    (r'\bHacker News\b', 'Teacher News'),
+    (r'\bShow HN\b', 'Show TN'),
+    (r'\bAsk HN\b', 'Ask TN'),
+    (r'\bTell HN\b', 'Tell TN'),
+    (r'\bOpen Source\b', 'open educational resource'),
+    (r'\b[Aa]I\b', 'Grading Agent'),
+    (r'\bLLMs?\b', 'Lesson Plan Generator'),
+    (r'\bstartups?\b', 'charter school'),
+    (r'\bYC\b', 'IB'),
+    (r'\bprogrammers?\b', 'teachers'),
+    (r'\bengineers?\b', 'administrators'),
+    (r'\bdevelopers?\b', 'educators'),
+    (r'\bcoding\b', 'lesson planning'),
+    (r'\bsoftware\b', 'edtech'),
+    (r'\bapp\b', 'LMS'),
+    (r'\bserver\b', 'server (lunch)'),
+    (r'\bcloud\b', 'Google Drive'),
+    (r'\bdata\b', 'student data'),
+    (r'\bAPI\b', 'gradebook API'),
+    (r'\bfunding\b', 'grant'),
+    (r'\binvestor\b', 'school board'),
+    (r'\bIPO\b', 'accreditation'),
+    (r'\bCEO\b', 'principal'),
+    (r'\bCTO\b', 'tech coordinator'),
+    (r'\bPython\b', 'Python (the snake in the biology lab)'),
+    (r'\bRust\b', 'Rust (the playground equipment)'),
+    (r'\bJavaScript\b', 'JavaScript (the foreign language requirement)'),
+    (r'\bTypeScript\b', 'TypeScript (the handwriting standard)'),
+    (r'\bGo\b', 'Go (recess policy)'),
+    (r'\bC\+\+\b', 'C++ (the grading curve)'),
+    (r'\bLinux\b', 'Linux (the computer lab OS)'),
+    (r'\bWindows\b', 'Windows (the ones in the classroom)'),
+    (r'\bmacOS\b', 'macOS (the art room machines)'),
+    (r'\bKubernetes\b', 'classroom management system'),
+    (r'\bDocker\b', 'lunchbox'),
+    (r'\bGitHub\b', 'the shared drive'),
+    (r'\bGit\b', 'the photocopier room'),
+    (r'\bVPN\b', 'parent portal'),
+    (r'\bCSS\b', 'classroom seating style'),
+    (r'\bHTML\b', 'handwritten memo template'),
+    (r'\bHTTP\b', 'hallway traffic protocol'),
+    (r'\bSSL\b', 'student safety lockdown'),
+    (r'\bTLS\b', 'teacher lounge security'),
+    (r'\bJSON\b', 'just student information, obviously'),
+    (r'\bXML\b', 'xeroxed memo layout'),
+    (r'\bSQL\b', 'student query language'),
+    (r'\bNoSQL\b', 'no standardized queries (the homeschool approach)'),
+    (r'\bDatabase\b', 'roster'),
+    (r'\bGPU\b', 'grading processing unit'),
+    (r'\bCPU\b', 'classroom processing unit'),
+    (r'\bRAM\b', 'reading and math'),
+    (r'\bSSD\b', 'student services department'),
+    (r'\bHDD\b', 'heavy duty detention'),
+    (r'\bUSB\b', 'universal student binder'),
+    (r'\bWiFi\b', 'wireless faculty internet'),
+    (r'\bBluetooth\b', 'blue hall pass tooth scanner'),
+    (r'\b5G\b', '5th grade'),
+    (r'\b4G\b', '4th grade'),
+    (r'\bLTE\b', 'long-term evaluation'),
+    (r'\bNFC\b', 'no food in class'),
+    (r'\bRFID\b', 'room for improvement, definitely'),
+    (r'\bIoT\b', 'internet of textbooks'),
+    (r'\bBlockchain\b', 'block scheduling chain'),
+    (r'\bCryptocurrency\b', 'cafeteria currency'),
+    (r'\bBitcoin\b', 'bit coin (the small change in the vending machine)'),
+    (r'\bEthereum\b', 'ether (the stuff in the chemistry lab)'),
+    (r'\bNFT\b', 'non-fungible test'),
+    (r'\bWeb3\b', 'Web 3.0 (the third version of the school website)'),
+    (r'\bMetaverse\b', 'the library (the original metaverse)'),
+    (r'\bVR\b', 'virtual recess'),
+    (r'\bAR\b', 'augmented recess'),
+    (r'\bMR\b', 'mixed reality (the teacher lounge)'),
+    (r'\bSaaS\b', 'schooling as a service'),
+    (r'\bPaaS\b', 'playground as a service'),
+    (r'\bIaaS\b', 'infrastructure as a service (the janitorial contract)'),
+    (r'\bFaaS\b', 'faculty as a service'),
+    (r'\bDevOps\b', 'department operations'),
+    (r'\bSRE\b', 'student reliability engineer'),
+    (r'\bCI/CD\b', 'continuous improvement / continuous detention'),
+    (r'\bAgile\b', 'agile (the PE curriculum)'),
+    (r'\bScrum\b', 'scrum (the rugby club)'),
+    (r'\bKanban\b', 'kanban (the Japanese exchange program)'),
+    (r'\bJira\b', 'the complaint box'),
+    (r'\bConfluence\b', 'the teacher lounge'),
+    (r'\bSlack\b', 'slack (the grading policy)'),
+    (r'\bDiscord\b', 'the cafeteria'),
+    (r'\bTeams\b', 'sports teams'),
+    (r'\bZoom\b', 'the microscope'),
+    (r'\bMeet\b', 'parent-teacher conference'),
+    (r'\bHangouts\b', 'detention hall'),
+    (r'\bChatGPT\b', 'the substitute teacher'),
+    (r'\bGPT-4\b', 'grade point tracker 4.0'),
+    (r'\bGPT\b', 'grade point tracker'),
+    (r'\bOpenAI\b', 'Open Admissions Initiative'),
+    (r'\bAnthropic\b', 'the anthropology department'),
+    (r'\bGoogle\b', 'the school district'),
+    (r'\bApple\b', 'the cafeteria (the original Apple)'),
+    (r'\bMicrosoft\b', 'the administration building'),
+    (r'\bAmazon\b', 'the school supply store'),
+    (r'\bNetflix\b', 'the AV club'),
+    (r'\bSpotify\b', 'the band room'),
+    (r'\bYouTube\b', 'the AV cart'),
+    (r'\bTikTok\b', 'the hall pass timer'),
+    (r'\bTwitter\b', 'the PA system'),
+    (r'\bX\b', 'the former Twitter (now just the X on your test)'),
+    (r'\bFacebook\b', 'the yearbook'),
+    (r'\bInstagram\b', 'the bulletin board'),
+    (r'\bLinkedIn\b', 'the alumni network'),
+    (r'\bReddit\b', 'the student council'),
+    (r'\bHN\b', 'TN'),
+]
 
-def active_model_name() -> str:
-    if OPENAI_API_KEY:
-        if DEEPSEEK_API_KEY and not os.environ.get("OPENAI_MODEL"):
-            return "deepseek-v4-flash"
-        return os.environ.get("OPENAI_MODEL", "gpt-4o-mini")
-    return OLLAMA_MODEL
-
-
-def clean_text(text: str, max_len: int = COMMENT_TRUNCATE) -> str:
-    """Strip HTML tags/entities and truncate to keep LLM prompts short."""
-    if not text:
-        return ""
-    text = html.unescape(text)
-    text = re.sub(r"<[^>]+>", " ", text)
-    text = re.sub(r"\s+", " ", text).strip()
-    if len(text) > max_len:
-        text = text[: max_len - 3].rsplit(" ", 1)[0] + "..."
-    return text
+TEACHER_NAMES = [
+    "mrhenry", "msperkins", "drlopez", "deptchair", "k12dev",
+    "ibcoord", "expatteacher", "ealteacher", "counselor", "tenuredtom",
+    "adjunctanon", "newteacher", "subsam", "librarianlinda", "coachcarter",
+    "artteacher", "musicmike", "sciencestan", "mathmartha", "historyhal",
+]
 
 
 def hn_get(path: str, timeout: int = 30) -> Any:
-    """Fetch a JSON object from the official HN Firebase API."""
     url = f"https://hacker-news.firebaseio.com/v0/{path}.json"
-    last_err = None
     for attempt in range(1, 4):
         try:
             resp = HN_SESSION.get(url, timeout=timeout)
             resp.raise_for_status()
             return resp.json()
-        except Exception as e:
-            last_err = e
-            print(f"  ! HN fetch attempt {attempt}/3 failed for {url}: {e}", file=sys.stderr)
+        except Exception:
+            if attempt == 3:
+                raise
             time.sleep(1)
-    raise last_err
 
 
-def fetch_story_ids(n: int = TOP_N) -> List[int]:
-    """Fetch top story IDs from the HN front page (official Firebase API)."""
-    ids = hn_get("topstories")
-    if not ids:
-        return []
-    return ids[:n]
+def parody_title(title: str) -> str:
+    if not title:
+        return "Untitled"
+    result = title
+    for pattern, replacement in TITLE_SUBS:
+        result = re.sub(pattern, replacement, result, flags=re.IGNORECASE)
+    return result
 
 
-def build_comment_tree(item_id: int, depth: int = 0) -> Dict[str, Any]:
-    """Recursively fetch and clean a comment thread."""
-    node = hn_get(f"item/{item_id}")
-    if not node or node.get("deleted") or node.get("dead"):
-        return None
-    raw = node.get("text")
-    if not raw:
-        return None
-    text = clean_text(raw)
-    if not text:
-        return None
-
-    replies = []
-    if depth < MAX_DEPTH:
-        for child_id in (node.get("kids") or [])[:MAX_REPLIES_PER_NODE]:
-            c = build_comment_tree(child_id, depth + 1)
-            if c:
-                replies.append(c)
-
-    return {
-        "id": node.get("id"),
-        "by": node.get("by"),
-        "text": text,
-        "time": node.get("time"),
-        "replies": replies,
-    }
+def teacher_name(idx: int) -> str:
+    return TEACHER_NAMES[idx % len(TEACHER_NAMES)]
 
 
-def fetch_top_stories(n: int = TOP_N) -> List[Dict[str, Any]]:
-    """Fetch story metadata and recursively collect comments."""
-    ids = fetch_story_ids(n)
-    stories = []
-    for story_id in ids:
-        data = hn_get(f"item/{story_id}")
-        if not data or data.get("deleted") or data.get("dead"):
-            continue
-
-        comments = []
-        for child_id in (data.get("kids") or [])[:MAX_TOP_LEVEL]:
-            c = build_comment_tree(child_id, depth=0)
-            if c:
-                comments.append(c)
-
-        stories.append(
-            {
-                "id": story_id,
-                "title": data.get("title"),
-                "url": data.get("url"),
-                "by": data.get("by"),
-                "score": data.get("score"),
-                "descendants": data.get("descendants"),
-                "time": data.get("time"),
-                "comments": comments,
-            }
-        )
-    return stories
-
-
-def _call_ollama(prompt: str) -> str:
-    resp = requests.post(
-        OLLAMA_URL,
-        json={
-            "model": OLLAMA_MODEL,
-            "messages": [
-                {
-                    "role": "system",
-                    "content": (
-                        "You are a helpful assistant that writes satirical parodies "
-                        "of Hacker News for an education-themed site. You output only valid JSON."
-                    ),
-                },
-                {"role": "user", "content": prompt},
-            ],
-            "stream": False,
-            "options": {"temperature": 0.75},
-        },
-        timeout=REQUEST_TIMEOUT,
-    )
-    resp.raise_for_status()
-    return resp.json()["message"]["content"]
-
-
-def _call_openai(prompt: str) -> str:
-    headers = {"Authorization": f"Bearer {OPENAI_API_KEY}"}
-    model = os.environ.get("OPENAI_MODEL")
-    if not model:
-        if DEEPSEEK_API_KEY:
-            model = "deepseek-v4-flash"
-        elif "deepseek" in OPENAI_BASE_URL.lower():
-            model = "deepseek-v4-flash"
-        else:
-            model = "gpt-4o-mini"
-    resp = requests.post(
-        f"{OPENAI_BASE_URL}/chat/completions",
-        headers=headers,
-        json={
-            "model": model,
-            "messages": [
-                {
-                    "role": "system",
-                    "content": (
-                        "You write satirical education-themed parodies of Hacker News. "
-                        "Output only valid JSON."
-                    ),
-                },
-                {"role": "user", "content": prompt},
-            ],
-            "temperature": 0.75,
-        },
-        timeout=REQUEST_TIMEOUT,
-    )
-    resp.raise_for_status()
-    return resp.json()["choices"][0]["message"]["content"]
-
-
-def call_llm(prompt: str) -> str:
-    if OPENAI_API_KEY:
-        return _call_openai(prompt)
-    return _call_ollama(prompt)
-
-
-def extract_json(text: str) -> Any:
-    """Best-effort JSON extraction from model output."""
-    text = text.strip()
-    if text.startswith("```"):
-        text = re.sub(r"^```(?:json)?\s*", "", text)
-        text = re.sub(r"\s*```$", "", text)
-    match = re.search(r"\{.*\}", text, re.DOTALL)
-    if match:
-        text = match.group(0)
-    return json.loads(text)
-
-
-def batch_comments(comments: List[Dict[str, Any]]) -> List[List[Dict[str, Any]]]:
-    """Split comments into small batches for manageable LLM prompts."""
-    if BATCH_SIZE <= 0:
-        return [comments]
-    return [comments[i : i + BATCH_SIZE] for i in range(0, len(comments), BATCH_SIZE)]
-
-
-def first_prompt(story: Dict[str, Any], batch: List[Dict[str, Any]]) -> str:
-    return f"""You are writing for "Teacher News", a parody of Hacker News.
-Given the Hacker News story and the first batch of its comment threads below, produce an education-themed parody.
-
-Rules:
-- Change the headline only slightly so it fits primary, secondary, or tertiary education.
-- Rewrite every top-level comment and its nested replies as if they are written by teachers,
-  professors, administrators, TAs, or education staff. The primary audience is international
-  school teachers, so lean toward IB/DP/MYP, expat teaching, EAL/ESL, admissions, parent
-  conferences, accreditation visits, and cross-cultural classrooms—but keep it accessible to
-  all educators.
-- Keep the Hacker News voice: concise, earnest, sometimes cranky, with threaded replies.
-- Use short usernames like "mrhenry", "drlopez", "msperkins", "adjunctanon", "deptchair",
-  "tenuredtom", "k12dev", "ibcoord", "expatteacher", "ealteacher", "counselor".
-- The URL stays the same as the original; this is a parody overlay.
-- Return ONLY a valid JSON object with no markdown code fences, exactly this shape:
-
-{{
-  "title": "parody headline",
-  "submitter": "teacher_username",
-  "comments": [
-    {{
-      "by": "teacher_username",
-      "text": "rewritten comment text",
-      "replies": [
-        {{"by": "teacher_username", "text": "reply text"}}
-      ]
-    }}
-  ]
-}}
-
-Story title: {story['title']}
-Original URL: {story['url']}
-Original submitter: {story['by']}
-Score: {story.get('score', 0)} points
-
-First batch of comment threads:
-{json.dumps(batch, indent=2)}
-"""
-
-
-def continuation_prompt(story: Dict[str, Any], title: str, batch: List[Dict[str, Any]]) -> str:
-    return f"""You are continuing the "Teacher News" parody of this Hacker News story.
-
-Parody title: {title}
-Original story title: {story['title']}
-Original URL: {story['url']}
-
-Rewrite the next batch of comment threads as teachers/educators discussing education.
-The primary audience is international school teachers, so lean toward IB/DP/MYP, expat
-teaching, EAL, admissions, accreditation, and cross-cultural classrooms while staying
-accessible. Keep the Hacker News voice and nested replies.
-Return ONLY a valid JSON object with no markdown code fences in this shape:
-
-{{
-  "comments": [
-    {{
-      "by": "teacher_username",
-      "text": "rewritten comment text",
-      "replies": [
-        {{"by": "teacher_username", "text": "reply text"}}
-      ]
-    }}
-  ]
-}}
-
-Next batch of comment threads:
-{json.dumps(batch, indent=2)}
-"""
-
-
-def call_with_retry(prompt: str, context: str, attempt: int = 1) -> Dict[str, Any]:
-    try:
-        text = call_llm(prompt)
-        return extract_json(text)
-    except Exception as e:
-        if attempt < 3:
-            print(f"  ! retry {context} (attempt {attempt}): {e}", file=sys.stderr)
-            time.sleep(2)
-            return call_with_retry(prompt, context, attempt + 1)
-        raise
-
-
-def parody_story(story: Dict[str, Any]) -> Dict[str, Any]:
-    batches = batch_comments(story.get("comments", []))
-    title = story["title"]
-    submitter = story["by"]
-    all_comments = []
-
-    for idx, batch in enumerate(batches):
-        if idx == 0:
-            prompt = first_prompt(story, batch)
-            parsed = call_with_retry(prompt, f"story {story['id']} batch {idx + 1}")
-            title = parsed.get("title", title)
-            submitter = parsed.get("submitter", submitter)
-            all_comments.extend(parsed.get("comments", []))
-        else:
-            prompt = continuation_prompt(story, title, batch)
-            parsed = call_with_retry(prompt, f"story {story['id']} batch {idx + 1}")
-            all_comments.extend(parsed.get("comments", []))
-
-    return {"title": title, "submitter": submitter, "comments": all_comments}
-
-
-def enrich_from_original(generated: List[Dict[str, Any]], originals: List[Dict[str, Any]]):
-    """Copy original metadata (id, time, author, text) onto generated comments."""
-    for g, o in zip(generated, originals):
-        g["id"] = o.get("id")
-        g["time"] = o.get("time")
-        g["original_by"] = o.get("by")
-        g["original_text"] = o.get("text")
-        if "replies" in g and "replies" in o:
-            enrich_from_original(g["replies"], o.get("replies", []))
-
-
-def process_story(story: Dict[str, Any]) -> Dict[str, Any]:
-    """Parody a single story and return the dataset record."""
-    print(f"[{story['id']}] Parodying: {story['title']} ({len(story.get('comments', []))} threads)")
-    try:
-        p = parody_story(story)
-    except Exception as e:
-        print(f"  ! failed permanently: {e}", file=sys.stderr)
-        return None
-
-    generated_comments = p.get("comments", [])
-    enrich_from_original(generated_comments, story.get("comments", []))
-
-    return {
-        "id": story["id"],
-        "original_title": story["title"],
-        "original_url": story["url"],
-        "original_by": story["by"],
-        "title": p.get("title", story["title"]),
-        "url": story["url"],
-        "by": p.get("submitter", story["by"]),
-        "score": story.get("score", 0),
-        "time": story.get("time"),
-        "comment_count": story.get("descendants") or len(generated_comments),
-        "comments": generated_comments,
-    }
-
-
-def generate_dataset():
-    print(
-        f"Fetching top {TOP_N} HN stories "
-        f"(up to {MAX_TOP_LEVEL} top-level comments, depth {MAX_DEPTH}, batch {BATCH_SIZE})..."
-    )
-    raw = fetch_top_stories(TOP_N)
-    Path("raw_hn.json").write_text(json.dumps(raw, indent=2), encoding="utf-8")
-    print(f"Saved raw_hn.json ({len(raw)} stories, {sum(len(s['comments']) for s in raw)} threads)")
-
-    parodies = []
-    with ThreadPoolExecutor(max_workers=CONCURRENCY) as executor:
-        futures = {executor.submit(process_story, story): story for story in raw}
-        for future in as_completed(futures):
-            result = future.result()
-            if result:
-                parodies.append(result)
-
-    # Preserve original ranking order.
-    raw_order = {story["id"]: idx for idx, story in enumerate(raw)}
-    parodies.sort(key=lambda s: raw_order.get(s["id"], 9999))
-
-    dataset = {
-        "generated_at": time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime()),
-        "source": "https://news.ycombinator.com/",
-        "stories": parodies,
-    }
-    Path("data.json").write_text(json.dumps(dataset, indent=2), encoding="utf-8")
-    print(f"Saved data.json ({len(parodies)} parodied stories)")
-
-    # Generate static index.html with stories baked in for no-JS users
-    generate_static_index(dataset)
-
-    save_dataset(dataset, raw, active_model_name())
-
-
-def _html_escape(text: str) -> str:
-    return html.escape(text or "")
-
-
-def _hostname(url: str) -> str:
+def hostname(url: str) -> str:
     if not url:
         return ""
     try:
-        from urllib.parse import urlparse
         return urlparse(url).hostname or ""
     except Exception:
         return ""
 
 
-def _format_time(ts: int) -> str:
+def format_time(ts: int) -> str:
     if not ts:
         return ""
     now = time.time()
@@ -456,23 +198,45 @@ def _format_time(ts: int) -> str:
     return f"{int(delta // 86400)} days ago"
 
 
-def generate_static_index(dataset: Dict[str, Any]) -> None:
-    """Generate index.html with stories pre-rendered as static HTML."""
-    stories = dataset.get("stories", [])
+def fetch_stories(n: int = TOP_N) -> List[Dict[str, Any]]:
+    ids = hn_get("topstories")[:n]
+    stories = []
+    for story_id in ids:
+        data = hn_get(f"item/{story_id}")
+        if not data or data.get("deleted") or data.get("dead"):
+            continue
+        stories.append({
+            "id": story_id,
+            "title": parody_title(data.get("title", "")),
+            "original_title": data.get("title", ""),
+            "url": data.get("url", ""),
+            "original_url": data.get("url", ""),
+            "by": teacher_name(len(stories)),
+            "original_by": data.get("by", ""),
+            "score": data.get("score", 0),
+            "time": data.get("time", 0),
+            "descendants": data.get("descendants", 0),
+            "comment_count": data.get("descendants", 0),
+            "comments": [],
+        })
+    return stories
+
+
+def generate_index_html(stories: List[Dict[str, Any]]) -> str:
     rows_html = []
     for idx, story in enumerate(stories):
         rank = idx + 1
-        domain = _hostname(story.get("url"))
-        domain_html = f' <span class="sitestr">({_html_escape(domain)})</span>' if domain else ""
-        comments_count = story.get("comment_count") or len(story.get("comments", []))
-        time_str = _format_time(story.get("time"))
+        domain = hostname(story.get("url"))
+        domain_html = f' <span class="sitestr">({html.escape(domain)})</span>' if domain else ""
+        comments_count = story.get("comment_count", 0)
+        time_str = format_time(story.get("time", 0))
         story_url = f"https://news.ycombinator.com/item?id={story['id']}"
         item_page = f"item.html?id={story['id']}"
         score = story.get("score", 0)
-        by = _html_escape(story.get("by", "teacher"))
-        title = _html_escape(story.get("title", "Untitled"))
-        original_url = _html_escape(story.get("original_url") or story.get("url") or "#")
-        original_title = _html_escape(story.get("original_title") or story.get("title", ""))
+        by = html.escape(story.get("by", "teacher"))
+        title = html.escape(story.get("title", "Untitled"))
+        original_url = html.escape(story.get("original_url") or story.get("url") or "#")
+        original_title = html.escape(story.get("original_title") or story.get("title", ""))
 
         rows_html.append(f"""      <tr class="story-row">
         <td align="right" valign="top" class="rank">{rank}.</td>
@@ -497,7 +261,7 @@ def generate_static_index(dataset: Dict[str, Any]) -> None:
 
     stories_html = "\n".join(rows_html)
 
-    index_html = f"""<!DOCTYPE html>
+    return f"""<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
@@ -558,9 +322,24 @@ def generate_static_index(dataset: Dict[str, Any]) -> None:
 </body>
 </html>"""
 
-    Path("index.html").write_text(index_html, encoding="utf-8")
-    print(f"Saved index.html ({len(stories)} stories pre-rendered)")
+
+def main():
+    print(f"Fetching top {TOP_N} HN stories...")
+    stories = fetch_stories(TOP_N)
+    print(f"Got {len(stories)} stories")
+
+    dataset = {
+        "generated_at": time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime()),
+        "source": "https://news.ycombinator.com/",
+        "stories": stories,
+    }
+
+    Path("data.json").write_text(json.dumps(dataset, indent=2), encoding="utf-8")
+    print("Saved data.json")
+
+    Path("index.html").write_text(generate_index_html(stories), encoding="utf-8")
+    print(f"Saved index.html ({len(stories)} stories)")
 
 
 if __name__ == "__main__":
-    generate_dataset()
+    main()
