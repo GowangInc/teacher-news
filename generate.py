@@ -77,6 +77,20 @@ def clean_text(text: str, max_len: int = COMMENT_TRUNCATE) -> str:
     return text
 
 
+def _get_with_retry(url: str, params: dict = None, timeout: int = 30, attempts: int = 3):
+    last_err = None
+    for attempt in range(1, attempts + 1):
+        try:
+            resp = requests.get(url, params=params, timeout=timeout)
+            resp.raise_for_status()
+            return resp
+        except Exception as e:
+            last_err = e
+            print(f"  ! fetch attempt {attempt}/{attempts} failed for {url}: {e}", file=sys.stderr)
+            time.sleep(1)
+    raise last_err
+
+
 def fetch_story_ids(n: int = TOP_N, max_age_hours: int = MAX_AGE_HOURS) -> List[int]:
     """Fetch top stories posted within the last N hours, ranked by points."""
     cutoff = int(time.time()) - max_age_hours * 3600
@@ -85,8 +99,7 @@ def fetch_story_ids(n: int = TOP_N, max_age_hours: int = MAX_AGE_HOURS) -> List[
         "numericFilters": f"created_at_i>{cutoff}",
         "hitsPerPage": n,
     }
-    resp = requests.get("https://hn.algolia.com/api/v1/search", params=params, timeout=30)
-    resp.raise_for_status()
+    resp = _get_with_retry("https://hn.algolia.com/api/v1/search", params=params, timeout=30)
     data = resp.json()
     return [int(hit["objectID"]) for hit in data.get("hits", [])[:n]]
 
@@ -122,9 +135,10 @@ def fetch_top_stories(n: int = TOP_N) -> List[Dict[str, Any]]:
     stories = []
     for story_id in ids:
         try:
-            data = requests.get(
+            resp = _get_with_retry(
                 f"https://hn.algolia.com/api/v1/items/{story_id}", timeout=30
-            ).json()
+            )
+            data = resp.json()
         except Exception as e:
             print(f"  ! failed to fetch story {story_id}: {e}", file=sys.stderr)
             continue
