@@ -1,0 +1,196 @@
+body {
+  font-family: Verdana, Geneva, sans-serif;
+  font-size: 10pt;
+  color: #000000;
+  background-color: #ffffff;
+  margin: 8px;
+}
+
+#hnmain {
+  background-color: #f6f6ef;
+}
+
+a {
+  color: #000000;
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+.logo {
+  width: 18px;
+  height: 18px;
+  line-height: 18px;
+  border: 1px solid #ffffff;
+  color: #ffffff;
+  background-color: #ff6600;
+  font-weight: bold;
+  text-align: center;
+  font-size: 12px;
+}
+
+.pagetop {
+  font-family: Verdana, Geneva, sans-serif;
+  font-size: 10pt;
+  color: #222222;
+}
+
+.pagetop a {
+  color: #222222;
+}
+
+.pagetop b a {
+  color: #000000;
+}
+
+.hnname {
+  margin-right: 5px;
+}
+
+.itemlist {
+  width: 100%;
+}
+
+.titleline {
+  font-family: Verdana, Geneva, sans-serif;
+  font-size: 10pt;
+  color: #000000;
+}
+
+.titleline a {
+  color: #000000;
+}
+
+.titleline a:visited {
+  color: #828282;
+}
+
+.sitestr {
+  font-family: Verdana, Geneva, sans-serif;
+  font-size: 8pt;
+  color: #828282;
+}
+
+.subline {
+  font-family: Verdana, Geneva, sans-serif;
+  font-size: 7pt;
+  color: #828282;
+}
+
+.subline a {
+  color: #828282;
+}
+
+.subline a:hover {
+  text-decoration: underline;
+}
+
+.votelinks {
+  vertical-align: top;
+  text-align: center;
+  width: 20px;
+}
+
+.votebtn {
+  cursor: pointer;
+  color: #828282;
+  font-size: 10pt;
+  line-height: 8pt;
+  user-select: none;
+}
+
+.votebtn.upvoted {
+  color: #ff6600;
+}
+
+.rank {
+  text-align: right;
+  vertical-align: top;
+  padding-right: 6px;
+  color: #828282;
+  min-width: 16px;
+}
+
+.story-row td,
+.comment-row td {
+  vertical-align: top;
+}
+
+.comment-row {
+  display: none;
+}
+
+.comment-row.expanded {
+  display: table-row;
+}
+
+.comment {
+  font-family: Verdana, Geneva, sans-serif;
+  font-size: 9pt;
+  color: #000000;
+  margin-bottom: 12px;
+}
+
+.comment-meta {
+  font-family: Verdana, Geneva, sans-serif;
+  font-size: 8pt;
+  color: #828282;
+  margin-bottom: 4px;
+}
+
+.comment-meta a {
+  color: #828282;
+}
+
+.comment-body p {
+  margin: 0 0 8px 0;
+  line-height: 1.4;
+}
+
+.comment-body code {
+  font-family: monospace;
+  background: #f0f0f0;
+  padding: 1px 3px;
+}
+
+.comment-body pre {
+  background: #f0f0f0;
+  padding: 8px;
+  overflow-x: auto;
+}
+
+.reply {
+  margin-left: 40px;
+  margin-top: 8px;
+}
+
+.nested-comment {
+  margin-top: 8px;
+}
+
+.toggle {
+  cursor: pointer;
+  color: #828282;
+  font-size: 8pt;
+}
+
+.footer {
+  text-align: center;
+  font-family: Verdana, Geneva, sans-serif;
+  font-size: 8pt;
+  color: #828282;
+  padding: 12px 0 18px 0;
+}
+
+.footer a {
+  color: #828282;
+}
+
+.loading,
+.error {
+  padding: 10px 20px;
+  color: #828282;
+  font-size: 9pt;
+}

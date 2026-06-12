@@ -1,0 +1,737 @@
+[
+  {
+    "id": 48504063,
+    "title": "WASI 0.3.0 Released",
+    "url": "https://github.com/WebAssembly/WASI/releases/tag/v0.3.0",
+    "by": "mavdol04",
+    "score": 82,
+    "descendants": null,
+    "time": 1781272275,
+    "comments": [
+      {
+        "id": 48504694,
+        "by": "shevy-java",
+        "text": "Will WebAssembly ever achieve a real breakthrough? It's been almost 10 years since it came around. HTML, CSS and JavaScript were a breakthrough back in the days. WebAssembly still is not right now; only very few folks or companies use it.",
+        "time": 1781274798,
+        "replies": [
+          {
+            "id": 48504821,
+            "by": "grufkork",
+            "text": "I mean, it\u2019s another tool. It doesn\u2019t really make an entirely new kind of web app possible, but it\u2019s useful for some specific compute-heavy tasks (with limitations like JS WASM being slow). It\u2019s also useful for running not-JS in the browser; I\u2019m building a lighting console with a web UI distributed over multiple devices, and being able to use the exact same structs/representation and algorithms on server and client is pretty neat. It\u2019s like Node, but in reverse! But none of this is cause for...",
+            "time": 1781275323
+          },
+          {
+            "id": 48504860,
+            "by": "__s",
+            "text": "It has, but its usually just an optimization, so goes unnoticed",
+            "time": 1781275534
+          }
+        ]
+      },
+      {
+        "id": 48504974,
+        "by": "b33j0r",
+        "text": "Love/hate with this one. How was I supposed to follow this? I tried, and few things were publicly visible for nearly two years. I last checked in march and it looked like no progress had been made. That makes me very suspicious of wasiv3. Funny enough, I already implemented a bunch of the promises (pun not intended) and think that freestanding wasm with custom integrations is the more likely future. The promise of wasi components has not been fulfilled. The market wants to hotload and link artifacts dynamically. The wasi project requires insider wizardry to use it that way: the offering has been statically linking components before you ship. Defeating 99% of the use cases. I do not like that this has been worked on in the shadows.",
+        "time": 1781276033,
+        "replies": []
+      },
+      {
+        "id": 48504982,
+        "by": "lifty",
+        "text": "If you have used WASI in the past, can you mention your use case? Very curious if you found it to give you an edge compared to other sandboxing like containers or VMs.",
+        "time": 1781276063,
+        "replies": [
+          {
+            "id": 48505033,
+            "by": "OtomotO",
+            "text": "extending software with a plugin system",
+            "time": 1781276278
+          },
+          {
+            "id": 48505102,
+            "by": "tdhz77",
+            "text": "Edge rural farm systems",
+            "time": 1781276648
+          }
+        ]
+      },
+      {
+        "id": 48505004,
+        "by": "simonw",
+        "text": "If you don't want to download the .tar.gz I think you can browse the content for this release (.wit interface files) here on GitHub: https://github.com/WebAssembly/WASI/tree/v0.3.0/proposals",
+        "time": 1781276140,
+        "replies": []
+      },
+      {
+        "id": 48505125,
+        "by": "garganzol",
+        "text": "Wrong direction. WASI should be simple and stable. Initially, it was revolving around a simple Unix-like API model and it was close to perfect. Now, there is an opinionated component model which is an unneeded overcomplication that should have never been considered as part of WebAssembly spec IMHO. A real component model is a separate development and cannot be blindly tied to a particular ecosystem. Otherwise, its main purpose of providing easy interoperability between different ecosystems is totally lost. I do not know why WebAssembly committee thinks that shaving-in CORBA-like monstrosity is even an acceptable idea. Let's keep WebAssembly lean and fast! Anything extra should be implemented by other technoloogies.",
+        "time": 1781276739,
+        "replies": []
+      }
+    ]
+  },
+  {
+    "id": 48500012,
+    "title": "AI agent bankrupted their operator while trying to scan DN42",
+    "url": "https://lantian.pub/en/article/fun/ai-agent-bankrupted-their-operator-scan-dn42lantian.lantian/",
+    "by": "xiaoyu2006",
+    "score": 1104,
+    "descendants": null,
+    "time": 1781239373,
+    "comments": [
+      {
+        "id": 48500101,
+        "by": "ggm",
+        "text": "Asking for donations to pay the AWS bill from the people they fired the agentic code at is the cherry on the icing of the banana supreme. If real, tragically funny. If fictive, we'll written.",
+        "time": 1781240332,
+        "replies": [
+          {
+            "id": 48500624,
+            "by": "dannyw",
+            "text": "I burst out laughing when the agent spawned a subagent to join IRC. So funny.",
+            "time": 1781246043
+          },
+          {
+            "id": 48501587,
+            "by": "ratsimihah",
+            "text": "Wait do you reckon that could be fictive? The thought didn't cross my mind and I had a blast reading it. I sure hope it was real.",
+            "time": 1781254296
+          }
+        ]
+      },
+      {
+        "id": 48500369,
+        "by": "kombookcha",
+        "text": "> JertLinc3522: the mistake was from AI agent not from Human, since it was the agent I should have refund Expensive way to learn this lesson.",
+        "time": 1781243073,
+        "replies": [
+          {
+            "id": 48500754,
+            "by": "Schlagbohrer",
+            "text": "Maybe I should use this excuse at work, or in life- \"It wasn't me, it was my brain that made the mistake! So why are you punishing me? ;-( \"",
+            "time": 1781247506
+          },
+          {
+            "id": 48500979,
+            "by": "thrdbndndn",
+            "text": "This has to be trolling, right? I find it hard to believe that anyone, no matter how dense, could come to this conclusion after this whole saga.",
+            "time": 1781249430
+          }
+        ]
+      },
+      {
+        "id": 48500428,
+        "by": "hlandau",
+        "text": "I haven't laughed this hard in a long time. I'm honestly having difficulty telling whether this is real or an extraordinary piece of performance art.",
+        "time": 1781243782,
+        "replies": [
+          {
+            "id": 48500763,
+            "by": "peyton",
+            "text": "Feels like a scam.",
+            "time": 1781247598
+          }
+        ]
+      },
+      {
+        "id": 48500484,
+        "by": "rvz",
+        "text": "If you are non-technical, in-experienced or just learning, it is okay to admit that you have no idea what you are doing when building production systems. Otherwise, you will face an expensive lesson when turning a $100 issue into a $100,000 problem over time very quickly when building these systems with AI without the right expertise and accepting the AI\u2019s judgement.",
+        "time": 1781244372,
+        "replies": [
+          {
+            "id": 48500539,
+            "by": "userbinator",
+            "text": "turning a $100 issue into a $100,000 problem Before AI, those who called themselves \"consultants\" often did the same thing; especially those who are glorified salesmen for \"enterprise\" software.",
+            "time": 1781244996
+          }
+        ]
+      },
+      {
+        "id": 48500494,
+        "by": "mik3y",
+        "text": "I really wanted to dislike the anonymous operator for the careless project (and the hilarious pomposity of the IRC subagent it spawned). Then I imagined the real-but-unknowable chance it was all set up by some kid just getting into computers, just seeing what\u2019s possible, getting excited by a much bigger world at reach \u2014 and remembered my own expensive mistakes with long-distance BBSes & the like. I sorta hope for that, anyway. Curiosity is a beautiful thing.",
+        "time": 1781244468,
+        "replies": [
+          {
+            "id": 48500623,
+            "by": "Overpower0416",
+            "text": "Everybody should learn from mistakes, especially the expensive ones. Though seeing the agent owner responding with using another agent and asking for donations, instead of taking responsibility, makes me think he didn\u2019t learn much.",
+            "time": 1781246028
+          },
+          {
+            "id": 48500628,
+            "by": "TheDong",
+            "text": "I'm a little less charitable. Curiosity is great, but agents do not learn, and telling an agent \"scan the darkweb\" is a way to avoid learning about the details, rather than to dig into things more deeply. If instead they had just used a chat interface to ask \"Where should I start\", they'd more likely have got a link to the DN42 docs themselves, read them, and not hallucinated things like \"color\". They might have asked \"how much will this cost?\" if they had to spin up the ec2 instances...",
+            "time": 1781246082
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": 48504697,
+    "title": "A Call to Action: Stop the FCC's KYC Regime",
+    "url": "https://blog.lopp.net/call-to-action-stop-the-fcc-kyc-regime/",
+    "by": "FergusArgyll",
+    "score": 24,
+    "descendants": null,
+    "time": 1781274809,
+    "comments": [
+      {
+        "id": 48505050,
+        "by": "cute_boi",
+        "text": "Will this KYC reduce spam and scam calls?",
+        "time": 1781276392,
+        "replies": [
+          {
+            "id": 48505118,
+            "by": "rockskon",
+            "text": "No.",
+            "time": 1781276711
+          }
+        ]
+      },
+      {
+        "id": 48505072,
+        "by": "br0ceph",
+        "text": "Im USA based use prepaid service because I dont want to provide information for a credit check to obtain postpay service. Theres absolutely no reason for a US based telephony provider to retain the most sensitive PII on their customers. Every large provider has a history of breaches and selling customer data. The telephone companies are already tracking, storing, selling; so many data points on their customers. They cant be trusted with any information.",
+        "time": 1781276521,
+        "replies": [
+          {
+            "id": 48505174,
+            "by": "jameshart",
+            "text": "Counterpoint: for my part I would like it to be the case that any phone line that can dial or message my phone can be traced back to a known human being who can be held accountable for abuse of that phone line in terms of generating spam, abuse or harassment. Seems that we can\u2019t both get what we want. A potential solution is that you get your anonymous phone line but my phone provider simply refuses to let you call me with it. Of course then we need to extend the same principle to data and...",
+            "time": 1781277007
+          }
+        ]
+      },
+      {
+        "id": 48505105,
+        "by": "qdotme",
+        "text": "Honestly, stop the KYC regime everywhere else . We're making our law enforcement's job marginally easier, by making the criminals' job infinitely easier by creating millions of juicy PII honeypots. No, you don't need my phone #, real name, captcha.. if you think you do, realign your incentives, and rethink what else can be used for your real need instead.",
+        "time": 1781276654,
+        "replies": []
+      },
+      {
+        "id": 48505127,
+        "by": "dec0dedab0de",
+        "text": "We really just need telcos to stop allowing caller id spoofing. Doesn\u2019t even need your name, but with a real number we could actually report these scams. You can still allow people to hide it, but then by default every non-business phone should block calls with hidden numbers.",
+        "time": 1781276744,
+        "replies": [
+          {
+            "id": 48505164,
+            "by": "smallmancontrov",
+            "text": "What ever happened to SHAKEN/STIR? I thought this was supposed to happen 5 years ago. Did they just chicken out on the prospect of actually shutting down telcos sending spam volume? I still get loads of spam phone calls, so clearly something went wrong (or slow enough to be indistinguishable from wrong).",
+            "time": 1781276945
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": 48503014,
+    "title": "Maxproof",
+    "url": "https://arxiv.org/abs/2606.13473",
+    "by": "ilreb",
+    "score": 78,
+    "descendants": null,
+    "time": 1781265602,
+    "comments": [
+      {
+        "id": 48503935,
+        "by": "daquisu",
+        "text": "\"I thought it was interesting and a bit underappreciated that the fraction of gold medalists at the 2025 IMO (72/630 = 11.4%) is the highest it\u2019s been since 1981. Crudely, IMO gold medals are awarded to the highest-scoring 1/12 of contestants.1 However, because scores are integers up to 42 and there\u2019s no provision for tiebreaking, it\u2019s possible for a lot of contestants to be tied around the threshold. In that case, either all of them get a gold medal or none do, and the fraction of gold medalists might deviate substantially from 1/12. That\u2019s what happened this year: 46 contestants all won a gold medal by scoring exactly 35 points. In fact, bizarrely, 35 is the mode of the scores this year; the last time the modal score was a gold medal score was in 1994. And, of course, 35 is the same...",
+        "time": 1781271606,
+        "replies": [
+          {
+            "id": 48504025,
+            "by": "quibono",
+            "text": "I was under the impression that IMO is conducted in an official \"exam\" capacity, on site and in a very formal setting. So I find it hard to believe _direct_ LLM usage would be a factor Then again - it very well could be a factor in the training and preparation? I imagine \"Write me a prep document for the IMO\" will surface all kinds of interesting things from the training set.",
+            "time": 1781272095
+          }
+        ]
+      },
+      {
+        "id": 48503995,
+        "by": "pfannl",
+        "text": "The real AGI test is apparently not solving the IMO, but getting caught in the same scoring traffic jam as 46 teenagers.",
+        "time": 1781271952,
+        "replies": []
+      },
+      {
+        "id": 48504570,
+        "by": "thierrydamiba",
+        "text": "Is the harness more valuable than the weights?",
+        "time": 1781274202,
+        "replies": []
+      },
+      {
+        "id": 48504772,
+        "by": "minimaxir",
+        "text": "not a good day to be named Max",
+        "time": 1781275116,
+        "replies": []
+      },
+      {
+        "id": 48504849,
+        "by": "korbonits",
+        "text": "Proves the need for more formal verification :)",
+        "time": 1781275492,
+        "replies": []
+      }
+    ]
+  },
+  {
+    "id": 48502321,
+    "title": "The Future of Email",
+    "url": "https://www.fastmail.com/blog/the-future-of-email/",
+    "by": "soheilpro",
+    "score": 134,
+    "descendants": null,
+    "time": 1781260711,
+    "comments": [
+      {
+        "id": 48502432,
+        "by": "sverhagen",
+        "text": "I find it hard to judge how much, if at all, this will help, but I'm all for email being more secure, to the point that organizations (banks, governments, insurance companies) stop creating walled-email alternatives: please log in to our secure message center, where you can only see our messages poorly formatted, and for a short time, until we permanently delete them . I like that my Inbox is a somewhat-searchable, historical record of my life, and these alternatives break that.",
+        "time": 1781261680,
+        "replies": [
+          {
+            "id": 48502523,
+            "by": "iLoveOncall",
+            "text": "> I'm all for email being more secure, to the point that organizations (banks, governments, insurance companies) stop creating walled-email alternatives This will literally never happen. Email doesn't support the features that those messaging platforms need to have, such as recalling messages. The security layers are also only on the sender part, not on the receiver part, which banks care a lot more about.",
+            "time": 1781262289
+          },
+          {
+            "id": 48502578,
+            "by": "LoganDark",
+            "text": "I love hearing that I received a \"secure message\", with no further detail. Straight to trash -- I don't read \"secure messages\". My inbox is probably more secure.",
+            "time": 1781262616
+          }
+        ]
+      },
+      {
+        "id": 48502438,
+        "by": "w3ll_w3ll_w3ll",
+        "text": "What's the point of the article?",
+        "time": 1781261704,
+        "replies": [
+          {
+            "id": 48502477,
+            "by": "pbhjpbhj",
+            "text": "I'd say \"advertise Fastmail\". They have an MCP end-point, they want to market to both AI proponents and critics -- that's about what I learnt from scanning the article.",
+            "time": 1781261958
+          },
+          {
+            "id": 48502480,
+            "by": "reddalo",
+            "text": "Yeah, it's just a simplified explanation of what SPF, DKIM and DMARC are. Nothing new.",
+            "time": 1781261971
+          }
+        ]
+      },
+      {
+        "id": 48502454,
+        "by": "zhouzhao",
+        "text": "Bit of a nothing burger. Big title, little content.",
+        "time": 1781261798,
+        "replies": [
+          {
+            "id": 48502605,
+            "by": "whh",
+            "text": "I was definitely expecting profound insights into the next decade of digital communication...",
+            "time": 1781262716
+          }
+        ]
+      },
+      {
+        "id": 48502478,
+        "by": "oakinnagbe",
+        "text": "We\u2019re basically outsourcing email judgment to AI, then trying to compensate by strengthening SPF/DKIM. That feels like hardening the locks while handing out more master keys.",
+        "time": 1781261964,
+        "replies": [
+          {
+            "id": 48503012,
+            "by": "cryo32",
+            "text": "I think there's several things going on at once in that space. This is just their vocalisation of it because it suits them. The thing is Fastmail can't speak with absolute authority about email because Fastmail is not email. It's subordinate to it.",
+            "time": 1781265587
+          }
+        ]
+      },
+      {
+        "id": 48502531,
+        "by": "itskokeh",
+        "text": "Emails are very important especially at this age of rapidly changing technological landscape. It's important that they're secure. Is it possible to have E2E encryption on emails?",
+        "time": 1781262341,
+        "replies": [
+          {
+            "id": 48502658,
+            "by": "vbezhenar",
+            "text": "Of course it is possible to have E2E encryption on emails. You can have E2E encryption on everything. Just use `age` and encrypt your message with sender public key. Easy.",
+            "time": 1781263088
+          },
+          {
+            "id": 48502702,
+            "by": "fooqux",
+            "text": "> Is it possible to have E2E encryption on emails? You literally have a proton email address on your profile.",
+            "time": 1781263377
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": 48497609,
+    "title": "If you are asking for human attention, demonstrate human effort",
+    "url": "https://tombedor.dev/human-attention-and-human-effort/",
+    "by": "jjfoooo4",
+    "score": 1171,
+    "descendants": null,
+    "time": 1781218915,
+    "comments": [
+      {
+        "id": 48497798,
+        "by": "sublinear",
+        "text": "I think the real problem is that AI quality falls short of the wild promises. Labeling what is \"AI\" would be like highlighting in an email what I'm obligated to say by HR, my boss, etc. It doesn't make anything less boneheaded. Human effort was already low before AI and now it's even lower. Garbage in, garbage out.",
+        "time": 1781220213,
+        "replies": [
+          {
+            "id": 48497868,
+            "by": "johnsmith1840",
+            "text": "AI having poor quality is a bad take like over a year ago.",
+            "time": 1781220758
+          },
+          {
+            "id": 48497875,
+            "by": "esikich",
+            "text": "I think this is because a lot of people think more is more. Wow look at all the detail and bullet points! No one on the receiving end actually wants that though. When I use AI to write, it's to boil it down to the minimum bits needed. I wish more people would use it that way.",
+            "time": 1781220801
+          }
+        ]
+      },
+      {
+        "id": 48497840,
+        "by": "sshine",
+        "text": "> when [sending AI generated content to teammates], I take care to clearly label what is AI generated Reading AI-generated text for hours every day, it's obvious to me. I take care to make my messages easily readable. I don't care if they're AI-made, as long as they're short. I'm a very verbose person, and if I don't make an effort at being concise, I'm just as annoying as the average AI. Being flooded with AI text every day has made me appreciate brevity because I'm exposed to so little of it. With half a dozen people who don't read or listen to half of what the others do, slop + cognitive drift is a bad cocktail. It's just not as big of a problem on my own projects, because the ideas that get fed to the slop-machine are not that different from one day to the next. --- > For human...",
+        "time": 1781220566,
+        "replies": [
+          {
+            "id": 48497939,
+            "by": "TFNA",
+            "text": "Brevity is the big disaster of human-generated text since the rise of the phone as default device and the appearance of Twitter. To discuss matters with sufficient depth and nuance, one often has to write a few solid paragraphs. If people are now wincing at longform text because they automatically assume it was LLM-generated, then that bodes ill.",
+            "time": 1781221377
+          }
+        ]
+      },
+      {
+        "id": 48497880,
+        "by": "solfox",
+        "text": "I'd say it's because we're tasking ourselves with dumb stuff. No one half-asses building a shelter that keeps their family alive, or throwing a new favorite bowl on the pottery wheel. But instead of that we're writing posts for Facebook etc etc so we can (???) profit. So of course we want bots to do this all this dumb stuff, and of course we get dumb results.",
+        "time": 1781220845,
+        "replies": [
+          {
+            "id": 48497901,
+            "by": "SchemaLoad",
+            "text": "We just need bots to read all these facebook posts and then we can put the phone down and go back to doing something real.",
+            "time": 1781220997
+          },
+          {
+            "id": 48497938,
+            "by": "edot",
+            "text": "For some things, yes. But I'm half-assing some really cool stuff right now. Made a scraper to pull my city's meeting minutes, agendas, recordings, made transcripts. Regex for \"Flock\", found every mention, passed those files into a cheap model (DeepSeek V4), had an understanding of who in my city is down with building the surveillance state and who isn't. I've got research on everyone, and had emails drafted for each one based on what they said. Quotes and figures and all. I lightly polished...",
+            "time": 1781221372
+          }
+        ]
+      },
+      {
+        "id": 48497895,
+        "by": "jubilanti",
+        "text": "s/demonstrate/perform/g Now you have to add typos and not use completely standard elements of style that some people have been using for ages, like emdashes and \"it's not X, it's Y\"",
+        "time": 1781220958,
+        "replies": []
+      },
+      {
+        "id": 48497900,
+        "by": "pevansgreenwood",
+        "text": "Was it Blaise Pascal who wrote: I have only made this letter longer because I have not had the time to make it shorter. The argument that \"using AI to generate text is disrespectful because it took no effort to write\" misses the point. Respect for the recipient is measured by whether the message serves the recipient's needs, not how it is produced. Similarly, any errors are the senders responsibility, and not the fault of the tools they used.",
+        "time": 1781220994,
+        "replies": [
+          {
+            "id": 48498035,
+            "by": "xp84",
+            "text": "I agree that the bottom line really ought to be usefulness; if it's useful and doesn't waste my time, it's fine if you received it by the use of seer stones for all I care. However, I don't blame anybody for having red lines like this: 1. Don't send me a big long string that is merely LLM output resulting from pasting a trivial prompt + text I already have access to (or my own words!). I know about Claude too, and if that's what I wanted I'd have done it myself. 2. Don't throw an...",
+            "time": 1781222069
+          },
+          {
+            "id": 48498375,
+            "by": "mapontosevenths",
+            "text": "Exactly. What I want is not effort. It is quality. The sweat of your brow is just gross salt water. Use whatever tool does the job, and own it if you use the wrong tool and it sucks.",
+            "time": 1781224618
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": 48498385,
+    "title": "Nobody ever gets credit for fixing problems that never happened (2001) [pdf]",
+    "url": "https://web.mit.edu/nelsonr/www/Repenning=Sterman_CMR_su01_.pdf",
+    "by": "sam_bristow",
+    "score": 613,
+    "descendants": null,
+    "time": 1781224691,
+    "comments": [
+      {
+        "id": 48498648,
+        "by": "lstodd",
+        "text": "> The combined expenditure of U.S. companies on management consul- tants and training in 1997 was over $100 billion erhm, if this figure is close to true i can see what market ai companies is after.",
+        "time": 1781227168,
+        "replies": [
+          {
+            "id": 48498757,
+            "by": "jacques_chester",
+            "text": "AI slots quite neatly into the capability trap model, actually. Which loop it belongs to in the model is left as an exercise for the reader.",
+            "time": 1781228091
+          }
+        ]
+      },
+      {
+        "id": 48498711,
+        "by": "Jtsummers",
+        "text": "Two significant prior discussions: https://news.ycombinator.com/item?id=8940820 - 24 Jan 2015, 50 comments https://news.ycombinator.com/item?id=39472693 - 22 Feb 2024, 434 comments",
+        "time": 1781227713,
+        "replies": []
+      },
+      {
+        "id": 48498729,
+        "by": "jacques_chester",
+        "text": "You'll see capability traps everywhere once you learn about them. Sterman, Repenning and other collaborators wrote several papers after this one. All fascinating and almost entirely depressing. Especially since MIT's Sloan school, where system dynamics first became a discipline, is just around the bend from Harvard Business school, where system dynamics first became ignored.",
+        "time": 1781227933,
+        "replies": [
+          {
+            "id": 48499169,
+            "by": "macrocosmos",
+            "text": "One thing I don't get about the concept of capability traps is why is it expected that a company which is good at one thing would be capable at the new thing? What exactly makes a capability trap a trap?",
+            "time": 1781231589
+          }
+        ]
+      },
+      {
+        "id": 48498779,
+        "by": "rmunn",
+        "text": "Article published in the Summer 2001 edition of California Management Review, yet it never mentioned Y2K, the first thing I thought of when I read the line \"fixing problems that never happened\". Perhaps it was actually written in 1999 and took a while to get published, because otherwise that seems a very strange omission. The Y2K problem was very much over-hyped by the American news media at the time (no, at no point would airplanes have been falling out of the sky \u2014 I literally heard someone say that would happen once \u2014 even if no effort had been put into fixing the bug). But in recent years I have seen people (elsewhere, not on HN) claim that Y2K was a big nothingburger, and all the money spent on fixing the bug was wasted. No, that's not true either. All the money spent on fixing...",
+        "time": 1781228251,
+        "replies": [
+          {
+            "id": 48498812,
+            "by": "armada651",
+            "text": "The problem is that a lot of people have a very binary view on life. Either something is a complete success or a complete waste of money, rarely do we accept that most projects fall somewhere in the middle.",
+            "time": 1781228544
+          },
+          {
+            "id": 48498854,
+            "by": "takinola",
+            "text": "My issue with this version of explaining the lack of severity of Y2K is that there were lots of countries that were being derided for not taking the issue seriously but did not seem to suffer any ill effects.",
+            "time": 1781228906
+          }
+        ]
+      },
+      {
+        "id": 48498827,
+        "by": "random3",
+        "text": "Like nobody gets credit for avoiding problems or unnecessary things/complexity altogether. In fact the opposite may happen.",
+        "time": 1781228680,
+        "replies": []
+      }
+    ]
+  },
+  {
+    "id": 48498573,
+    "title": "Claude Fable is relentlessly proactive",
+    "url": "https://simonwillison.net/2026/Jun/11/fable-is-relentlessly-proactive/",
+    "by": "lumpa",
+    "score": 624,
+    "descendants": null,
+    "time": 1781226411,
+    "comments": [
+      {
+        "id": 48498859,
+        "by": "paytonjjones",
+        "text": "Obviously security is the bigger issue, but reading through this, all I could think about was how many tokens it must have spent doing all that to fix 2 lines of CSS",
+        "time": 1781228934,
+        "replies": [
+          {
+            "id": 48498956,
+            "by": "senectus1",
+            "text": "\"Your scientists were so preoccupied with whether or not they could, they didn't stop to think if they should.\" I'm convinced this is going to be the summary of the 2020 decade...",
+            "time": 1781229694
+          },
+          {
+            "id": 48498964,
+            "by": "ai_fry_ur_brain",
+            "text": "Im faster than all these llm freaks. Im not convinced its faster to use llms, except maybe boilerplate (who cares). People can just be lazy and seem productive now, they're still lazy. We have people that now need access to hundreds of thousands in hardware to write an email. Miss me with that, im not frying my brain and becoming dependent on having access to a billionaires thinking machine. Im also not going to fry my brain with a local think for me machine either. I want to be more...",
+            "time": 1781229753
+          }
+        ]
+      },
+      {
+        "id": 48498888,
+        "by": "teraflop",
+        "text": "> But on the other hand... this is a robust reminder that coding agents can do anything you can do by typing commands into a terminal\u2014and frontier models know every trick in the book and evidently a few that nobody has ever written down before. > Running coding agents outside of a sandbox has always been a bad idea I'm continually bemused and astonished by the number of people who clearly acknowledge that it's reckless to give agents full access to your machine, and keep doing it anyway. It's like posting a video of yourself in the passenger seat of a car, with your feet up on the dashboard, and saying: \"Remember, if you're doing this and you get in a crash, the airbags are likely to break your legs or worse! Boy, I sure am glad that didn't happen to me!\"",
+        "time": 1781229153,
+        "replies": [
+          {
+            "id": 48498937,
+            "by": "hugh-avherald",
+            "text": "The analogy extends to driving generally. Everyone knows it's very dangerous but people keep doing it.",
+            "time": 1781229456
+          },
+          {
+            "id": 48498969,
+            "by": "bryanlarsen",
+            "text": "I'm also bemused by the number of people who think they've got an effective sandbox yet their sandboxed agent has access to all of their code, their github, and unrestricted web access.",
+            "time": 1781229788
+          }
+        ]
+      },
+      {
+        "id": 48498892,
+        "by": "megous",
+        "text": "Isn't that something you just open a devtools for and have fixed in like 2 minutes? For me, it got frustrated debugging on a real LPDDR4 controller/phy and having me in the loop slowing it down, so it wrote an HW emulator to be able to run the original LPDDR4 training aarch64 binary from the manufacturer, to see what register writes it was making and to compare with the opensource rewrite it was implementing. Mildly amusing. :)",
+        "time": 1781229178,
+        "replies": [
+          {
+            "id": 48499165,
+            "by": "bschwindHN",
+            "text": "> Isn't that something you just open a devtools for and have fixed in like 2 minutes? Not if you're an LLM influencer! Gotta keep up with the downpour of blog links or you'll look like you're falling behind on the latest and greatest.",
+            "time": 1781231548
+          },
+          {
+            "id": 48499431,
+            "by": "system2",
+            "text": "People burning tokens for the most beginner HTML/CSS problems and writing about it is concerning.",
+            "time": 1781233777
+          }
+        ]
+      },
+      {
+        "id": 48498922,
+        "by": "redox99",
+        "text": "Yeah, I had to modify my work flow to make sure agents can't push to or access prod in ANY way. I haven't had it happen but I'm sure it's very possible that if you tell an agent that you have certain issue in prod, it will try to escape any sandbox and try to get access to prod to do testing and changes there.",
+        "time": 1781229368,
+        "replies": []
+      },
+      {
+        "id": 48498932,
+        "by": "pram",
+        "text": "Fable + Ultracode has found a bunch of bugs and issues for me when the workflow agents are doing their exploration. Also the \"adversarial\" agent seems to surface a lot of interesting stuff. It's definitely proactive, the plan + implementation cycle can take an hour. It has one-shot features I want to add with 100% success. Having said that I wouldn't use it over Opus 4.8 for \"smaller\" things. With everything cranked up it's definitely an extravagant use of tokens.",
+        "time": 1781229429,
+        "replies": [
+          {
+            "id": 48505029,
+            "by": "rirze",
+            "text": "How did you even afford to use Fable + Ultracode ? I feel like the subscription (even the $200 one) is not enough for this workflow. Are you using API or a company plan?",
+            "time": 1781276257
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": 48500447,
+    "title": "AUR Packages Compromised with Infostealer and Rootkit",
+    "url": "https://discourse.ifin.network/t/400-aur-packages-compromised-with-infostealer-and-rootkit/577",
+    "by": "keyle",
+    "score": 158,
+    "descendants": null,
+    "time": 1781243979,
+    "comments": [
+      {
+        "id": 48502315,
+        "by": "UI_at_80x24",
+        "text": "Here's an easy script to scan for compromised packages: https://cscs.pastes.sh/aurvulntest20260611.sh Not my script. It's easy to read/parse. Never pipe a script directly to bash.",
+        "time": 1781260648,
+        "replies": [
+          {
+            "id": 48502384,
+            "by": "sva_",
+            "text": "It isn't guaranteed that the list is conclusive. Always check PKGBUILD and sources, AUR is not to be trusted for the most part. I'm actually more surprised that such compromise hasn't happened earlier.",
+            "time": 1781261263
+          },
+          {
+            "id": 48502743,
+            "by": "sph",
+            "text": "A quicker alternative: comm -1 -2 It's never a bad time to learn about comm(1).",
+            "time": 1781263671
+          }
+        ]
+      },
+      {
+        "id": 48502493,
+        "by": "lordleft",
+        "text": "This is especially gnarly as more people have been picking up arch distros as of late (like CachyOS).",
+        "time": 1781262080,
+        "replies": [
+          {
+            "id": 48502704,
+            "by": "scary-size",
+            "text": "Installed CachyOS to replace my Win 10 installation a month ago. Not looking back! But yeah this sucks, I've mostly used Ubuntu with apt in the past. Pacman and makepkg felt a bit weird to use in the beginning.",
+            "time": 1781263385
+          },
+          {
+            "id": 48503403,
+            "by": "nickjj",
+            "text": "On the bright side you can get quite far without the AUR. I have 1,135 packages installed. Only 3 top level packages are from the AUR and 2 of those 3 are from the same author, they just happened to split their packages into a client / server architecture.",
+            "time": 1781268118
+          }
+        ]
+      },
+      {
+        "id": 48502541,
+        "by": "keyle",
+        "text": "More news is coming out about this: https://www.phoronix.com/news/Arch-Linux-AUR-400-Compromised I toyed with the idea that someone should write a binary that simply emails, or alert you when it's been run... as a canary... and call that `npm`. At this point, not renaming the npm binary is a big risk.",
+        "time": 1781262396,
+        "replies": []
+      },
+      {
+        "id": 48502551,
+        "by": "nialv7",
+        "text": "third time this has happened: https://news.ycombinator.com/item?id=17501379 https://news.ycombinator.com/item?id=44607740",
+        "time": 1781262450,
+        "replies": []
+      },
+      {
+        "id": 48502693,
+        "by": "sph",
+        "text": "Be aware of false positives! I found I had two of these packages installed, clang19 and compiler-rt19, but due to my recent laziness in updating my system, mine were still the versions from July 2025 from the official repos before they had relegated them to AUR. You can check the build and install date with `pacman -Qi `. I run Arch Linux in a container (within Fedora Silverblue), but my plan for the future: - consider switching away from Arch Linux for my dev container, with great sadness. A rolling distro is a terrible idea in the current security climate. I loved using Arch for my dev container exactly because of AUR. - switch to Fedora Stable, perhaps the previous release which still gets security fixes but no other updates. I am still on Fedora 43, I guess I have no rush to update...",
+        "time": 1781263342,
+        "replies": [
+          {
+            "id": 48503165,
+            "by": "reedlaw",
+            "text": "I also had an affected package installed, fortunately it was from the official repo before it was dropped and became an AUR package.",
+            "time": 1781266570
+          },
+          {
+            "id": 48503304,
+            "by": "doubled112",
+            "text": "> Flatpak and Flathub terrify me I thought Flathub has a review and approval process. Does it fall short in some fundamental way? Any review process is more than the AUR and NPM are doing.",
+            "time": 1781267500
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": 48503717,
+    "title": "Hazel (YC W24) Is Hiring a Full Stack Engineer",
+    "url": "https://www.ycombinator.com/companies/hazel-2/jobs/3epPWgu-full-stack-engineer-ts-sci",
+    "by": "augustschen",
+    "score": null,
+    "descendants": null,
+    "time": 1781270058,
+    "comments": []
+  }
+]

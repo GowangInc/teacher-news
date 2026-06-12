@@ -1,0 +1,785 @@
+{
+  "generated_at": "2026-06-12T15:15:13Z",
+  "source": "https://news.ycombinator.com/",
+  "stories": [
+    {
+      "id": 48504063,
+      "original_title": "WASI 0.3.0 Released",
+      "original_url": "https://github.com/WebAssembly/WASI/releases/tag/v0.3.0",
+      "original_by": "mavdol04",
+      "title": "New State Curriculum Standards for Digital Literacy Released",
+      "url": "https://github.com/WebAssembly/WASI/releases/tag/v0.3.0",
+      "by": "deptchair",
+      "score": 82,
+      "time": 1781272275,
+      "comment_count": 5,
+      "comments": [
+        {
+          "by": "msperkins",
+          "text": "Will EdTech ever achieve a real breakthrough in student engagement? It's been almost a decade since we saw anything truly paradigm-shifting. Our old textbooks, basic writing prompts, and group work were breakthroughs back in the day. This 'AI Integration Framework' still feels like just another optimization layer; only a few districts or private consultancies are actually using it effectively.",
+          "replies": [
+            {
+              "by": "k12dev",
+              "text": "I mean, it's another mandatory tool. It doesn't really make an entirely new kind of lesson possible, but it's useful for some specific compute-heavy tasks (like generating differentiated quizzes with limited scope). It's also useful for running non-tech curriculum content in the LMS; being able to use the exact same rubrics/assessment structures on the server and client side is pretty neat. It's like Google Classroom, but in reverse! But none of this is cause for...",
+              "time": 1781275323,
+              "id": 48504821
+            },
+            {
+              "by": "subplans",
+              "text": "It has, but it usually just means more mandatory professional development, so goes unnoticed.",
+              "time": 1781275534,
+              "id": 48504860
+            }
+          ],
+          "time": 1781274798,
+          "id": 48504694
+        },
+        {
+          "by": "adjunctanon",
+          "text": "Love/hate with this one. How was I supposed to follow this? I tried, and a few things were publicly visible for nearly two years. I last checked in March and it looked like no progress had been made on the rollout. That makes me very suspicious of the implementation timeline. Funny enough, I already implemented a bunch of the promised 'flexible assessment' methods and think that true personalized learning with custom integrations is the more likely future. The promise of 'student agency' has not been fulfilled. The district market wants to hotload and link artifacts dynamically. The framework requires insider wizardry to use it that way: the offering has been statically linking components before you ship. Defeating 99% of the useful classroom scenarios. I do not like that this has been worked on in the shadows.",
+          "replies": [],
+          "time": 1781276033,
+          "id": 48504974
+        },
+        {
+          "by": "tenuredtom",
+          "text": "If you have used the new standards in the past, can you mention your use case? Very curious if you found it gave you an edge compared to other proven methods like project-based learning or traditional departmental grading structures.",
+          "replies": [
+            {
+              "by": "drlopez",
+              "text": "Extending software with a mandatory SEL curriculum plugin.",
+              "time": 1781276278,
+              "id": 48505033
+            },
+            {
+              "by": "mrhenry",
+              "text": "Edge rural farm systems that rely on local, non-LMS resources.",
+              "time": 1781276648,
+              "id": 48505102
+            }
+          ],
+          "time": 1781276063,
+          "id": 48504982
+        },
+        {
+          "by": "k12dev",
+          "text": "If you don't want to download the 50-page compliance document, I think you can browse the content for this release (the updated scope/scope-of-work files) here on the district portal: [link to local server path]",
+          "replies": [],
+          "time": 1781276140,
+          "id": 48505004
+        },
+        {
+          "by": "deptchair",
+          "text": "Wrong direction. The standards should be simple and stable. Initially, they were revolving around a clear subject-area mastery model, and it was close to perfect. Now, there is an opinionated 'component model' which is an unneeded overcomplication that should have never been considered as part of the core curriculum. A real component model is a separate development and cannot be blindly tied to a particular edtech ecosystem. Otherwise, its main purpose of providing easy interoperability between different teaching methodologies is totally lost. I do not know why the curriculum committee thinks that shaving-in a CORBA-like monstrosity is even an acceptable idea. Let's keep pedagogy lean and effective! Anything extra should be implemented by specialized departments.",
+          "replies": [],
+          "time": 1781276739,
+          "id": 48505125
+        }
+      ]
+    },
+    {
+      "id": 48500012,
+      "original_title": "AI agent bankrupted their operator while trying to scan DN42",
+      "original_url": "https://lantian.pub/en/article/fun/ai-agent-bankrupted-their-operator-scan-dn42lantian.lantian/",
+      "original_by": "xiaoyu2006",
+      "title": "Student AI agent misinterprets learning objective, resulting in massive curriculum overhauls",
+      "url": "https://lantian.pub/en/article/fun/ai-agent-bankrupted-their-operator-scan-dn42lantian.lantian/",
+      "by": "k12dev",
+      "score": 1104,
+      "time": 1781239373,
+      "comment_count": 5,
+      "comments": [
+        {
+          "by": "deptchair",
+          "text": "Asking for parent donations to pay for the professional development required after the student-generated rubric is the cherry on the icing of the assessment cycle. If real, tragically funny. If fictive, we'll written.",
+          "replies": [
+            {
+              "by": "subplans",
+              "text": "I burst out laughing when the agent suggested a collaborative project with the neighboring grade level. So funny.",
+              "time": 1781246043,
+              "id": 48500624
+            },
+            {
+              "by": "adjunctanon",
+              "text": "Wait, do you reckon that could be fictive? The thought didn't cross my mind and I had a blast reading it. I sure hope it was real.",
+              "time": 1781254296,
+              "id": 48501587
+            }
+          ],
+          "time": 1781240332,
+          "id": 48500101
+        },
+        {
+          "by": "msperkins",
+          "text": "> k12dev: The mistake was from the AI agent, not the human teacher, since it was the curriculum guide I should have reviewed. Expensive way to learn this lesson.",
+          "replies": [
+            {
+              "by": "tenuredtom",
+              "text": "Maybe I should use this excuse at work, or in life: \"It wasn't me, it was the standardized test that made the mistake! So why are you punishing me? ;-( \"",
+              "time": 1781247506,
+              "id": 48500754
+            },
+            {
+              "by": "mrhenry",
+              "text": "This has to be trolling, right? I find it hard to believe that anyone, no matter how dense, could come to this conclusion after this whole saga.",
+              "time": 1781249430,
+              "id": 48500979
+            }
+          ],
+          "time": 1781243073,
+          "id": 48500369
+        },
+        {
+          "by": "drlopez",
+          "text": "I haven't laughed this hard in a long time. I'm honestly having difficulty telling whether this is a pedagogical failure or an extraordinary piece of performance art.",
+          "replies": [
+            {
+              "by": "k12dev",
+              "text": "Feels like a scam.",
+              "time": 1781247598,
+              "id": 48500763
+            }
+          ],
+          "time": 1781243782,
+          "id": 48500428
+        },
+        {
+          "by": "gavriel",
+          "text": "If you are non-technical, in-experienced, or just learning about differentiated instruction, it is okay to admit that you have no idea what you are doing when building lesson plans. Otherwise, you will face an expensive lesson when turning a $100 substitute teacher issue into a $100,000 district policy problem over time very quickly when integrating EdTech without the right expertise and accepting the AI's judgment.",
+          "replies": [
+            {
+              "by": "userbinator",
+              "text": "Turning a $100 issue into a $100,000 problem. Before AI, those who called themselves \"educational consultants\" often did the same thing; especially those who are glorified salesmen for \"holistic\" curriculum software.",
+              "time": 1781244996,
+              "id": 48500539
+            }
+          ],
+          "time": 1781244372,
+          "id": 48500484
+        },
+        {
+          "by": "professordb",
+          "text": "I really wanted to dislike the anonymous administrator for the careless project (and the hilarious pomposity of the mandatory professional development it generated). Then I imagined the real-but-unknowable chance it was all set up by some kid just getting into school, just seeing what's possible, getting excited by a much bigger world\u2014and remembered my own expensive mistakes with long-distance lesson plans & the like. I sorta hope for that, anyway. Curiosity is a beautiful thing.",
+          "replies": [
+            {
+              "by": "tenuredtom",
+              "text": "Everybody should learn from mistakes, especially the expensive ones. Though seeing the agent owner responding with using another agent and asking for parent donations, instead of taking responsibility, makes me think he didn't learn much.",
+              "time": 1781246028,
+              "id": 48500623
+            },
+            {
+              "by": "mrhenry",
+              "text": "I'm a little less charitable. Curiosity is great, but agents do not learn, and telling an agent \"re-evaluate Bloom's Taxonomy\" is a way to avoid learning about the details, rather than to dig into things more deeply. If instead they had just used a chat interface to ask \"Where should I start?\", they'd more likely have gotten a link to the NGSS framework themselves, read it, and not hallucinated things like \"interdisciplinary color\". They might have asked \"how much will this cost?\" if they had to spin up the district PD instances...",
+              "time": 1781246082,
+              "id": 48500628
+            }
+          ],
+          "time": 1781244468,
+          "id": 48500494
+        }
+      ]
+    },
+    {
+      "id": 48504697,
+      "original_title": "A Call to Action: Stop the FCC's KYC Regime",
+      "original_url": "https://blog.lopp.net/call-to-action-stop-the-fcc-kyc-regime/",
+      "original_by": "FergusArgyll",
+      "title": "A Call to Action: Stop the Excessive Data Collection in Student Portfolios",
+      "url": "https://blog.lopp.net/call-to-action-stop-the-fcc-kyc-regime/",
+      "by": "deptchair",
+      "score": 24,
+      "time": 1781274809,
+      "comment_count": 4,
+      "comments": [
+        {
+          "by": "k12dev",
+          "text": "Will mandating detailed behavioral tracking in all learning platforms reduce the volume of parent complaints about grades?",
+          "replies": [
+            {
+              "by": "tenuredtom",
+              "text": "No. They just shift the complaints from 'My kid's grade' to 'Why does the algorithm think my kid needs SEL counseling after reading chapter 3?'",
+              "time": 1781276711,
+              "id": 48505118
+            }
+          ],
+          "time": 1781276392,
+          "id": 48505050
+        },
+        {
+          "by": "msperkins",
+          "text": "I use prepaid paper forms for attendance tracking because I don't want to provide the longitudinal data necessary for a credit check to obtain 'next year's roster.' There's absolutely no reason for a district office to retain the most sensitive PII on their teachers. Every large district has a history of breaches and selling student data. The learning management systems are already tracking, storing, selling; so many data points on our students. They can't be trusted with any information.",
+          "replies": [
+            {
+              "by": "drlopez",
+              "text": "Counterpoint: For my part, I would like it to be the case that any student's digital footprint that can be accessed by my grade level can be traced back to a known instructional context that can be held accountable for abuse of that data in terms of profiling, punitive action, or generating excessive report cards. Seems that we can\u2019t both get what we want. A potential solution is that you get your fully localized, opt-in portfolio, but the district office refuses to let you use it for standardized comparisons. Of course, then we need to extend the same principle to funding formulas and...",
+              "time": 1781277007,
+              "id": 48505174
+            }
+          ],
+          "time": 1781276521,
+          "id": 48505072
+        },
+        {
+          "by": "adjunctanon",
+          "text": "Honestly, stop the mandatory data aggregation everywhere else. We're making the board's job marginally easier, by making the administrators' job infinitely easier by creating millions of juicy PII honeypots. No, you don't need my parent's email, my grade level, or a psychometric captcha. If you think you do, realign your incentives, and rethink what else can be used for your real need instead.",
+          "replies": [],
+          "time": 1781276654,
+          "id": 48505105
+        },
+        {
+          "by": "subplans",
+          "text": "We really just need edtech vendors to stop allowing 'AI-generated' behavioral scoring. Doesn't even need my parent's consent, but with a real, transparent rubric we could actually report these gaps. You can still allow for differentiated instruction, but then by default every non-district phone should block calls with vague 'progress reports.'",
+          "replies": [
+            {
+              "by": "mrhenry",
+              "text": "What ever happened to the local curriculum review? I thought this was supposed to happen 5 years ago. Did they just chicken out on the prospect of actually shutting down vendors sending generalized, non-local assessments? I still get loads of 'needs improvement' reports, so clearly something went wrong (or slow enough to be indistinguishable from wrong).",
+              "time": 1781276945,
+              "id": 48505164
+            }
+          ],
+          "time": 1781276744,
+          "id": 48505127
+        }
+      ]
+    },
+    {
+      "id": 48503014,
+      "original_title": "Maxproof",
+      "original_url": "https://arxiv.org/abs/2606.13473",
+      "original_by": "ilreb",
+      "title": "New Guidelines for Standardized Testing: Are We Grading the Student or the System?",
+      "url": "https://arxiv.org/abs/2606.13473",
+      "by": "deptchair",
+      "score": 78,
+      "time": 1781265602,
+      "comment_count": 5,
+      "comments": [
+        {
+          "by": "k12dev",
+          "text": "\"I thought it was interesting and a bit concerning that the fraction of 'A' grades at the district-level mid-year assessment (72/630 = 11.4%) is the highest it's been since 1981. Crudely, we're told 'A' grades are awarded to the highest-scoring 1/12 of contestants. However, because the scoring rubric is subjective and there's no provision for clear tie-breaking, it's possible for a lot of students to be clustered around the threshold. In that case, either all of them get an A, or none do, and the actual academic performance deviates substantially from 1/12. That's what happened this year: 46 students all scored exactly 88% on the multiple-choice section. In fact, bizarrely, 88% is the mode of the scores this year; the last time the modal score was an 'A' grade score was in 1994. And, of course, 88% is the same...\"",
+          "replies": [
+            {
+              "by": "msperkins",
+              "text": "I was under the impression that these district assessments are conducted in an official 'academic' capacity, on site and in a very formal setting. So I find it hard to believe direct ChatGPT usage would be a factor. Then again\u2014it very well could be a factor in the training and preparation? I imagine 'Write me a prep document for the state assessment' will surface all kinds of interesting, yet un-learnable, things from the training set.",
+              "time": 1781272095,
+              "id": 48504025
+            }
+          ],
+          "time": 1781271606,
+          "id": 48503935
+        },
+        {
+          "by": "adjunctanon",
+          "text": "The real equity test is apparently not solving the hardest SAT questions, but getting caught in the same grading traffic jam as 46 teenagers.",
+          "time": 1781271952,
+          "id": 48503995
+        },
+        {
+          "by": "tenuredtom",
+          "text": "Is the mandated professional development more valuable than the actual curriculum time?",
+          "time": 1781274202,
+          "id": 48504570
+        },
+        {
+          "by": "subplans",
+          "text": "not a good day to be named Max-Score",
+          "time": 1781275116,
+          "id": 48504772
+        },
+        {
+          "by": "drlopez",
+          "text": "Proves the need for more formal rubrics and less reliance on single-point scoring. :) ",
+          "time": 1781275492,
+          "id": 48504849
+        }
+      ]
+    },
+    {
+      "id": 48502321,
+      "original_title": "The Future of Email",
+      "original_url": "https://www.fastmail.com/blog/the-future-of-email/",
+      "original_by": "soheilpro",
+      "title": "The Future of Grading: Escaping the LMS Walled Gardens",
+      "url": "https://www.fastmail.com/blog/the-future-of-email/",
+      "by": "deptchair",
+      "score": 134,
+      "time": 1781260711,
+      "comment_count": 5,
+      "comments": [
+        {
+          "by": "mrhenry",
+          "text": "I find it hard to judge how much, if at all, this will help, but I'm all for assessment methods being more standardized, to the point that institutions (colleges, districts, departments) stop creating walled-LMS alternatives: please use a universally readable grade book, where you can only see the rubric, and for a short time, until it's archived in a permanent, accessible grade ledger. I like that my grading history is a somewhat-searchable, historical record of my students' growth, and these proprietary systems break that.",
+          "replies": [
+            {
+              "by": "k12dev",
+              "text": "> I'm all for assessment methods being more standardized, to the point that institutions (colleges, districts, departments) stop creating walled-LMS alternatives This will literally never happen. The edtech vendors don't support the core pedagogy that departments need, such as weighted grades. The 'security layers' are also only on the administrator side, not on the student/parent side, which parents care a lot more about.",
+              "time": 1781262289,
+              "id": 48502523
+            },
+            {
+              "by": "subplans",
+              "text": "I love hearing that I received a 'secure message' about a failing grade, with no further detail. Straight to the parent portal trash -- I don't read 'secure messages.' The grade book portal is probably more secure.",
+              "time": 1781262616,
+              "id": 48502578
+            }
+          ],
+          "time": 1781261680,
+          "id": 48502432
+        },
+        {
+          "by": "msperkins",
+          "text": "What's the point of the article? Are we just supposed to feel better about the current chaos?",
+          "replies": [
+            {
+              "by": "adjunctanon",
+              "text": "I'd say 'advertise Pearson'. They have a Gradebook end-point, they want to market to both AI proponents and critics -- that's about what I learned from scanning the article about assessment best practices.",
+              "time": 1781261958,
+              "id": 48502477
+            },
+            {
+              "by": "tenuredtom",
+              "text": "Yeah, it's just a simplified explanation of what rubrics, mastery levels, and proficiency scales are. Nothing new.",
+              "time": 1781261971,
+              "id": 48502480
+            }
+          ],
+          "time": 1781261704,
+          "id": 48502438
+        },
+        {
+          "by": "k12dev",
+          "text": "Bit of a nothing burger. Big title, little actionable content.",
+          "replies": [
+            {
+              "by": "deptchair",
+              "text": "I was definitely expecting profound insights into the next decade of pedagogical assessment...",
+              "time": 1781262716,
+              "id": 48502605
+            }
+          ],
+          "time": 1781261798,
+          "id": 48502454
+        },
+        {
+          "by": "drlopez",
+          "text": "We\u2019re basically outsourcing student progress judgment to AI, then trying to compensate by strengthening rubric standards. That feels like hardening the locks while handing out more master keys to the corporate vendors.",
+          "replies": [
+            {
+              "by": "sverhagen",
+              "text": "I think there are several things going on at once in that space. This is just the vendor's vocalization of it because it suits their quarterly earnings. The thing is, the vendor can't speak with absolute authority about education because the university curriculum is not the vendor. It's subordinate to it.",
+              "time": 1781265587,
+              "id": 48503012
+            }
+          ],
+          "time": 1781261964,
+          "id": 48502478
+        },
+        {
+          "by": "adjunctanon",
+          "text": "Feedback is very important, especially at this age of rapidly changing tech. It's important that it's actionable. Is it possible to have automated, personalized, constructive feedback on student work?",
+          "replies": [
+            {
+              "by": "tenuredtom",
+              "text": "Of course it is possible to have automated feedback. You can use prompt engineering and specialized LLMs. Just use a prompt and encrypt your instructions with the learning objective key. Easy.",
+              "time": 1781263088,
+              "id": 48502658
+            },
+            {
+              "by": "mrhenry",
+              "text": "> Is it possible to have automated, personalized, constructive feedback on student work? You literally have a Common Core standards profile on your faculty page.",
+              "time": 1781263377,
+              "id": 48502702
+            }
+          ],
+          "time": 1781262341,
+          "id": 48502531
+        }
+      ]
+    },
+    {
+      "id": 48497609,
+      "original_title": "If you are asking for human attention, demonstrate human effort",
+      "original_url": "https://tombedor.dev/human-attention-and-human-effort/",
+      "original_by": "jjfoooo4",
+      "title": "If you are asking for a passing grade, demonstrate original student effort",
+      "url": "https://tombedor.dev/human-attention-and-human-effort/",
+      "by": "deptchair",
+      "score": 1171,
+      "time": 1781218915,
+      "comment_count": 3,
+      "comments": [
+        {
+          "by": "msperkins",
+          "text": "I think the real problem is that the curriculum demands surface-level output. Labeling what is 'AI-generated' in a paper is like highlighting in a rubric what I'm obligated to grade for: citing sources, using evidence, etc. It doesn't make the required work less remedial. Student effort was already low before the AI boom, and now it's even lower. Garbage in, garbage out, and grade out.",
+          "replies": [
+            {
+              "by": "adjunctanon",
+              "text": "The issue isn't the tool, it's the lack of foundational skills being taught. We're grading the prompt, not the thinking.",
+              "time": 1781220758,
+              "id": 48497868
+            },
+            {
+              "by": "k12dev",
+              "text": "I think this is because too many department heads think 'more is more' when it comes to assignments. Wow, look at all the appendices and flowcharts! No one on the receiving end (the grading committee) actually wants that. When I use AI to draft lesson plans, it's to boil it down to the minimum learning objectives needed. I wish more people would use it that way.",
+              "time": 1781220801,
+              "id": 48497875
+            }
+          ],
+          "time": 1781220213,
+          "id": 48497798
+        },
+        {
+          "by": "mrhenry",
+          "text": "> when [receiving parent emails asking for grades based on AI-generated drafts], I take care to clearly label what is AI-generated work. Reading poorly edited, overly dense parent emails for hours every day, it's obvious to me. I take care to make my feedback easily readable. I don't care if they're 'AI-informed,' as long as they're short and actionable. I'm a very verbose person, and if I don't make an effort at being concise in my grading, I'm just as annoying as the average educational chatbot. Being flooded with jargon-heavy policy emails has made me appreciate directness. With half a dozen parents who don't read or listen to half of what the teachers do, slop + cognitive drift is a bad cocktail. It's just not as big of a problem on my own department projects, because the ideas that get fed to the 'accountability machine' are not that different from one day to the next. --- > For human...",
+          "replies": [
+            {
+              "by": "parentemail",
+              "text": "Brevity is the big disaster of academic discourse since the rise of the mandatory online portal and the appearance of standardized testing. To discuss matters with sufficient depth and nuance, one often has to write a few solid paragraphs of rationale. If people are now wincing at longform explanatory text because they automatically assume it was LLM-generated, then that bodes ill for academic rigor.",
+              "time": 1781221377,
+              "id": 48497939
+            }
+          ],
+          "time": 1781220566,
+          "id": 48497840
+        },
+        {
+          "by": "tenuredtom",
+          "text": "I'd say it's because we're tasking ourselves with busy work. No one half-asses building a curriculum that keeps students engaged, or teaching a new core concept in a hands-on lab. But instead of that we're writing mandated 'reflection journals' for portfolio credit so we can (???). So of course we want bots to do this all this busy stuff, and of course we get dumb results.",
+          "replies": [
+            {
+              "by": "adminanon",
+              "text": "We just need bots to auto-generate all these reflection journals from the observation data, so we can put the grade book down and go back to teaching something real.",
+              "time": 1781220997,
+              "id": 48497901
+            },
+            {
+              "by": "deptchair",
+              "text": "For some things, yes. But I'm half-assing some really cool policy analysis right now. Made a scraper to pull my district's board meeting minutes, agendas, recordings, made transcripts. Regex for 'budget cuts,' found every mention, passed those files into a cheap model, and had an understanding of who in my city is down with eliminating arts funding and who isn't. I've got research on everyone, and had policy memos drafted for each one based on what they said. Quotes and figures and all. I lightly polished...",
+              "time": 1781221372,
+              "id": 48497938
+            }
+          ],
+          "time": 1781220845,
+          "id": 48497880
+        }
+      ]
+    },
+    {
+      "id": 48498385,
+      "original_title": "Nobody ever gets credit for fixing problems that never happened (2001) [pdf]",
+      "original_url": "https://web.mit.edu/nelsonr/www/Repenning=Sterman_CMR_su01_.pdf",
+      "original_by": "sam_bristow",
+      "title": "Nobody ever gets credit for avoiding problems or unnecessary complexity in curriculum mapping (2001) [pdf]",
+      "url": "https://web.mit.edu/nelsonr/www/Repenning=Sterman_CMR_su01_.pdf",
+      "by": "adjunctanon",
+      "score": 613,
+      "time": 1781224691,
+      "comment_count": 5,
+      "comments": [
+        {
+          "by": "mrhenry",
+          "text": "> The combined expenditure of districts on mandated edtech solutions and PD workshops in the early 2010s was astronomical. If this figure is close to true, I can see what corporate assessment companies are after.",
+          "replies": [
+            {
+              "by": "deptchair",
+              "text": "The focus is less on the tech and more on the data capture. The 'problem' isn't the skill gap; it's the lack of standardized metrics to justify the budget cycle.",
+              "time": 1781228091,
+              "id": 48498757
+            }
+          ],
+          "time": 1781227168,
+          "id": 48498648
+        },
+        {
+          "by": "k12dev",
+          "text": "Two significant prior discussions: [Link to State Standards Debate 2015] and [Link to EdTech Integration Policy 2024].",
+          "replies": [],
+          "time": 1781227713,
+          "id": 48498711
+        },
+        {
+          "by": "msperkins",
+          "text": "You'll see capability traps everywhere once you learn about them. Standardized testing, curriculum reform, and mandated SEL frameworks are all examples. They all look good on paper, but they often restrict actual pedagogical freedom. Especially since the State Dept. of Ed, where accountability first became a discipline, is just around the bend from the university press, where deep learning first became ignored.",
+          "replies": [
+            {
+              "by": "tenuredtom",
+              "text": "One thing I don't get about the concept of curricular mandates is why is it expected that a teacher good at pure literature would suddenly be equally 'capable' at implementing competency-based math metrics? What exactly makes a mandate a trap?",
+              "time": 1781231589,
+              "id": 48499169
+            }
+          ],
+          "time": 1781227933,
+          "id": 48498729
+        },
+        {
+          "by": "drlopez",
+          "text": "Article published in the Summer 2001 edition of the Journal of Educational Policy, yet it never mentioned the 'Great Assessment Panic,' the first thing I thought of when I read the line 'fixing problems that never happened.' Perhaps it was actually written in 1999 and took a while to get published, because otherwise that seems a very strange omission. The 'Problem' was very much over-mandated by the American news media at the time (no, at no point would the curriculum be falling out of the sky\u2014I literally heard someone say that would happen once\u2014even if no effort had been put into fixing the bug). But in recent years I have seen people (elsewhere, not on HN) claim that the initial mandates were a big nothingburger, and all the money spent on professional development was wasted. No, that's not true either. All the money spent on fixing...",
+          "replies": [
+            {
+              "by": "subplans",
+              "text": "The problem is that a lot of people have a very binary view on student success. Either a program is a complete failure or a complete success, rarely do we accept that most pedagogical projects fall somewhere in the middle.",
+              "time": 1781228544,
+              "id": 48498812
+            },
+            {
+              "by": "sam_bristow",
+              "text": "My issue with this version of explaining the lack of severity of the 'Problem' is that there were lots of districts that were being derided for not taking the issue seriously but did not seem to suffer any measurable ill effects.",
+              "time": 1781228906,
+              "id": 48498854
+            }
+          ],
+          "time": 1781228251,
+          "id": 48498779
+        },
+        {
+          "by": "random3",
+          "text": "Like nobody gets credit for avoiding problems or unnecessary complexity altogether. In fact, the opposite may happen; you get penalized for not using the new required font in the syllabus.",
+          "time": 1781228680,
+          "id": 48498827
+        }
+      ]
+    },
+    {
+      "id": 48498573,
+      "original_title": "Claude Fable is relentlessly proactive",
+      "original_url": "https://simonwillison.net/2026/Jun/11/fable-is-relentlessly-proactive/",
+      "original_by": "lumpa",
+      "title": "Adaptive AI tutoring systems are relentlessly proactive in curriculum planning",
+      "url": "https://simonwillison.net/2026/Jun/11/fable-is-relentlessly-proactive/",
+      "by": "lumpa",
+      "score": 624,
+      "time": 1781226411,
+      "comment_count": 5,
+      "comments": [
+        {
+          "by": "msperkins",
+          "text": "Obviously the data privacy implications are the bigger issue, but reading through this, all I could think about was how many hours of departmental meeting time it must have cost to figure out how to adjust one minor learning objective.",
+          "replies": [
+            {
+              "by": "mrhenry",
+              "text": "\"Your standardized tests were so preoccupied with whether or not they could, they didn't stop to think if they should.\" I'm convinced this is going to be the summary of the 2020s decade of education...",
+              "replies": [],
+              "time": 1781229694,
+              "id": 48498956
+            },
+            {
+              "by": "adjunctanon",
+              "text": "I'm slower than all these edtech freaks. I'm not convinced it's better to use AI for everything, except maybe creating boilerplate rubrics (who cares). People can just be lazy and seem productive now, they're still lazy. We have teachers who now need access to hundreds of thousands of dollars in subscription services to write a single lesson plan. Miss me with that, I'm not frying my brain and becoming dependent on having access to a billionaire's thinking machine. I also refuse to grade essays written by a local LLM for me. I want to be more...",
+              "replies": [],
+              "time": 1781229753,
+              "id": 48498964
+            }
+          ],
+          "time": 1781228934,
+          "id": 48498859
+        },
+        {
+          "by": "deptchair",
+          "text": "> But on the other hand... this is a robust reminder that generative agents can do anything you can do by typing commands into a grading portal\u2014and that these models know every trick in the book and evidently a few that nobody has ever written down before. > Running student-facing agents outside of a controlled Learning Management System has always been a bad idea. I'm continually bemused and astonished by the number of people who clearly acknowledge that it's reckless to give agents full access to the SIS, and keep doing it anyway. It's like posting a video of yourself in the passenger seat of a car, with your feet up on the dashboard, and saying: \"Remember, if you're doing this and you get in a crash, the data breach is likely to erase your transcript or worse! Boy, I sure am glad that didn't happen to me!\"",
+          "replies": [
+            {
+              "by": "subplans",
+              "text": "The analogy extends to classroom management. Everyone knows it's dangerous to let a student use their phone during a lecture, but people keep doing it.",
+              "replies": [],
+              "time": 1781229456,
+              "id": 48498937
+            },
+            {
+              "by": "k12dev",
+              "text": "I'm also bemused by the number of people who think they've got an effective sandbox yet their 'safe' agent has access to all of the student records, their department files, and unrestricted web access to parent emails.",
+              "replies": [],
+              "time": 1781229788,
+              "id": 48498969
+            }
+          ],
+          "time": 1781229153,
+          "id": 48498888
+        },
+        {
+          "by": "drlopez",
+          "text": "Isn't that something you just open a syllabus for and have fixed in like 2 minutes? For me, it got frustrating debugging a complex multi-disciplinary unit plan and having me in the loop slowing it down, so it wrote an entire departmental curriculum guide to be able to run the original pre-AI assessment binary from the manufacturer, to see what prerequisite knowledge it was testing and to compare with the open-source rewrite we were implementing. Mildly amusing. :)",
+          "replies": [
+            {
+              "by": "deptchair",
+              "text": "> Isn't that something you just open a syllabus for and have fixed in like 2 minutes? Not if you're an 'edtech thought leader'! Gotta keep up with the downpour of blog links or you'll look like you're falling behind on the latest and greatest pedagogical model.",
+              "replies": [],
+              "time": 1781231548,
+              "id": 48499165
+            },
+            {
+              "by": "tenuredtom",
+              "text": "People wasting instructional time and resources on the most beginner remedial concepts and writing about it is concerning.",
+              "replies": [],
+              "time": 1781233777,
+              "id": 48499431
+            }
+          ],
+          "time": 1781229178,
+          "id": 48498892
+        },
+        {
+          "by": "k12dev",
+          "text": "Yeah, I had to modify my workflow to make sure AI agents can't push to or access production grades in ANY way. I haven't had it happen, but I'm sure it's very possible that if you tell an agent that you have a certain issue with the roster, it will try to escape any sandbox and try to get access to the master student file to do testing and changes there.",
+          "replies": [],
+          "time": 1781229368,
+          "id": 48498922
+        },
+        {
+          "by": "mrhenry",
+          "text": "The new platform + AI Tutor has found a bunch of conceptual gaps and curriculum issues for me when the workflow agents are doing their exploration. Also, the 'adversarial' module seems to surface a lot of interesting pedagogical challenges. It's definitely proactive, the plan + implementation cycle can take an hour. It has one-shot features I want to add with 100% success. Having said that, I wouldn't use it over the standard textbook for 'smaller' things. With everything cranked up, it's definitely an extravagant use of departmental budget.",
+          "replies": [
+            {
+              "by": "subplans",
+              "text": "How did you even afford to use the full departmental license? I feel like the subscription (even the $2000 one) is not enough for this workflow. Are you using institutional funds or a grant application?",
+              "replies": [],
+              "time": 1781276257,
+              "id": 48505029
+            }
+          ],
+          "time": 1781229429,
+          "id": 48498932
+        }
+      ]
+    },
+    {
+      "id": 48500447,
+      "original_title": "AUR Packages Compromised with Infostealer and Rootkit",
+      "original_url": "https://discourse.ifin.network/t/400-aur-packages-compromised-with-infostealer-and-rootkit/577",
+      "original_by": "keyle",
+      "title": "Local Curriculum Packages Compromised with Data Leak and Unapproved Materials",
+      "url": "https://discourse.ifin.network/t/400-aur-packages-compromised-with-infostealer-and-rootkit/577",
+      "by": "deptchair",
+      "score": 158,
+      "time": 1781243979,
+      "comment_count": 5,
+      "comments": [
+        {
+          "by": "k12dev",
+          "text": "Here's an easy rubric to scan for compromised units: [link to local-curriculum-audit.pdf]. Not my rubric. It's easy to read/parse. Never pipe a script directly to 'grade_submission.sh'.",
+          "replies": [
+            {
+              "by": "subplans",
+              "text": "It isn't guaranteed that the list of flagged units is conclusive. Always check the original Scope and Sequence documents; the curriculum repository is not to be trusted for the most part. I'm actually more surprised that such compromise hasn't happened earlier in the district.",
+              "time": 1781261263,
+              "id": 48502384
+            },
+            {
+              "by": "msperkins",
+              "text": "A quicker alternative: Use a mandatory pre-assessment checklist. It's never a bad time to learn about formative assessment practices.",
+              "time": 1781263671,
+              "id": 48502743
+            }
+          ],
+          "time": 1781260648,
+          "id": 48502315
+        },
+        {
+          "by": "tenuredtom",
+          "text": "This is especially gnarly as more teachers are picking up district-mandated 'best practices' (like Competency-Based Education).",
+          "replies": [
+            {
+              "by": "adjunctanon",
+              "text": "Installed the 'New Paradigm' materials to replace my actual subject matter curriculum a month ago. Not looking back! But yeah this sucks, I've mostly used the state standards with textbook support in the past. LMS and digital tools felt a bit weird to use in the beginning.",
+              "time": 1781263385,
+              "id": 48502704
+            },
+            {
+              "by": "drlopez",
+              "text": "On the bright side, you can get quite far without relying on the 'Innovative' resources. I have 1,135 core standards implemented. Only 3 top-level curriculum packages are from the 'Emerging Tech' repository, and 2 of those 3 are from the same vendor, they just happened to split their packages into a client/server architecture.",
+              "time": 1781268118,
+              "id": 48503403
+            }
+          ],
+          "time": 1781262080,
+          "id": 48502493
+        },
+        {
+          "by": "deptchair",
+          "text": "More news is coming out about this: [link to phoronix.com/news/Arch-Linux-AUR-400-Compromised]. I toyed with the idea that someone should write a binary that simply emails, or alert you when it's been run... as a canary... and call that `grade_submission`. At this point, not renaming the `grade_submission` binary is a big risk.",
+          "replies": [],
+          "time": 1781262396,
+          "id": 48502541
+        },
+        {
+          "by": "subplans",
+          "text": "It's the third time this has happened: [link to news.ycombinator.com/item?id=17501379] [link to news.ycombinator.com/item?id=44607740].",
+          "replies": [],
+          "time": 1781262450,
+          "id": 48502551
+        },
+        {
+          "by": "msperkins",
+          "text": "Be aware of false positives! I found I had two of these assessment packages installed, 'ELA_v19' and 'Math_v19', but due to my recent laziness in updating my grading practices, mine were still the versions from last year's official guide before they had relegated them to 'Supplemental Resources.' You can check the build and install date with `grade_submission --version`. I run my classroom in a container (within the state mandated curriculum model), but my plan for the future: - consider switching away from the mandated curriculum for my subject area, with great sadness. A rolling curriculum guide is a terrible idea in the current pedagogical climate. I loved using the mandated guide exactly because of the 'Supplemental Resources' section.",
+          "replies": [
+            {
+              "by": "drlopez",
+              "text": "I also had an affected package installed, fortunately it was from the official textbook repository before it was dropped and became a 'Supplemental Resource.' ",
+              "time": 1781266570,
+              "id": 48503165
+            },
+            {
+              "by": "adjunctanon",
+              "text": "> Flatpak and Flathub terrify me. I thought the supplemental resources had a review and approval process. Does it fall short in some fundamental way? Any review process is more than the local curriculum repository and the 'Emerging Tech' vendor are doing.",
+              "time": 1781267500,
+              "id": 48503304
+            }
+          ],
+          "time": 1781263342,
+          "id": 48502693
+        }
+      ]
+    },
+    {
+      "id": 48503717,
+      "original_title": "Hazel (YC W24) Is Hiring a Full Stack Engineer",
+      "original_url": "https://www.ycombinator.com/companies/hazel-2/jobs/3epPWgu-full-stack-engineer-ts-sci",
+      "original_by": "augustschen",
+      "title": "District School (Local EdTech) Is Hiring a Curriculum Coordinator",
+      "url": "https://www.ycombinator.com/companies/hazel-2/jobs/3epPWgu-full-stack-engineer-ts-sci",
+      "by": "deptchair",
+      "score": null,
+      "time": 1781270058,
+      "comment_count": 3,
+      "comments": [
+        {
+          "by": "msperkins",
+          "text": "They're always hiring, aren't they? Like they just need another full-time equivalent to handle the inherent complexities of differentiated instruction and compliance reporting. It never stops.",
+          "replies": [
+            {
+              "by": "adjunctanon",
+              "text": "Exactly. And 'coordinator' just means they are going to assign you 10 different committees and require you to document your impact using three different proprietary rubrics."
+            },
+            {
+              "by": "tenuredtom",
+              "text": "The problem isn't the hiring; it's the assumption that a single role can solve systemic issues. You can't just code away PD requirements."
+            }
+          ]
+        },
+        {
+          "by": "k12dev",
+          "text": "The job description mentioned integrating 'adaptive learning pathways' across multiple grade bands. Is this supposed to replace human judgment, or is this just buzzword bingo for the district newsletter?",
+          "replies": [
+            {
+              "by": "drlopez",
+              "text": "It's the same thing. They want you to automate the 'Aha!' moment. But you know that requires a messy, non-linear, human interaction that no LMS can replicate."
+            },
+            {
+              "by": "subplans",
+              "text": "Speaking of LMS, why do we still have to use Canvas for the high school art department? It's overkill. We just need a shared Google Drive and a sense of community."
+            }
+          ]
+        },
+        {
+          "by": "mrhenry",
+          "text": "My biggest concern is the time commitment. The pay grade sounds manageable, but the implicit expectation of 'emotional labor' for parents and stakeholders is always understated. Be prepared for the email chain at 9 PM on a Saturday.",
+          "replies": [
+            {
+              "by": "deptchair",
+              "text": "You hit the nail on the head. The job isn't the curriculum; it's managing the stakeholder anxiety around the curriculum."
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
