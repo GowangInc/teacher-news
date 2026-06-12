@@ -51,6 +51,19 @@ export OPENAI_MODEL="gpt-4o-mini"
 python3 generate.py
 ```
 
+#### Using DeepSeek
+
+`generate.py` works with any OpenAI-compatible endpoint. For DeepSeek:
+
+```bash
+export OPENAI_API_KEY="sk-..."      # your DeepSeek key
+export OPENAI_BASE_URL="https://api.deepseek.com/v1"
+export OPENAI_MODEL="deepseek-chat" # or deepseek-reasoner, etc.
+python3 generate.py
+```
+
+If `OPENAI_MODEL` is omitted and the base URL contains `deepseek`, the script defaults to `deepseek-chat`.
+
 ### Configuration
 
 | Variable | Default | Description |
@@ -84,6 +97,15 @@ The workflow runs every 3 hours. If you add an `OPENAI_API_KEY` repository secre
 - regenerate `data.json` and `teacher_news.db`
 - commit them back to the repo with `[skip ci]`
 - deploy the updated site
+
+For **DeepSeek**, set these in **Settings → Secrets and variables → Actions**:
+
+- Repository secret: `OPENAI_API_KEY` = your DeepSeek API key
+- Repository variable: `OPENAI_BASE_URL` = `https://api.deepseek.com/v1`
+- Repository variable: `OPENAI_MODEL` = `deepseek-chat` (or another DeepSeek model)
+- Repository variable: `BATCH_SIZE` = `25` (DeepSeek is faster, so larger batches are fine)
+
+The API key is used only inside GitHub Actions; it is never sent to the browser or included in the static site.
 
 If no API key is configured, the workflow redeploys the committed `data.json` and database.
 

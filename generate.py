@@ -169,11 +169,18 @@ def _call_ollama(prompt: str) -> str:
 
 def _call_openai(prompt: str) -> str:
     headers = {"Authorization": f"Bearer {OPENAI_API_KEY}"}
+    # Sensible defaults for common OpenAI-compatible providers.
+    model = os.environ.get("OPENAI_MODEL")
+    if not model:
+        if "deepseek" in OPENAI_BASE_URL.lower():
+            model = "deepseek-chat"
+        else:
+            model = "gpt-4o-mini"
     resp = requests.post(
         f"{OPENAI_BASE_URL}/chat/completions",
         headers=headers,
         json={
-            "model": os.environ.get("OPENAI_MODEL", "gpt-4o-mini"),
+            "model": model,
             "messages": [
                 {
                     "role": "system",
