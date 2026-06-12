@@ -103,10 +103,20 @@ def hn_get(path: str, timeout: int = 30) -> Any:
     raise last_err
 
 
-def fetch_story_ids(n: int = TOP_N) -> List[int]:
-    """Fetch top story IDs from the HN front page."""
-    ids = hn_get("topstories") or []
-    return ids[:n]
+def fetch_story_ids(n: int = TOP_N, max_age_hours: int = MAX_AGE_HOURS) -> List[int]:
+    """Fetch top story IDs from the last N hours via Algolia, ranked by points."""
+    cutoff = int(time.time()) - max_age_hours * 3600
+    params = {
+        "tags": "story",
+        "numericFilters": f"created_at_i>{cutoff}",
+        "hitsPerPage": n,
+    }
+    resp = requests.get(
+        "https://hn.algolia.com/api/v1/search", params=params, timeout=30
+    )
+    resp.raise_for_status()
+    data = resp.json()
+    return [int(hit["objectID"]) for hit in data.get("hits", [])[:n]]
 
 
 def build_comment_tree(item_id: int, depth: int = 0) -> Dict[str, Any]:
@@ -139,7 +149,7 @@ def build_comment_tree(item_id: int, depth: int = 0) -> Dict[str, Any]:
 
 def fetch_top_stories(n: int = TOP_N) -> List[Dict[str, Any]]:
     """Fetch story metadata and recursively collect comments."""
-    ids = fetch_story_ids(n)
+    ids = fetch_story_ids(n, MAX_AGE_HOURS)
     stories = []
     for story_id in ids:
         data = hn_get(f"item/{story_id}")
