@@ -7,9 +7,6 @@ on:
   schedule:
     - cron: '0 */3 * * *'
 
-env:
-  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
-
 permissions:
   contents: write
   pages: write
@@ -25,6 +22,9 @@ jobs:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
     runs-on: ubuntu-latest
+    env:
+      FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
+      HAS_API_KEY: ${{ secrets.OPENAI_API_KEY != '' }}
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -38,7 +38,7 @@ jobs:
         run: pip install requests
 
       - name: Generate fresh parody data
-        if: secrets.OPENAI_API_KEY != '' && !contains(github.event.head_commit.message, '[local-update]')
+        if: env.HAS_API_KEY == 'true' && !contains(github.event.head_commit.message, '[local-update]')
         env:
           OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
           OPENAI_MODEL: ${{ vars.OPENAI_MODEL }}
@@ -52,7 +52,7 @@ jobs:
         run: python3 generate.py
 
       - name: Commit generated data and database
-        if: secrets.OPENAI_API_KEY != '' && !contains(github.event.head_commit.message, '[local-update]')
+        if: env.HAS_API_KEY == 'true' && !contains(github.event.head_commit.message, '[local-update]')
         uses: stefanzweifel/git-auto-commit-action@v5
         with:
           commit_message: "Update data.json and database [skip ci]"
