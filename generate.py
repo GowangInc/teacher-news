@@ -46,13 +46,21 @@ BATCH_SIZE = int(os.environ.get("BATCH_SIZE", "12"))
 
 OLLAMA_URL = os.environ.get("OLLAMA_URL", "http://localhost:11434/api/chat")
 OLLAMA_MODEL = os.environ.get("OLLAMA_MODEL", "gemma4:e4b")
-OPENAI_API_KEY = os.environ.get("OPENAI_API_KEY")
-OPENAI_BASE_URL = os.environ.get("OPENAI_BASE_URL", "https://api.openai.com/v1")
+
+# Support both OPENAI_API_KEY (generic) and DEEPSEEK_API_KEY (official DeepSeek API).
+DEEPSEEK_API_KEY = os.environ.get("DEEPSEEK_API_KEY")
+OPENAI_API_KEY = os.environ.get("OPENAI_API_KEY") or DEEPSEEK_API_KEY
+if DEEPSEEK_API_KEY and not os.environ.get("OPENAI_BASE_URL"):
+    OPENAI_BASE_URL = "https://api.deepseek.com/v1"
+else:
+    OPENAI_BASE_URL = os.environ.get("OPENAI_BASE_URL", "https://api.openai.com/v1")
 REQUEST_TIMEOUT = int(os.environ.get("REQUEST_TIMEOUT", "600"))
 
 
 def active_model_name() -> str:
     if OPENAI_API_KEY:
+        if DEEPSEEK_API_KEY and not os.environ.get("OPENAI_MODEL"):
+            return "deepseek-v4-flash"
         return os.environ.get("OPENAI_MODEL", "gpt-4o-mini")
     return OLLAMA_MODEL
 
@@ -172,8 +180,8 @@ def _call_openai(prompt: str) -> str:
     # Sensible defaults for common OpenAI-compatible providers.
     model = os.environ.get("OPENAI_MODEL")
     if not model:
-        if "deepseek" in OPENAI_BASE_URL.lower():
-            model = "deepseek-chat"
+        if DEEPSEEK_API_KEY or "deepseek" in OPENAI_BASE_URL.lower():
+            model = "deepseek-v4-flash"
         else:
             model = "gpt-4o-mini"
     resp = requests.post(
