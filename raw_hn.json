@@ -4,8 +4,8 @@
     "title": "CRISPR tech selectively shreds cancer cells, including \"undruggable\" cancers",
     "url": "https://innovativegenomics.org/news/crispr-technique-selectively-shreds-cancer-cells/",
     "by": "gmays",
-    "score": 125,
-    "descendants": 31,
+    "score": 138,
+    "descendants": 34,
     "time": 1781277324,
     "comments": [
       {
@@ -13,20 +13,21 @@
         "by": "ordinaryradical",
         "text": "CRISPR is an extremely overhyped approach which found a marketing engine via popular science. There is 1 FDA approved CRISPR therapy as compared to 7 for AAV and 7 for Lentivirus. Counting all viral vector therapies that have been approved, we\u2019re sitting at 19 approved therapies versus 1 for CRISPR. I think CRISPR ideas in a lab are just an easy way into the mainstream press, but viral vector delivery is the real future. It just didn\u2019t get the same news cycle, for whatever reason.",
         "time": 1781284154,
-        "replies": []
+        "replies": [
+          {
+            "id": 48506723,
+            "by": "anovikov",
+            "text": "Bingo! CRISPR has an advantage of being relatively easy to describe to a layman, giving it a PR advantage.",
+            "time": 1781284292,
+            "replies": []
+          }
+        ]
       },
       {
         "id": 48506202,
         "by": "bonsai_spool",
         "text": "Here's their preprint from a month ago, in case you can't access the Nature paper: https://www.biorxiv.org/content/10.64898/2026.05.08.723607v1 Nature - https://www.nature.com/articles/s41586-026-10738-7",
         "time": 1781281922,
-        "replies": []
-      },
-      {
-        "id": 48506681,
-        "by": "Almondsetat",
-        "text": "Can anyone point to some resources about how cancers might adapt to CRISPR treatments?",
-        "time": 1781284135,
         "replies": []
       },
       {
@@ -72,6 +73,13 @@
             "replies": []
           }
         ]
+      },
+      {
+        "id": 48506681,
+        "by": "Almondsetat",
+        "text": "Can anyone point to some resources about how cancers might adapt to CRISPR treatments?",
+        "time": 1781284135,
+        "replies": []
       }
     ]
   },
@@ -80,17 +88,10 @@
     "title": "Slightly reducing the sloppiness of AI generated front end",
     "url": "https://envs.net/~volpe/blog/posts/reduce-slop.html",
     "by": "FergusArgyll",
-    "score": 61,
-    "descendants": 36,
+    "score": 64,
+    "descendants": 41,
     "time": 1781275718,
     "comments": [
-      {
-        "id": 48506646,
-        "by": "aviperl",
-        "text": "Only a small anecdote, but I'm 2 projects into telling Claude to \"make it look like Google podcasts\" and getting satisfactory results. Still smells like llm in parts, but overall it is not screaming low effort.",
-        "time": 1781283998,
-        "replies": []
-      },
       {
         "id": 48505951,
         "by": "iSnow",
@@ -114,10 +115,10 @@
         "replies": []
       },
       {
-        "id": 48506472,
-        "by": "petercooper",
-        "text": "If you're just having fun with it, there are a whole bunch of other things that produce interesting options, like asking it to theme according to a movie (think Clockwork Orange , Backrooms , anything with a strong aesthetic), or throw screenshots and photos at it and use it as a \"design system\" (magazine/print layouts can work well with this on stronger models).",
-        "time": 1781283129,
+        "id": 48506646,
+        "by": "aviperl",
+        "text": "Only a small anecdote, but I'm 2 projects into telling Claude to \"make it look like Google podcasts\" and getting satisfactory results. Still smells like llm in parts, but overall it is not screaming low effort.",
+        "time": 1781283998,
         "replies": []
       },
       {
@@ -134,6 +135,13 @@
             "replies": []
           }
         ]
+      },
+      {
+        "id": 48506472,
+        "by": "petercooper",
+        "text": "If you're just having fun with it, there are a whole bunch of other things that produce interesting options, like asking it to theme according to a movie (think Clockwork Orange , Backrooms , anything with a strong aesthetic), or throw screenshots and photos at it and use it as a \"design system\" (magazine/print layouts can work well with this on stronger models).",
+        "time": 1781283129,
+        "replies": []
       }
     ]
   },
@@ -142,8 +150,8 @@
     "title": "Keygen.music",
     "url": "https://keygen.music",
     "by": "soupspaces",
-    "score": 33,
-    "descendants": 9,
+    "score": 43,
+    "descendants": 13,
     "time": 1781278924,
     "comments": [
       {
@@ -151,13 +159,21 @@
         "by": "Rockjodd",
         "text": "Bah, the user interface and design is horrible to navigate in, which just made me sad. Try to paginate, music stops etc. If you created this, spend some more effort in user testing before sharing if you want users to have a good experience. My 2 cents.",
         "time": 1781283912,
-        "replies": []
+        "replies": [
+          {
+            "id": 48506757,
+            "by": "f_devd",
+            "text": "Ngl the weird UI bugs made me think it must be made by AI, either that or the developer has very skewed frontend skills where gradients are fancy but sliders & interactions are broken.",
+            "time": 1781284429,
+            "replies": []
+          }
+        ]
       },
       {
-        "id": 48506562,
-        "by": "bityard",
-        "text": "From the aesthetic, this has probably been vibecoded to hell and back. (And it looks like the files were all yoinked from https://github.com/6512345/keygenmusic ) Archive.org also has some bundles of keygen music, but you have to sift a bit through the results to find them.",
-        "time": 1781283572,
+        "id": 48506700,
+        "by": "Waterluvian",
+        "text": "Fine, I'll listen to Bear Necessities on loop until the football starts.",
+        "time": 1781284203,
         "replies": []
       },
       {
@@ -176,33 +192,73 @@
         ]
       },
       {
+        "id": 48506562,
+        "by": "bityard",
+        "text": "From the aesthetic, this has probably been vibecoded to hell and back. (And it looks like the files were all yoinked from https://github.com/6512345/keygenmusic ) Archive.org also has some bundles of keygen music, but you have to sift a bit through the results to find them.",
+        "time": 1781283572,
+        "replies": []
+      },
+      {
         "id": 48506633,
         "by": "ralusek",
         "text": "ORiON Nero 6.6 was my shit. Please give it a spin. There were definitely many keygens I would open just to have on in the background.",
         "time": 1781283938,
         "replies": []
+      }
+    ]
+  },
+  {
+    "id": 48495928,
+    "title": "Malware developers added nuclear and biological weapons text to to their spyware",
+    "url": "https://twitter.com/jsrailton/status/2064661778978533571",
+    "by": "marc__1",
+    "score": 32,
+    "descendants": 6,
+    "time": 1781209458,
+    "comments": [
+      {
+        "id": 48506760,
+        "by": "charcircuit",
+        "text": "The sooner frontier models get rid of guardrails the better. They constantly get in the way and make things worse than actually making things \"safe\".",
+        "time": 1781284432,
+        "replies": []
       },
       {
-        "id": 48506369,
-        "by": "sublinear",
-        "text": "Not that I've looked into it much, but a thought just occurred to me. Why don't we use AI to generate lofi samples for tracker music? Why aren't there trackers with that feature bolted on? I should be able to search for bespoke and unique sounds out of thin air. Surely that should be a very modest goal to achieve? (re: downvotes... I say \"AI\" as a synthesis method, not as a way to interfere with the creative process, but I guess I have to resign myself to the fact many downvoters might be ignorant of how these musical sausages are usually made)",
-        "time": 1781282673,
+        "id": 48506731,
+        "by": "elevation",
+        "text": "Why would a malware scanner read the comments?",
+        "time": 1781284333,
         "replies": [
           {
-            "id": 48506647,
-            "by": "4chandaily",
-            "text": "You can't mention \"AI\" and music together without a negative response. I think entrenched business interests as well as musicians and other music industry adjacent people, plus the well intentioned but poorly informed public have developed a visceral knee jerk reaction to the concept. Some of this is understandable, but I think it is mostly fueled by asrroturfing. I am a musician as well as a technology enthusiast, and I think this a very exciting time! To respond more directly to your point than your aside, there are a smattering of models out there that can take descriptions of sounds...",
-            "time": 1781284003,
-            "replies": []
-          },
-          {
-            "id": 48506518,
-            "by": "devin",
-            "text": "Could you say more? I don't really follow, and I've used trackers for a long time. Don't some trackers already have something akin to this in terms of \"randomizing\" wave forms inside some reasonable parameters? Why would you need AI for this problem?",
-            "time": 1781283315,
+            "id": 48506770,
+            "by": "giantg2",
+            "text": "Provides possible clues to the origin and use.",
+            "time": 1781284496,
             "replies": []
           }
         ]
+      },
+      {
+        "id": 48506603,
+        "by": "ipython",
+        "text": "good news, now we have pretty much a clear signal that there's something nefarious going on... after all, the first step to analyzing malware is to determine if it's malware at all.",
+        "time": 1781283809,
+        "replies": [
+          {
+            "id": 48506670,
+            "by": "hurtigioll",
+            "text": "yes, now a regexp can red-flag it quickly",
+            "time": 1781284097,
+            "replies": []
+          }
+        ]
+      },
+      {
+        "id": 48506696,
+        "by": "hurtigioll",
+        "text": "devs will say this is proof we need to remove all biological guardrails. think about that for a second",
+        "time": 1781284182,
+        "replies": []
       }
     ]
   },
@@ -211,8 +267,8 @@
     "title": "A dumpster arrived behind my university's library",
     "url": "https://yalereview.org/article/sheila-liming-the-end-of-books",
     "by": "mooreds",
-    "score": 66,
-    "descendants": 41,
+    "score": 69,
+    "descendants": 45,
     "time": 1781274082,
     "comments": [
       {
@@ -289,41 +345,16 @@
         ]
       },
       {
-        "id": 48506667,
-        "by": "hedora",
-        "text": "It would be nice if there was a rule allowing unwanted books to be destructively scanned and put online in the public domain. Maybe publishers could have the right to purchase the books back at current list price or something if they want to block the shredding.",
-        "time": 1781284084,
-        "replies": []
-      }
-    ]
-  },
-  {
-    "id": 48495928,
-    "title": "Malware developers added nuclear and biological weapons text to to their spyware",
-    "url": "https://twitter.com/jsrailton/status/2064661778978533571",
-    "by": "marc__1",
-    "score": 24,
-    "descendants": 3,
-    "time": 1781209458,
-    "comments": [
-      {
-        "id": 48506696,
-        "by": "hurtigioll",
-        "text": "devs will say this is proof we need to remove all biological guidelines. think about that for a second",
-        "time": 1781284182,
-        "replies": []
-      },
-      {
-        "id": 48506603,
-        "by": "ipython",
-        "text": "good news, now we have pretty much a clear signal that there's something nefarious going on... after all, the first step to analyzing malware is to determine if it's malware at all.",
-        "time": 1781283809,
+        "id": 48505523,
+        "by": "ciscoriordan",
+        "text": "Sensationalism. That's routine collection management. Here's another article about the same library, the Chester Fritz Library, acquiring one of the 11 remaining copies of a 444-year-old book: https://blogs.und.edu/und-today/2026/02/chester-fritz-librar...",
+        "time": 1781278681,
         "replies": [
           {
-            "id": 48506670,
-            "by": "hurtigioll",
-            "text": "yes, now a regexp can red-flag it quickly",
-            "time": 1781284097,
+            "id": 48505586,
+            "by": "TFNA",
+            "text": "Disposing of books bequeathed by a major historical figure, with that person\u2019s underlining etc., is not routine collection management. In my own location, I would expect such books to be moved to closed stacks, or perhaps moved to the national repository library, but not dumpstered. Also, disposing of books when there are not actually space limitations, in order to create the supposed library of the future that has few books, is so new a phenomenon that it shouldn\u2019t yet be called routine. Objecting to this trend is still very much appropriate.",
+            "time": 1781279039,
             "replies": []
           }
         ]
@@ -331,22 +362,12 @@
     ]
   },
   {
-    "id": 48506575,
-    "title": "Gauntlet AI will fly you to Austin, train you in AI, give $200k+ job",
-    "url": "https://apply.gauntletai.com/register/champions?utm_source=Third%20Party&utm_campaign=Hacker%20News&utm_medium=organic&utm_content=HN",
-    "by": "austenallred",
-    "score": 1,
-    "descendants": null,
-    "time": 1781283640,
-    "comments": []
-  },
-  {
     "id": 48505452,
     "title": "Where Did Earth Get Its Oceans? Maybe It Made Them Itself",
     "url": "https://www.quantamagazine.org/where-did-earth-get-its-oceans-maybe-it-made-them-itself-20260612/",
     "by": "ibobev",
-    "score": 25,
-    "descendants": 16,
+    "score": 30,
+    "descendants": 19,
     "time": 1781278376,
     "comments": [
       {
@@ -403,14 +424,185 @@
     ]
   },
   {
+    "id": 48506575,
+    "title": "Gauntlet AI will fly you to Austin, train you in AI, give $200k+ job",
+    "url": "https://apply.gauntletai.com/register/champions?utm_source=Third%20Party&utm_campaign=Hacker%20News&utm_medium=organic&utm_content=HN",
+    "by": "austenallred",
+    "score": 1,
+    "descendants": null,
+    "time": 1781283640,
+    "comments": []
+  },
+  {
+    "id": 48506209,
+    "title": "A PDF that changes based on who is reading",
+    "url": "https://sgaud.com/texts/pdf",
+    "by": "SarthakGaud",
+    "score": 12,
+    "descendants": 6,
+    "time": 1781281970,
+    "comments": [
+      {
+        "id": 48506785,
+        "by": "jexp",
+        "text": "Shouldn\u2019t it be possible since forever to put machine readable source information into PDF metadata. It\u2019s more a problem of the tools and programs generating the PDFs. We spend millions turning structured information into PDFs and billions to extract the same data from a printer rendering language",
+        "time": 1781284576,
+        "replies": []
+      },
+      {
+        "id": 48506635,
+        "by": "gpvos",
+        "text": "I would suggest changing the title to the actual title of the article: Adaptive PDFs. Assuming the program works, the PDF will not actually look different to me than to anyone else looking at it, so there is nothing that \"changes based on who is reading\". It is just that text extraction, a wholly different thing than viewing the PDF (and known to be a much fuzzier process), will now return structured (Markdown) text. (One might say the PDF changes based on how you are reading it.) A great idea, IMHO.",
+        "time": 1781283942,
+        "replies": []
+      },
+      {
+        "id": 48506736,
+        "by": "gnunicorn",
+        "text": "Just because everything is a potential threat vector now: doesn't this also mean you could easily put AI specific malicious instructions into the PDF that the regular human would never notice? Like the \"white text between the lines that only appears when copy-pasted\"-hack that some professors have been doing in their exercises to their students to include pink elephants in the output and stuff. But worse. Just thinking of a electricity bill pdf you provide as proof of address to some company that uses an LLM to extraxt that address and pre-process that doc. But instead we can command it to...",
+        "time": 1781284358,
+        "replies": []
+      },
+      {
+        "id": 48506613,
+        "by": "jheimark",
+        "text": "This looks really interesting. Optimizing for humans vs. agents feels like the new wave of Desktop vs. Mobile (where mobile won) - agents are going to win even faster. Where is the repo? It's mentioned but I can't find it.",
+        "time": 1781283845,
+        "replies": [
+          {
+            "id": 48506626,
+            "by": "jheimark",
+            "text": "is it this one? https://github.com/iminoaru/adaptivepdf",
+            "time": 1781283899,
+            "replies": []
+          }
+        ]
+      }
+    ]
+  },
+  {
     "id": 48506545,
     "title": "Launch HN: BitBoard (YC P25) \u2013 Analytics Workspace for Agents",
     "url": "https://bitboard.work/",
     "by": "arcb",
     "score": 5,
-    "descendants": 0,
+    "descendants": 1,
     "time": 1781283483,
-    "comments": []
+    "comments": [
+      {
+        "id": 48506712,
+        "by": "spmartin823",
+        "text": "Highly rec going after a specific vertical - healthcare might be the right spot given your experience. Why did you use DuckDB instead of CockroachDB/Snowflake?",
+        "time": 1781284255,
+        "replies": []
+      }
+    ]
+  },
+  {
+    "id": 48504697,
+    "title": "A Call to Action: Stop the FCC's KYC Regime",
+    "url": "https://blog.lopp.net/call-to-action-stop-the-fcc-kyc-regime/",
+    "by": "FergusArgyll",
+    "score": 226,
+    "descendants": 146,
+    "time": 1781274809,
+    "comments": [
+      {
+        "id": 48505127,
+        "by": "dec0dedab0de",
+        "text": "We really just need telcos to stop allowing caller id spoofing. Doesn\u2019t even need your name, but with a real number we could actually report these scams. You can still allow people to hide it, but then by default every non-business phone should block calls with hidden numbers.",
+        "time": 1781276744,
+        "replies": [
+          {
+            "id": 48506774,
+            "by": "bryanlarsen",
+            "text": "Medical offices hide their numbers for very good reasons: if you've got an abusive spouse, you often don't want the medical office in your call history. Which results in a lot of very important calls being ignored.",
+            "time": 1781284515,
+            "replies": []
+          },
+          {
+            "id": 48505164,
+            "by": "smallmancontrov",
+            "text": "What ever happened to SHAKEN/STIR? I thought this was supposed to happen 5 years ago. Did they just chicken out on the prospect of actually shutting down telcos sending spam volume? I still get loads of spam phone calls, so clearly something went wrong (or slow enough to be indistinguishable from wrong).",
+            "time": 1781276945,
+            "replies": []
+          }
+        ]
+      },
+      {
+        "id": 48505437,
+        "by": "phyzome",
+        "text": "It's even worse: Since cell phones broadcast your location at all times, this means telling hundreds of companies (and a number of governments) your location at basically all times. That's already an issue with most cell phones. Making this apply to prepaid phones is even worse.",
+        "time": 1781278317,
+        "replies": [
+          {
+            "id": 48505569,
+            "by": "agloe_dreams",
+            "text": "One thing I wonder is if this is just one step removed from 'Now we know the identity of every user so we can now have both probable cause and verified identity to arrest over statements containing speech we do not like.' \" Like that is Carr's FCC in a nutshell - he wants to control speech by controlling the airwaves. That is a raw fact in his behavior. But when the news stations say the thing they want them to say, what happens next other than slightly extending the definitions of public good to the internet and then restricting speech?",
+            "time": 1781278970,
+            "replies": []
+          },
+          {
+            "id": 48506163,
+            "by": "tencentshill",
+            "text": "Apple has implemented a mitigation for this in their new modems, but unfortunately its a carrier opt-in, so only actually useful in Europe. https://www.pcmag.com/news/apple-expands-this-location-focus...",
+            "time": 1781281726,
+            "replies": []
+          }
+        ]
+      },
+      {
+        "id": 48505243,
+        "by": "rib3ye",
+        "text": "> Note: By checking this box, I acknowledge that I am filing a document into an official FCC proceeding. All information submitted, including names and addresses, will be publicly available via the web. Is there really not a way to submit an express FCC comment that avoids all my personal info being publicly published to the web? Yeesh.",
+        "time": 1781277391,
+        "replies": [
+          {
+            "id": 48505314,
+            "by": "jubilanti",
+            "text": "Think of it like a petition or testifying before Congress. The whole point is that you are putting your real name behind it. And if you think your name and address are private, then I have some bad news for you.",
+            "time": 1781277712,
+            "replies": []
+          },
+          {
+            "id": 48506012,
+            "by": "sailfast",
+            "text": "Yes. You need to stand up as a citizen to have the impact (they cross check). Publication is probably a bit much as a default and chills speech a bit, but it\u2019s also important that the federal register can remain public with all public comment on the web. These are official comments on the record.",
+            "time": 1781281048,
+            "replies": []
+          }
+        ]
+      },
+      {
+        "id": 48506266,
+        "by": "troyvit",
+        "text": "They would do well to make a better CTA for their call to action. Here's the link from the article: https://www.federalregister.gov/documents/2026/05/26/2026-10... I think that gets you most of the way to a link that somebody on HN dropped a few days ago: https://www.fcc.gov/ecfs/filings/express It requires the docket-id to complete: Docket No: 17-59 You can double check that Docket Number here: https://www.fcc.gov/document/fcc-seeks-comment-enhanced-know...",
+        "time": 1781282217,
+        "replies": []
+      },
+      {
+        "id": 48505072,
+        "by": "br0ceph",
+        "text": "Im USA based use prepaid service because I dont want to provide information for a credit check to obtain postpay service. Theres absolutely no reason for a US based telephony provider to retain the most sensitive PII on their customers. Every large provider has a history of breaches and selling customer data. The telephone companies are already tracking, storing, selling; so many data points on their customers. They cant be trusted with any information.",
+        "time": 1781276521,
+        "replies": [
+          {
+            "id": 48506108,
+            "by": "frollogaston",
+            "text": "I got ATT prepaid in January and still had to give my ID, but it was weirdly not upfront but later on when I was trying to actually activate the service. Not sure what the deal is.",
+            "time": 1781281476,
+            "replies": []
+          },
+          {
+            "id": 48505174,
+            "by": "jameshart",
+            "text": "Counterpoint: for my part I would like it to be the case that any phone line that can dial or message my phone can be traced back to a known human being who can be held accountable for abuse of that phone line in terms of generating spam, abuse or harassment. Seems that we can\u2019t both get what we want. A potential solution is that you get your anonymous phone line but my phone provider simply refuses to let you call me with it. Of course then we need to extend the same principle to data and to IP traffic originating from your device. If you don\u2019t want to be traceable it seems reasonable...",
+            "time": 1781277007,
+            "replies": []
+          }
+        ]
+      }
+    ]
   },
   {
     "id": 48503014,
@@ -418,9 +610,16 @@
     "url": "https://arxiv.org/abs/2606.13473",
     "by": "ilreb",
     "score": 95,
-    "descendants": 8,
+    "descendants": 9,
     "time": 1781265602,
     "comments": [
+      {
+        "id": 48506778,
+        "by": "thatsgcasey",
+        "text": "A pet project of mine is to generate podcasts to help me understand research papers while commuting to work. I ran the pipeline on this paper -neat stuff! https://paperdive.ai/episodes/133-maxproof-scaling-mathemati...",
+        "time": 1781284546,
+        "replies": []
+      },
       {
         "id": 48503935,
         "by": "daquisu",
@@ -463,12 +662,1021 @@
         "text": "Proves the need for more formal verification :)",
         "time": 1781275492,
         "replies": []
+      }
+    ]
+  },
+  {
+    "id": 48500012,
+    "title": "AI agent bankrupted their operator while trying to scan DN42",
+    "url": "https://lantian.pub/en/article/fun/ai-agent-bankrupted-their-operator-scan-dn42lantian.lantian/",
+    "by": "xiaoyu2006",
+    "score": 1257,
+    "descendants": 453,
+    "time": 1781239373,
+    "comments": [
+      {
+        "id": 48503464,
+        "by": "J0nL",
+        "text": "Anyone remember the XZ and Jia Tan situation awhile back? https://lore.kernel.org/lkml/20240320183846.19475-1-lasse.co... I can't quite put my finger on why but the entire time I was reading this I kept thinking back to that. It's entirely possible the actual targets were the volunteers and everything else was superfluous or tertiary. It's also an exception that proves the rule with regard to Hanlon's Razor. They even mentioned the stated goal of it was more or less pointless. I wouldn't be suprised if the \"owner\" they spoke with was still just the LLM. It stuck around for just long enough...",
+        "time": 1781268505,
+        "replies": [
+          {
+            "id": 48504376,
+            "by": "zozbot234",
+            "text": "LLMs are not that smart. The extremely surprising and concerning part of this whole story is that the agent reported that they proactively spun up 5 AWS instances with a combined 100Gps of network egress capacity. What they spent wasn't cheap by any means but the egress itself would've been a whole lot more, while DoS'ing the whole hobby network. Ultimately, wasting the agent's time instead of allowing the scan to go through probably saved this person a lot of money. Now I kinda wonder what AI model this was. We've now heard of comparably \"proactive\" behaviors from Fable, but that's only...",
+            "time": 1781273572,
+            "replies": []
+          },
+          {
+            "id": 48503778,
+            "by": "mathgeek",
+            "text": "This certainly did strike me as a big scam. A few minutes in I was thinking \"the LLM actor is going to ask for donations at some point here\" and low and behold. There's the claim of debt, the call for pity, and the crypto address. SSDD",
+            "time": 1781270448,
+            "replies": []
+          }
+        ]
       },
       {
-        "id": 48504772,
-        "by": "minimaxir",
-        "text": "not a good day to be named Max",
-        "time": 1781275116,
+        "id": 48501842,
+        "by": "claudiosf1",
+        "text": "Everything about this story, from the way it\u2019s written to the self destructive outcome, reminds me of the \u201cI hacked 127.0.0.1\u201d episode from some twenty years ago. [1] a mirror since I couldn\u2019t find the original: https://gist.github.com/Androkai/0a2602719fa72ce454d436bfe28...",
+        "time": 1781256501,
+        "replies": [
+          {
+            "id": 48502153,
+            "by": "Taniwha",
+            "text": "There is also the true story from the first Scientology vs. Internet clash, someone trolled them that their files were being hosted on 127.0.0.1, under a court ordered deposition they tried to find out who was running this server with their secret files (because yes, they'd looked, and they were there)",
+            "time": 1781259325,
+            "replies": []
+          },
+          {
+            "id": 48504066,
+            "by": "cduzz",
+            "text": "The localhost troll works better if you use the decimal representation of it: http://2130706433 or any integer multiple of that 2130706433",
+            "time": 1781272292,
+            "replies": []
+          }
+        ]
+      },
+      {
+        "id": 48500101,
+        "by": "ggm",
+        "text": "Asking for donations to pay the AWS bill from the people they fired the agentic code at is the cherry on the icing of the banana supreme. If real, tragically funny. If fictive, we'll written.",
+        "time": 1781240332,
+        "replies": [
+          {
+            "id": 48503775,
+            "by": "coldpie",
+            "text": "If you've ever been part of an organization that participated in something like Google Summer of Code, you know this isn't fiction. People really do behave like this.",
+            "time": 1781270437,
+            "replies": []
+          },
+          {
+            "id": 48500624,
+            "by": "dannyw",
+            "text": "I burst out laughing when the agent spawned a subagent to join IRC. So funny.",
+            "time": 1781246043,
+            "replies": []
+          }
+        ]
+      },
+      {
+        "id": 48500494,
+        "by": "mik3y",
+        "text": "I really wanted to dislike the anonymous operator for the careless project (and the hilarious pomposity of the IRC subagent it spawned). Then I imagined the real-but-unknowable chance it was all set up by some kid just getting into computers, just seeing what\u2019s possible, getting excited by a much bigger world at reach \u2014 and remembered my own expensive mistakes with long-distance BBSes & the like. I sorta hope for that, anyway. Curiosity is a beautiful thing.",
+        "time": 1781244468,
+        "replies": [
+          {
+            "id": 48500628,
+            "by": "TheDong",
+            "text": "I'm a little less charitable. Curiosity is great, but agents do not learn, and telling an agent \"scan the darkweb\" is a way to avoid learning about the details, rather than to dig into things more deeply. If instead they had just used a chat interface to ask \"Where should I start\", they'd more likely have got a link to the DN42 docs themselves, read them, and not hallucinated things like \"color\". They might have asked \"how much will this cost?\" if they had to spin up the ec2 instances themselves, on advice from the agent. The way you learn something is by doing it the manual way first. You...",
+            "time": 1781246082,
+            "replies": []
+          },
+          {
+            "id": 48500931,
+            "by": "helsinkiandrew",
+            "text": "> Then I imagined the real-but-unknowable chance it was all set up by some kid just getting into computers, just seeing what\u2019s possible, getting excited by a much bigger world at reach Perhaps people like this should be called \"Bot Kiddies\" or \"Agent Kiddies\" - in a similar way to \"Script Kiddies\" for 'hackers' using/doing stuff they don't quite understand",
+            "time": 1781249060,
+            "replies": []
+          }
+        ]
+      },
+      {
+        "id": 48500780,
+        "by": "mrweasel",
+        "text": "The sad part is that the agent operator could probably easily have been allowed to join the network, if they had put in the work. Had they done so there would have been a great opportunity to learn and potentially find a community. I'm still not sure what the point of having the bot do it. Pretend to be a security researcher?",
+        "time": 1781247767,
+        "replies": [
+          {
+            "id": 48501003,
+            "by": "lucianbr",
+            "text": "Lots of people seem to think that you don't need to learn how to [scan a network], all you need to learn in this brave new world is how to prompt the agent to [scan a network]. Replace the content in brackets with anything.",
+            "time": 1781249634,
+            "replies": []
+          },
+          {
+            "id": 48501265,
+            "by": "blfr",
+            "text": "Can I easily run whois, curl, dig, grep, python, browser/playwright? Yes. Was watching an agent with terminal access install its tools, configure them, then map my lab, find services, and guess stack just pure magic? Also yes. Did it cost me $23 in tokens to set it up, test, and run? Probably. Using gemini 3.1 pro was not the spendthrift choice here. Is putting some cost controls in place a good idea? Also, probably yes. Can I therefore understand someone who wants to see things happen on their own with a beautiful prompt instead of doing them personally even when fully capable, maybe even...",
+            "time": 1781251710,
+            "replies": []
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": 48504063,
+    "title": "WASI 0.3.0 Released",
+    "url": "https://github.com/WebAssembly/WASI/releases/tag/v0.3.0",
+    "by": "mavdol04",
+    "score": 165,
+    "descendants": 64,
+    "time": 1781272275,
+    "comments": [
+      {
+        "id": 48506294,
+        "by": "yoshuaw",
+        "text": "Hey everyone, we just published the announcement post for WASI 0.3 on the Bytecode Alliance blog: https://bytecodealliance.org/articles/WASI-0.3 The current link is just the release notes and covers only the interface-level changes. The announcement post goes into more detail on what's new in WASI 0.3, how it differs from WASI 0.2, and includes examples.",
+        "time": 1781282309,
+        "replies": []
+      },
+      {
+        "id": 48504974,
+        "by": "b33j0r",
+        "text": "Love/hate with this one. How was I supposed to follow this? I tried, and few things were publicly visible for nearly two years. I last checked in march and it looked like no progress had been made. That makes me very suspicious of wasiv3. Funny enough, I already implemented a bunch of the promises (pun not intended) and think that freestanding wasm with custom integrations is the more likely future. The promise of wasi components has not been fulfilled. The market wants to hotload and link artifacts dynamically. The wasi project requires insider wizardry to use it that way: the offering...",
+        "time": 1781276033,
+        "replies": [
+          {
+            "id": 48505776,
+            "by": "spankalee",
+            "text": "There is an issue open for instantiating modules at runtime: https://github.com/WebAssembly/component-model/issues/423",
+            "time": 1781279884,
+            "replies": []
+          },
+          {
+            "id": 48505366,
+            "by": "hectaman",
+            "text": "I don't think it's fair to say this work has happened in the shadows. I work on CNCF wasmCloud, and I know how hard we try to make this content available. - Many standing meetings organized around SIGs, all on the public community calendar: https://calendar.google.com/calendar/u/0/newembed?src=events... - A dedicated Zulip: https://bytecodealliance.zulipchat.com/ - Conferences organized around exactly these topics: Wasm Day, WasmCon, Wasm I/O, and the Bytecode Alliance Plumbers Summit - CNCF projects: wasmCloud, Spin - Blogs, many with recordings, summaries, and transcripts:...",
+            "time": 1781277983,
+            "replies": []
+          }
+        ]
+      },
+      {
+        "id": 48506605,
+        "by": "_jsdw",
+        "text": "This is funny timing to me, because just the other week I did a dive into WebAssembly and WASI 0.2 ( https://jsdw.me/posts/wasm-components/ ) and assumed that 0.3 would be a while yet as there was no obvious (to me) sign it would come for a while! Once the tooling is there and Rust has a wasi 0.3 target I'll give it more of a look at :)",
+        "time": 1781283810,
+        "replies": []
+      },
+      {
+        "id": 48505125,
+        "by": "garganzol",
+        "text": "Wrong direction. WASI should be simple and stable. Initially, it was revolving around a simple Unix-like API model and it was close to perfect. Now, there is an opinionated component model which is an unneeded overcomplication that should have never been considered as part of WebAssembly spec IMHO. A real component model is a separate development and cannot be blindly tied to a particular ecosystem. Otherwise, its main purpose of providing easy interoperability between different ecosystems is totally lost. I do not know why WebAssembly committee thinks that shoving-in CORBA-like...",
+        "time": 1781276739,
+        "replies": [
+          {
+            "id": 48505694,
+            "by": "spankalee",
+            "text": "The component model is what unlocks relatively type-safe interop between modules written in different languages. Given that Wasm is a runtime target for many languages, this is an entirely appropriate and useful goal. If you have a host system where you want to expose APIs in an language-agnostic way, IDLs are the best way to do that. You're also conflating the core WebAssembly work with the WASI work. There is some overlap in people, but WASI is developed separately.",
+            "time": 1781279532,
+            "replies": []
+          },
+          {
+            "id": 48506154,
+            "by": "pie_flavor",
+            "text": "The present component model is \"simple and stable\". It is presently providing \"interoperability between different ecosystems\" and has been for years. It has basically nothing in common with CORBA. All the major problems with the Unix design they ran into that caused them to switch to a component model haven't vanished; the component model is still the best way of solving WASM's major complications that traditional C-based designs don't have. C-based designs, in general, are not better just because they came first; if you were designing systems programming from scratch, you'd want something...",
+            "time": 1781281672,
+            "replies": []
+          }
+        ]
+      },
+      {
+        "id": 48505004,
+        "by": "simonw",
+        "text": "If you don't want to download the .tar.gz I think you can browse the content for this release (.wit interface files) here on GitHub: https://github.com/WebAssembly/WASI/tree/v0.3.0/proposals",
+        "time": 1781276140,
+        "replies": []
+      }
+    ]
+  },
+  {
+    "id": 48504929,
+    "title": "Introduction to UEFI HTTP(s) Boot with QEMU/OVMF",
+    "url": "https://blog.yadutaf.fr/2026/06/12/introduction-to-uefi-https-boot-qemu-ovmf/",
+    "by": "jtlebigot",
+    "score": 18,
+    "descendants": 0,
+    "time": 1781275806,
+    "comments": []
+  },
+  {
+    "id": 48500447,
+    "title": "AUR packages compromised with Infostealer and Rootkit",
+    "url": "https://discourse.ifin.network/t/400-aur-packages-compromised-with-infostealer-and-rootkit/577",
+    "by": "keyle",
+    "score": 210,
+    "descendants": 132,
+    "time": 1781243979,
+    "comments": [
+      {
+        "id": 48504330,
+        "by": "Tharre",
+        "text": "People need to get into their heads that the AUR is just a collection of user-produced PKGBUILDs. You have to review the source of every PKGBUILD from the AUR you install, full stop. Yes that includes any updates. This really has always been the case; we've had discussion about this for well over a decade. People are always asking why there's no official AUR helper like yay - this is why. A lot of people complain about Arch Linux being elitist, but the simple reality is it's a distro built for people who know what they are doing and don't need or want their hand held at every step of the...",
+        "time": 1781273398,
+        "replies": [
+          {
+            "id": 48506641,
+            "by": "gqgs",
+            "text": "Regardless of it being just a collection of user-produced PKGBUILDs the community would certainly benefit from a more robust solution to this issue. Expecting users to manually review every single change, for every single AUR package they are using, every single time they do an update or installation is just unreasonable if you want to AUR to be useful at all for the general user.",
+            "time": 1781283978,
+            "replies": []
+          },
+          {
+            "id": 48505269,
+            "by": "no-name-here",
+            "text": "> You have to review the source of every PKGBUILD from the AUR you install, full stop. Yes that includes any updates. But isn\u2019t that also the case for every browser extension, VSCode extension, nuget package, Cargo crate, python package, npm package, etc? (Unless you are running them somewhere without internet access or without access to anything you don\u2019t mind being public?) Maybe it\u2019s not the case for aur, but the others could theoretically be improved with better permissions, sandboxing, etc. I guess browser extensions basically have those options, even if no \u201cnormal\u201d users use them....",
+            "time": 1781277483,
+            "replies": []
+          }
+        ]
+      },
+      {
+        "id": 48504006,
+        "by": "harvie",
+        "text": "7+ hours into this and still no mention on archlinux.org webpage nor on aur.archlinux.org. Why??? AUR should have been blocked until user takes action to prove he knows about this. Eg. change AUR API URL slightly so yay/yaourt users need to look up what is going on. New API should have infrastructure for informing users and making sure they've read the message before proceeding. Especially when they're not even sure that all malware was found. Also there should be database of revoked/compromised AUR commits and there should be mechanism to warn user if they had it installed.",
+        "time": 1781272003,
+        "replies": [
+          {
+            "id": 48504427,
+            "by": "Tharre",
+            "text": "No it shouldn't. You don't break everyone's workflow just because some people refuse to take basic security advise seriously. > New API should have infrastructure for informing users and making sure they've read the message before proceeding. How would that even work? AUR packages are just git repos, everything that AUR helpers are doing or not doing is not under the control of the arch maintainers.",
+            "time": 1781273726,
+            "replies": []
+          },
+          {
+            "id": 48505580,
+            "by": "cmiles74",
+            "text": "I think a notice on the front page of the AUR would make sense here. IMHO, a blurb on the Arch homepage with a link to a notice on the AUR page would also help. If you don't want to list all known effected packages, at least recommend the official position that anyone using a AUR package should be reading every file of every package they use.",
+            "time": 1781279015,
+            "replies": []
+          }
+        ]
+      },
+      {
+        "id": 48503258,
+        "by": "xx_ns",
+        "text": "This campaign is still ongoing. I just got an email that one of my old packages (which hasn't worked for years and was orphaned for a while) was adopted and immediately a malicious commit was pushed. They seem to be using bun instead of npm now, so any npm-based workaround likely isn't effective. https://aur.archlinux.org/cgit/aur.git/commit/?h=toggldeskto...",
+        "time": 1781267184,
+        "replies": []
+      },
+      {
+        "id": 48503041,
+        "by": "spystath",
+        "text": "Obviously installing anything from AUR must be done cautiously and there have always been sketchy (as in improperly built/packaged) packages in the past but seeing actively malicious injections is concerning. I think there are two main problems with AUR: 1. it is a remnant of a slightly more egalitarian era in the open source history when you could generally trust 3rd party code and 2. orphaned packages can be adopted by anyone with their full history and vetting intact. I think we are well past (1) but (2) could be mitigated by tighter controls on AUR accounts and potentially additional...",
+        "time": 1781265768,
+        "replies": [
+          {
+            "id": 48503315,
+            "by": "jeremyjh",
+            "text": "There was never an era in which #2 was a reasonable policy.",
+            "time": 1781267587,
+            "replies": []
+          }
+        ]
+      },
+      {
+        "id": 48504632,
+        "by": "aquova",
+        "text": "As people have noted, this sort of thing has become inevitable and likely to increase in occurrence unless some changes are made. I'm a big fan of the AUR PKGBUILD system, and I leverage it quite frequently to write my own. The most egregious issue in my opinion, and one of the low hanging fruit to fix, is the fact that anyone can adopt an orphaned package with no notification to end users that this has happened. It's honestly more trouble than it's worth to get your package deleted, instead leaving orphaning as the more optimal way to relinquish control. This should be the opposite in my...",
+        "time": 1781274472,
+        "replies": []
+      }
+    ]
+  },
+  {
+    "id": 48506372,
+    "title": "Looking Forward to Postgres 19: It's About Time",
+    "url": "https://www.pgedge.com/blog/looking-forward-to-postgres-19-its-about-time",
+    "by": "xngbuilds",
+    "score": 3,
+    "descendants": 0,
+    "time": 1781282687,
+    "comments": []
+  },
+  {
+    "id": 48505161,
+    "title": "Show HN: Script to bulk delete Claude chats from the web UI",
+    "url": "https://github.com/MatteoLeonesi/bulk-delete-claude-chat",
+    "by": "ML0037",
+    "score": 29,
+    "descendants": 8,
+    "time": 1781276939,
+    "comments": [
+      {
+        "id": 48506307,
+        "by": "ur-whale",
+        "text": "Which of course assumes, that the \"delete chat\" function actually deletes anything from Anthropic's datastore.",
+        "time": 1781282393,
+        "replies": [
+          {
+            "id": 48506402,
+            "by": "ML0037",
+            "text": "yeah probably https://news.ycombinator.com/item?id=48464258",
+            "time": 1781282833,
+            "replies": []
+          }
+        ]
+      },
+      {
+        "id": 48506503,
+        "by": "petesergeant",
+        "text": "How are you managing it with ChatGPT? I've always found Claude relatively easy to do it with, but unless they've changed it in the last few weeks it's hard with ChatGPT. Edit: I should add I often want to keep one or two reference chats, so the \"nuke all chats\" button doesn't work for me.",
+        "time": 1781283265,
+        "replies": [
+          {
+            "id": 48506692,
+            "by": "ML0037",
+            "text": "Hi! for ChatGPT I go in settings -> Data Controls -> delete all chat",
+            "time": 1781284161,
+            "replies": []
+          }
+        ]
+      },
+      {
+        "id": 48505862,
+        "by": "turkeyboi",
+        "text": "Delete account. Make new.",
+        "time": 1781280286,
+        "replies": []
+      },
+      {
+        "id": 48505986,
+        "by": "alfanick",
+        "text": "\"hey, here is a script called delete-all, that deletes all. you need to copy and paste it into your console that you need to open with f12 or whatever. and then it deletes all, trust me, it's safe\". State of June 2026. /s",
+        "time": 1781280918,
+        "replies": [
+          {
+            "id": 48505999,
+            "by": "542458",
+            "text": "It's 100 lines of unobfuscated js. If you're worried just read it.",
+            "time": 1781280993,
+            "replies": []
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": 48504753,
+    "title": "WhatsApp Business API pricing 2026: what's free and where markup hides",
+    "url": "https://wexio.io/blog/free-whatsapp-business-api",
+    "by": "Puvvl",
+    "score": 19,
+    "descendants": 7,
+    "time": 1781275050,
+    "comments": [
+      {
+        "id": 48506048,
+        "by": "dzonga",
+        "text": "WhatsApp business api is in a weird situation. the poor countries use WhatsApp mostly due the fact that sms was costly. so you're tryna to monetize against businesses serving poorer users. yes - they maybe more in number but margins are razor thin. the richer countries where margins are higher - sms, email, etc are cheaper & permission less. so eventually most providers most settling on email & sms/rcs.",
+        "time": 1781281226,
+        "replies": []
+      },
+      {
+        "id": 48506743,
+        "by": "pbronez",
+        "text": "It's weird how hard it is to get programmatic access to a mobile-first messaging service. Telegram is the only one that makes it easy. WhatsApp and iMessage have first party solutions that assume you're a business with 1:M comms. Signal doesn't want bot users at all. Maybe I need to start looking at SMS/MMS proper, but that's putting a lot of information in the clear and giving up a lot of features.",
+        "time": 1781284385,
+        "replies": []
+      },
+      {
+        "id": 48504786,
+        "by": "monkeeguy",
+        "text": "WhatsApp is getting expensive as hell.",
+        "time": 1781275173,
+        "replies": [
+          {
+            "id": 48504810,
+            "by": "Puvvl",
+            "text": "Yeah, the July 2025 shift to per-message billing made marketing way pricier. The country spread is wild too, India is ~$0.0094/msg vs Germany ~$0.124",
+            "time": 1781275280,
+            "replies": []
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": 48497609,
+    "title": "If you are asking for human attention, demonstrate human effort",
+    "url": "https://tombedor.dev/human-attention-and-human-effort/",
+    "by": "jjfoooo4",
+    "score": 1318,
+    "descendants": 424,
+    "time": 1781218915,
+    "comments": [
+      {
+        "id": 48503484,
+        "by": "gwd",
+        "text": "\"Don't expend more effort than they are\" has actually long been a good principle to have internalized. Someone done only cursory research before asking a question on a mailing list? Give a cursory answer. Someone obviously spent hours trying to figure things out on their own? Give them a good chunk of your time. Someone on HN responding to you with single-sentence responses? Either don't respond, or respond in kind. Someone obviously engaging with your ideas and taking time to explain their position? Take time to engage with their ideas too.",
+        "time": 1781268618,
+        "replies": [
+          {
+            "id": 48504153,
+            "by": "nucleardog",
+            "text": "I've had this same policy since before AI. I kind of formalized it for myself (and this team) after enough instances of \"I'm trying to do X. It's not working. Help.\" type messages. You need to put as much effort into the question as you expect someone to put into the answer. It's not \"fairness\" or \"AI\" or anything else, it's that doing this any other way fundamentally fucks up the team dynamics. You have a problem. You want someone's help. If the cost to you is effectively nil (or negative, since you're asking someone to do your job for you), but the cost to the other person is non-zero,...",
+            "time": 1781272695,
+            "replies": []
+          },
+          {
+            "id": 48503802,
+            "by": "Archer6621",
+            "text": "These kinds of principles are sensible at their core, and I am a big proponent of the mindset, but the main problem as a sibling comment pointed out in a way is that this assumes that everyone is striving for an honest and accurate correlation between display of effort and value, and that everyone is looking deep enough into and behind that display to recognize the true value behind it. But actual effort, let alone value, is not always clearly visible or honestly displayed, and the perception of it is also subject to your own biases. You could say that people have the responsibility to...",
+            "time": 1781270603,
+            "replies": []
+          }
+        ]
+      },
+      {
+        "id": 48498265,
+        "by": "niuzeta",
+        "text": "A very prolific coworker who fully embraced claude has inflicted the team with a flood of AI-generated PRs. About six months later, it is his frequent bemoaning at the standup that their PR don't get reviewed, languishing in inattention. I don't think anyone - including myself - _intentionally_ avoid his PRs. It's just that he doesn't make it easy for the team to look at. This single headline perfectly captures what I have been thinking. It's not that I reject AI content, but it takes _effort_ to review and weed out any mistakes. When your thoughtful reviews that take an hour(because the...",
+        "time": 1781223730,
+        "replies": [
+          {
+            "id": 48501890,
+            "by": "swiftcoder",
+            "text": "As someone who pushed ~4x the median PRs on my team before LLMs were a thing, I kind of think the problem here is PRs as a concept. Code review doesn't scale to prolific humans, it definitely can't scale to agents. And the exact same things you would need to safely give up on PRs for human developers (auto-formatters, linters, comprehensive end-to-end tests, continuous deployment pipelines, etc), are also things that place meaningful guardrails on LLMs, and help them maintain a reasonable quality bar.",
+            "time": 1781256951,
+            "replies": []
+          },
+          {
+            "id": 48500962,
+            "by": "crjohns648",
+            "text": "Even before AI, I've worked with people who would produce a huge wall of code and ask for review, and sometimes that code was completely off base or needed a significant rework. I would always feel bad in those cases, because it's clear they spent a lot of time, and I'm going to have to say \"no\" and they will feel like they wasted a ton of effort. The thought process around this has started shifting for me in the last few weeks. I'm a lot more comfortable saying \"no\" with a list of concerns when I suspect the code is AI-generated, and I see others doing the same. CLs that would be sitting...",
+            "time": 1781249272,
+            "replies": []
+          }
+        ]
+      },
+      {
+        "id": 48498084,
+        "by": "treesknees",
+        "text": "This exactly reflects my feelings lately. I have a specific coworker who has gone somewhat overboard - every single code review, answer to any question on email or Teams, every new story, even their personal opinions during a design or ideas meeting, are all direct AI output with no massaging or human touch or review. They're working on planning out an upcoming project, and I just get verbose and long documents to review, and based on the issues I find I doubt they are even looked over first beforehand. I understand that the information may be accurate, even helpful at times, but feeling...",
+        "time": 1781222388,
+        "replies": [
+          {
+            "id": 48499501,
+            "by": "Aurornis",
+            "text": "I've seen this, too. There is a workplace personality that sees the job as a 2-player game between themself and the corporation. They think the game is to min-max their effort to personal career benefit, and they don't care how much it inconveniences anyone else. Before AI they had to actually put in work, or at least play games of trying to steal credit from other people without getting noticed. Now that AI appeared, they see it as the ultimate way to take credit for work they didn't do: Put everything into Claude, let it do the work, copy and past output back to someone else. Minimum...",
+            "time": 1781234286,
+            "replies": []
+          },
+          {
+            "id": 48498105,
+            "by": "nonethewiser",
+            "text": "Instinctively I think the move is to ignore it. I guess that would look different in different contexts. Obviously you have to communicate with your coworkers. But I think the solution has to essential be: \"Im not going to read that.\"",
+            "time": 1781222535,
+            "replies": []
+          }
+        ]
+      },
+      {
+        "id": 48504075,
+        "by": "Silasdev",
+        "text": "I had a new colleague on the team, who I had to on-board. I gave him a few simple tasks, just to get him into the whole setup. He literally copy/pasted my task description into Claude and asked it to complete the task. To begin with, I didn't suspect this, so when he asked for more help, I gladly wrote up a detailed explanation with more information and detail for him to learn. Little did I know, he never read it but put it directly into Claude. Not even sure how I should handle it, but my first instinct was to get extremely annoyed. Maybe this is just how things are going to be. But in...",
+        "time": 1781272327,
+        "replies": [
+          {
+            "id": 48506194,
+            "by": "nosioptar",
+            "text": "I always get \"Foreign Object\" by the Mountain Goats stuck in my head wheb I deal with people like that... (Track 31): https://themountaingoats.bandcamp.com/track/foreign-object-j...",
+            "time": 1781281892,
+            "replies": []
+          },
+          {
+            "id": 48506637,
+            "by": "tristor",
+            "text": "> Not even sure how I should handle it, but my first instinct was to get extremely annoyed. My first instinct would be to have a /very/ direct conversation with that person and their manager, and the follow-on would be to escalate it further leading to their termination. That sort of behavior is unprofessional in the extreme, even in the era of AI.",
+            "time": 1781283947,
+            "replies": []
+          }
+        ]
+      },
+      {
+        "id": 48498821,
+        "by": "dabinat",
+        "text": "It surprises me how many people have voluntarily relegated their entire job to LLM Prompter. If your work is indistinguishable from that of a machine, what\u2019s to stop your boss cutting out the middleman and using the machine directly? I would have thought that people would be trying their hardest to prove their worth in this new world we\u2019re in.",
+        "time": 1781228605,
+        "replies": [
+          {
+            "id": 48500435,
+            "by": "tobyhinloopen",
+            "text": "I actively support \u201cmy boss\u201d to run Claude Code. I offered them to help and made jokes it\u2019s so easy these days they might as well just call Claude Code themselves. I\u2019ve shown I could plop in their documents of feedback and Claude fixed the issues. I have worked with non-tech employees to set up Claude to help them do small tasks. I\u2019ve helped to review and improve completely vibe-coded projects by such employees. I\u2019m not sure what my role will be, but I fully embrace that my traditional role of writing code is gone.",
+            "time": 1781243838,
+            "replies": []
+          },
+          {
+            "id": 48499504,
+            "by": "emodendroket",
+            "text": "Well, if everyone is telling you they want you to adapt AI, then it's rational to see just how much of your job you can get it to do for you.",
+            "time": 1781234289,
+            "replies": []
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": 48505364,
+    "title": "Show HN: StackScope \u2013 I crawled over 40k indie launches to see what they ship",
+    "url": "https://stackscope.dev/",
+    "by": "datafreak_",
+    "score": 13,
+    "descendants": 3,
+    "time": 1781277972,
+    "comments": [
+      {
+        "id": 48506407,
+        "by": "addedlovely",
+        "text": "Nice one. I've been doing the same bit wider scope, for the whole Crux list, pruned to apex domains, and looking for CMS signals - how's your throughput? I'm not doing any headless browser stuff, or many requests, so hyper optimised for speed. I do grab robots.txt - didn't really see much in llms.txt or humans.txt in the wild, does yours?",
+        "time": 1781282856,
+        "replies": [
+          {
+            "id": 48506426,
+            "by": "addedlovely",
+            "text": "Ohh Cloudflare verified bot status, interesting I'll check that out. I'm seeing about 6.6% block rate, but that does climb over time.",
+            "time": 1781282933,
+            "replies": []
+          }
+        ]
+      },
+      {
+        "id": 48506483,
+        "by": "idid",
+        "text": "One extension, beyond stack: market category/domain/application - or any combo that tells me what the product does. Fab project otherwise!",
+        "time": 1781283199,
+        "replies": []
+      }
+    ]
+  },
+  {
+    "id": 48503219,
+    "title": "Encrypted Spaces An architecture for collaborative applications",
+    "url": "https://encryptedspaces.org/",
+    "by": "_____k",
+    "score": 29,
+    "descendants": 4,
+    "time": 1781266927,
+    "comments": [
+      {
+        "id": 48505815,
+        "by": "ebb_earl_co",
+        "text": "\u201cUsers verify cryptographic proofs to ensure that servers behave properly.\u201d If this is one of the defining tenets of this data system, is it not DOA? See also: the PGP key-signing parties that never were\u2026",
+        "time": 1781280058,
+        "replies": [
+          {
+            "id": 48506582,
+            "by": "Cassell",
+            "text": "It\u2019s just waiting for the killer app, the Pokemon Go of cryptographic signing.",
+            "time": 1781283661,
+            "replies": []
+          }
+        ]
+      },
+      {
+        "id": 48506020,
+        "by": "krunck",
+        "text": "So it seems this is a system where the server only does encrypted storage and minimal processing on plaintext that it is allowed to decrypt. I was hoping it was a FHE implementation where the server does computation on the encrypted data. Still waiting for that.",
+        "time": 1781281094,
+        "replies": []
+      },
+      {
+        "id": 48504394,
+        "by": "brianwmunz",
+        "text": "\"what the server can see to support rich queries\" is the whole ballgame, right? Anything queryable is metadata that can leak or be subpoenaed... membership, access patterns, query frequency. For the activist/journalist threat idea, that's usually the sensitive part.",
+        "time": 1781273624,
+        "replies": []
+      }
+    ]
+  },
+  {
+    "id": 48468852,
+    "title": "How we made hit video game Prince of Persia",
+    "url": "https://www.theguardian.com/culture/2026/jan/05/raiders-of-the-lost-ark-hit-video-game-prince-of-persia",
+    "by": "msephton",
+    "score": 230,
+    "descendants": 88,
+    "time": 1781045068,
+    "comments": [
+      {
+        "id": 48500100,
+        "by": "bentcorner",
+        "text": "I will always have a soft spot for the original Prince of Persia. It was one of those games I played constantly as a child, although only when my dad would let me use his Apple ][c. I only realize it now but it had some very unique game mechanics that even today you don't see very often (ok maybe that's a bit of a stretch but the mechanics were novel to me back then): - Notably you have 60 minutes to finish the game. Dying doesn't reset the timer, so there is constant pressure to keep moving. - There is a satisfying parry mechanic. This is still rare to see in 2d platformers. - Incredibly...",
+        "time": 1781240330,
+        "replies": [
+          {
+            "id": 48503641,
+            "by": "xtracto",
+            "text": "Likewise, but for different reasons: We had a [pirated] copy of the game, and thus didn't have the manual. Down here in my city in Mexico that's basically how everyone played it, so most of us played only the first level. At some point, I was tinkering with the \"x tree gold\" program and saw the \"hex view\" thing. I remember opening Prince's .sav file, which was a very small file that only appeared after you saved. After tinkering with the numbers I managed to appear in the next level . It was my 5 minutes of fame at my computer class when I arrived and showed that I had passed the bottles...",
+            "time": 1781269575,
+            "replies": []
+          },
+          {
+            "id": 48506577,
+            "by": "Stevvo",
+            "text": "Another notable mechanic was the rewind. Didn't see that again until Braid, which really went to town with it.",
+            "time": 1781283642,
+            "replies": []
+          }
+        ]
+      },
+      {
+        "id": 48500887,
+        "by": "mscdex",
+        "text": "If you haven't already seen it, I highly recommend watching the \"War Stories\" video on the making of Prince of Persia: https://www.youtube.com/watch?v=sw0VfmXKq54 On a related note, I also highly recommend the \"War Stories\" video for the making of Crash Bandicoot: https://www.youtube.com/watch?v=izxXGuVL21o",
+        "time": 1781248709,
+        "replies": [
+          {
+            "id": 48502449,
+            "by": "Someone",
+            "text": "That, and more, is available from Jordan Mechner\u2019s site https://www.jordanmechner.com . Prince of Persia info at https://www.jordanmechner.com/en/library/#pop",
+            "time": 1781261776,
+            "replies": []
+          },
+          {
+            "id": 48501368,
+            "by": "skibz",
+            "text": "I came here to recommend the same thing. The entire War Stories series was magnificent.",
+            "time": 1781252424,
+            "replies": []
+          }
+        ]
+      },
+      {
+        "id": 48501143,
+        "by": "meerita",
+        "text": "This was the first game I ever played on a PC, and it will always have a place in my heart. I first played it on an 8086 PC-compatible machine with an amber monochrome CRT monitor (the kind usually paired with MDA or Hercules-style graphics, where everything appeared in those beautiful orange shades). Later, my father bought a 386 PC with a VGA graphics card capable of 256-color modes, which on my monochrome display looked like 256 shades of gray. A couple of years after that, we finally upgraded to an Acer VGA color CRT monitor, and seeing the same game in full color felt like entering a...",
+        "time": 1781250827,
+        "replies": [
+          {
+            "id": 48501933,
+            "by": "nvader",
+            "text": "My first exposure to Prince.exe was in the computer lab at school, which has a tiny set of DOS games, including digdug, space invaders and some typing game. I remember when I was around 6 or 7, a boy a couple years older (and therefore, seemingly infinitely wiser) sharing the folk advice: \"Play the other games first, don't play Prince of Persia too early or it will ruin all the other games for you\"",
+            "time": 1781257355,
+            "replies": []
+          },
+          {
+            "id": 48502971,
+            "by": "BrtByte",
+            "text": "There's something very of-the-era about fixing a virus-ridden PC and then \"improving\" it by installing Prince of Persia",
+            "time": 1781265341,
+            "replies": []
+          }
+        ]
+      },
+      {
+        "id": 48504174,
+        "by": "ecocentrik",
+        "text": "The developers of Prince of Persia still talking about the game more than 30 years later seems very bizarre to me. I remember a game called Flashback having very a similar graphical sprite animation innovation around the time PoP was released and I remember it being very fun to play, but nobody talks about it the same way. What's the deal with Price of Persia?",
+        "time": 1781272807,
+        "replies": [
+          {
+            "id": 48504465,
+            "by": "gbalint",
+            "text": "Prince of Persia came out in 1989, while Flashback arrived in 1992. In the late 80s and early 90s, pc video game tech was evolving at a breakneck pace, a 3-year gap was an eternity. Prince of Persia ran quite well on an 8-bit XT, Flashback needed a 16-bit 286. They are basically from a different era, and Flashback was surely inspired by PoP.",
+            "time": 1781273845,
+            "replies": []
+          },
+          {
+            "id": 48505635,
+            "by": "bluedino",
+            "text": "If you liked Flashback, try an earlier release (also from Delphine software) called Out of this World/Another World",
+            "time": 1781279270,
+            "replies": []
+          }
+        ]
+      },
+      {
+        "id": 48500810,
+        "by": "bschwindHN",
+        "text": "Such an absolute classic. My brothers and friends and I played this so much when we were kids that we had a notebook written up to overcome the game's \"DRM\", which required you to find a letter in a particular page/paragraph/sentence in the game's manual. You then drank the potion with the right letter floating over it. If you got the wrong one, you died and had to restart the game, but this was only at the end of level 1 so that wasn't a huge setback. Theoretically you didn't have this manual if you pirated it, but kids have nothing but time so our notebook ended up quite complete. The...",
+        "time": 1781248064,
+        "replies": [
+          {
+            "id": 48501113,
+            "by": "lukan",
+            "text": "\"The first time we got to the skeleton that comes to life and fights you, my heart was absolutely pounding. I didn't expect that kind of thing from a game, and you walk past a few other skeletons that don't move at all so the game conditioned you to kind of ignore them or just treat them as part of the environment. \" Skyrim did that also pretty well. The first draugh zombies/skelletons lying km the catacombs are just objects to loot from. But then you tried to loot the next one and it moves and gets up ..",
+            "time": 1781250567,
+            "replies": []
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": 48503940,
+    "title": "European sunscreens are safer than American (2024)",
+    "url": "https://www.ms.now/opinion/msnbc-opinion/sunscreen-united-states-fda-ingredients-rcna153526",
+    "by": "qsi",
+    "score": 116,
+    "descendants": 63,
+    "time": 1781271623,
+    "comments": [
+      {
+        "id": 48505742,
+        "by": "jamesbelchamber",
+        "text": "> Not at all. In fact, American sunscreens may be less safe. Are they less safe, or _may_ they be less safe? The distinction is important, and I'm wary of overexcited editors \"upgrading\" titles for clicks. (This is a comment on the veracity of the title claim only - I'm British, I have no skin in this game)",
+        "time": 1781279731,
+        "replies": [
+          {
+            "id": 48506470,
+            "by": "grey-area",
+            "text": "Britain conforms with EU regulations on sunscreen, as with almost everything else.",
+            "time": 1781283119,
+            "replies": []
+          },
+          {
+            "id": 48505766,
+            "by": "layer8",
+            "text": "> I have no skin in this game You literally have if you use sunscreen. ;)",
+            "time": 1781279847,
+            "replies": []
+          }
+        ]
+      },
+      {
+        "id": 48505130,
+        "by": "QGQBGdeZREunxLe",
+        "text": "Didn't the FDA clear new ingredients this week? https://www.nytimes.com/2026/06/09/well/fda-sunscreen-bemotr...",
+        "time": 1781276755,
+        "replies": [
+          {
+            "id": 48505166,
+            "by": "hinata08",
+            "text": "OP's article is from 2024, according to the date on it",
+            "time": 1781276950,
+            "replies": []
+          },
+          {
+            "id": 48505457,
+            "by": "lazide",
+            "text": "Does that make them safer?",
+            "time": 1781278422,
+            "replies": []
+          }
+        ]
+      },
+      {
+        "id": 48506321,
+        "by": "sholladay",
+        "text": "If sunscreen is supposed to provide specific health benefits, namely to reduce cancer risk, then it is a drug, not a cosmetic. Regulations should ensure it provides the intended effect without undue harm. Cosmetics are given more leeway because they are, in principle, neutral from a medical perspective. Why would you want to treat a cancer related product like that? Saving upfront time and money, at the risk of having to spend a lot more time and money later in healthcare, is not a good reason. If anything, we might head the opposite direction. Some people think we should start regulating...",
+        "time": 1781282466,
+        "replies": [
+          {
+            "id": 48506688,
+            "by": "guhidalg",
+            "text": "FDA does regulate cosmetics components, and FTC regulates what claims they can make. It\u2019s hard to make a binary decision that one thing is a drug and something else isn\u2019t. You can appreciate there is a spectrum of side effects with moisturizer and sunblock on one end, supplements in the middle, and chemotherapy drugs on the other end. Personally, I think that Americans simply don\u2019t treat skin cancer as seriously as they should, and so the market has not provided more choices.",
+            "time": 1781284158,
+            "replies": []
+          }
+        ]
+      },
+      {
+        "id": 48506088,
+        "by": "stymaar",
+        "text": "I've no opinion whatsoever on the topic, but why can't economists refrain from writing opinion pieces in newspaper about topics they have no qualification on? I'm sure there's enough dermatologists and pharmaceutical engineers to give their informed opinion on such a topic, instead of having economists speaking as everythingologists on every damn subject\u2026 (I know why they do that, the author is merely a polical activist, but I wish editors would just close the door to such pieces).",
+        "time": 1781281409,
+        "replies": [
+          {
+            "id": 48506174,
+            "by": "culi",
+            "text": "Frankly, the field of dermatology is so captured by corporations that my confidence is hardly raised when I see a degree in that field. Is there a term for regulatory capture but for academia? Like \"academic capture\"?",
+            "time": 1781281771,
+            "replies": []
+          }
+        ]
+      },
+      {
+        "id": 48506597,
+        "by": "tristor",
+        "text": "This article never actually says which chemicals are being used in these sunscreens that are supposedly better/safer, but basically there are only two groups of effective active ingredients for sunscreen: zinc or titanium oxide (minerals) or benzene/petroleum derivatives. The problem with the latter is they absorb through the skin and are carcinogenic, although the research shows they're better than mineral-based sunscreen at blocking UV across a wider spectrum and therefore the offset in skin cancer rate is more than the cancer risk from absorption. Meanwhile good old zinc oxide has...",
+        "time": 1781283772,
+        "replies": [
+          {
+            "id": 48506644,
+            "by": "horizion2025",
+            "text": "Wrong there are plenty of other ingredients. In fact one of those ingredients that is permitted in EU and not US is ecamsule. It is quite nice, it absorbs the UV photons by switching confirmation (different isomere) rather than being oxidised into ROS/free radicals as many other ingredients do.",
+            "time": 1781283997,
+            "replies": []
+          },
+          {
+            "id": 48506673,
+            "by": "horizion2025",
+            "text": "Btw titanium dioxide is now a suspected carcinogenic. It is illegal in food in the EU now.",
+            "time": 1781284104,
+            "replies": []
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": 48502347,
+    "title": "Kimi K2.7-Code: open-source coding model with better token efficiency",
+    "url": "https://huggingface.co/moonshotai/Kimi-K2.7-Code",
+    "by": "nekofneko",
+    "score": 297,
+    "descendants": 152,
+    "time": 1781260970,
+    "comments": [
+      {
+        "id": 48503581,
+        "by": "giancarlostoro",
+        "text": "Reading their modified license terms, it cracks me up, because they've basically remade the MIT to be the MIT + the one clause that the BSD used to have, which didn't care about MAU or revenue, if you used it in a product, they asked you to 'advertise' them basically. Honestly, its a reasonable request.",
+        "time": 1781269229,
+        "replies": [
+          {
+            "id": 48503677,
+            "by": "htrp",
+            "text": "This is the cursor callout. Don't make us shame you into disclosure",
+            "time": 1781269784,
+            "replies": []
+          },
+          {
+            "id": 48505958,
+            "by": "WalterGR",
+            "text": "> they asked you to 'advertise' them basically. To be clear, the \u201cadvertising\u201d clause just requires you to disclose that you use the thing somewhere in the product, such as credits in an \u201cAbout\u201d section.",
+            "time": 1781280770,
+            "replies": []
+          }
+        ]
+      },
+      {
+        "id": 48503595,
+        "by": "jdw64",
+        "text": "Personally, when I use open code or routers, I feel that beyond a certain level, the models don't make a huge difference to me. Except for expensive and mediocre models like Gemini. In that sense, Chinese models are pretty good. I usually write code in function or method units and then design and assemble them together. GPT series models are more thorough and better, but I'm not sure if the difference is enormous. It seems to depend on the workflow, but in my opinion, if you are thorough enough, I wonder if there really is a big difference",
+        "time": 1781269273,
+        "replies": [
+          {
+            "id": 48504789,
+            "by": "sjanes",
+            "text": "I've kind of given up on the routers for \"free\" inference, as you would expect, they tend to give you sub-par thinking because they are obviously trying to conserve as much inference as possible. I've had some success turning my macbook M1 pro into a heating pad with Qwen 3.6 35B A3B MTP. Trying to use Gemini models \"locally\" resulted in a similar \"short shrift\" of effort resulting in mistakes and lots of turns. The reports of Fable being relentlessly \"proactive\" shows you can go the other direction as well, if you have strong enough branding and effective invoicing.",
+            "time": 1781275186,
+            "replies": []
+          },
+          {
+            "id": 48503650,
+            "by": "onlyrealcuzzo",
+            "text": "In my experience, there's little difference between implementing individual functions between frontier models and SotA ~30B param models. Once you have a coherent design (the hard part), you can feed it to a pretty small model and get basically the same quality. They'll not one-shot, but they're faster and cheaper, so it still works out in your favor. Plus you can do it locally...",
+            "time": 1781269618,
+            "replies": []
+          }
+        ]
+      },
+      {
+        "id": 48503148,
+        "by": "shreedx",
+        "text": "I would really love to know if anyone has any experience with something like opencode + Kimi K2.6/2.7 now compared to Claude Code. What is better, what is worse, what is the cost comparison. I am currently paying $100 for the 5x Max plan, but Fable is running through the usage limits quite drastically and I cannot really say it's night and day compared to Opus. Also, I use this mostly for my side projects, so the $100 bill is quite noticeable. I definitely don't want to pay more.",
+        "time": 1781266442,
+        "replies": [
+          {
+            "id": 48503577,
+            "by": "kmike84",
+            "text": "I do have this experience. I've used Claude Code (with Opus mostly), and then switched to opencode (mostly with Kimi 2.6) for my personal projects; it's based on a couple months of use. Claude Code is better. But Opencode + kimi 2.6 is workable, which is big. For bare code writing, if you know what exactly you want, most popular models are fine (deepseek, kimi, etc), it feels more or less the same as anthropic models. At the same time, Opus seems to understand my intent way better than e.g. deepseek. I need to be much more precise with my prompts when using deepseek - it often goes in a...",
+            "time": 1781269193,
+            "replies": []
+          },
+          {
+            "id": 48503365,
+            "by": "nobleach",
+            "text": "I use Claude at work and Kimi for side projects. My org has LiteLLM and Kimi 2.5 enabled but it rarely works, so Claude and GPT are my main tools. I actually enjoy Kimi more as it feels like a dev in a job interview. Watching it reason through problems is a lot like I tend to explain things during whiteboarding sessions. The number of times it says, \"wait\", is just funny. Claude on the other hand is much more like an employee (or team of employees) that already know they have the job. It doesn't do a ton of explanation up front. (you can dig into processes if you want). It just goes along,...",
+            "time": 1781267881,
+            "replies": []
+          }
+        ]
+      },
+      {
+        "id": 48503161,
+        "by": "jackdoe",
+        "text": "I think there is some threshold after which \"best\" model doesn't matter, we are not that far from it. Fable now is really good, in a year or so, if Kimi catches up, even if Fable6 is much better, I think I will use kimi at 1/10th of the price. I said that about opus 4.5 at the time, thinking \"this is so good, in 6-12 months the Chinese models will be as good and cheap, I will use them\", but I was wrong.. I pay premium for opus4.7/8 and Fable. But at some point, it will just do the thing you want it to do, and then the race to the bottom will start. Now that Chinese companies have access to...",
+        "time": 1781266534,
+        "replies": [
+          {
+            "id": 48503563,
+            "by": "wolttam",
+            "text": "Depending on who you are and how you use these models, we're already at this point",
+            "time": 1781269076,
+            "replies": []
+          },
+          {
+            "id": 48503201,
+            "by": "Zoadian",
+            "text": "price/token isnt the only thing relevant. if you have to ask the AI again, it'll cost you more than when it gets things right in the first place. so better models may still be cheaper even if the price per token is higher.",
+            "time": 1781266820,
+            "replies": []
+          }
+        ]
+      },
+      {
+        "id": 48506499,
+        "by": "storus",
+        "text": "Is this Moonshot.ai's attempt to replicate Composer 2.5 (coding fine-tune of Kimi 2.5) from Cursor IDE?",
+        "time": 1781283253,
+        "replies": []
+      }
+    ]
+  },
+  {
+    "id": 48497576,
+    "title": "A jacket that harvests drinking water from the air",
+    "url": "https://news.utexas.edu/2026/06/11/this-jacket-pulls-drinking-water-from-thin-air/",
+    "by": "ilreb",
+    "score": 129,
+    "descendants": 83,
+    "time": 1781218762,
+    "comments": [
+      {
+        "id": 48498739,
+        "by": "the__alchemist",
+        "text": "Nearly all passive water-from-air devices described in articles are based on false claims. Peltier-based, desiccant/absorption/adsorption based, etc. All end up not working, or not existing. This has been common for ~10 years. Which category does this fall into?: - Fraud - Incompetence / misunderstanding that wasn't cleared up prior to publishing an article - Neither; this works as expected",
+        "time": 1781228018,
+        "replies": [
+          {
+            "id": 48502025,
+            "by": "brodo",
+            "text": "Yea, usually the next step is starting a Kickstarter campaign and then rug-pulling. https://www.youtube.com/watch?v=LVsqIjAeeXw",
+            "time": 1781258370,
+            "replies": []
+          },
+          {
+            "id": 48498849,
+            "by": "donkers",
+            "text": "The design seems reasonable. It seems like a scaled down version of this MIT one that uses similar principles: https://news.mit.edu/2025/window-sized-device-taps-air-safe-... So my vote is for working as expected.",
+            "time": 1781228878,
+            "replies": []
+          }
+        ]
+      },
+      {
+        "id": 48499408,
+        "by": "phyzix5761",
+        "text": "I appreciate this style of writing. Straight to the point. No 12 paragraphs about someone's grandmother falling in love in Italy with a plastic bag.",
+        "time": 1781233613,
+        "replies": [
+          {
+            "id": 48505135,
+            "by": "adolfojp",
+            "text": "I know what you're saying and I agree, but now I really want to read a 12 paragraph story about someone's grandmother falling in love in Italy with a plastic bag.",
+            "time": 1781276771,
+            "replies": []
+          },
+          {
+            "id": 48499457,
+            "by": "karim79",
+            "text": "You're probably talking about cooking/recipe blogs? I need those 12 paragraphs and all the ads to get to the recipe. It's dopamine.",
+            "time": 1781233940,
+            "replies": []
+          }
+        ]
+      },
+      {
+        "id": 48499146,
+        "by": "grugagag",
+        "text": "This reminds me of Dune. Does this really work tho?",
+        "time": 1781231383,
+        "replies": [
+          {
+            "id": 48499888,
+            "by": "Ekaros",
+            "text": "Most likely not. Hard part really is rejecting the heat involved in phase change of water from vapor to liquid. You have to effectively dump that energy somewhere and all the time you do not you don't get liquid water.' It sounds easy, but eventually you can heat up whatever you use as heat sink and then you have to wait for that to cool.",
+            "time": 1781238246,
+            "replies": []
+          },
+          {
+            "id": 48500431,
+            "by": "trick-or-treat",
+            "text": "When you kill a man do you get to take his water?",
+            "time": 1781243812,
+            "replies": []
+          }
+        ]
+      },
+      {
+        "id": 48505036,
+        "by": "warumdarum",
+        "text": "https://m.youtube.com/watch?v=UMtqy9_NbYg&pp=0gcJCUACo7VqN5t...",
+        "time": 1781276302,
+        "replies": []
+      },
+      {
+        "id": 48500328,
+        "by": "bigiain",
+        "text": "So I assume Amazon will have all their warehouse workers forced to wear these, and collect all the captured water to feed into AI datacenter cooling systems?",
+        "time": 1781242633,
         "replies": []
       }
     ]
@@ -478,8 +1686,8 @@
     "title": "Nobody ever gets credit for fixing problems that never happened (2001) [pdf]",
     "url": "https://web.mit.edu/nelsonr/www/Repenning=Sterman_CMR_su01_.pdf",
     "by": "sam_bristow",
-    "score": 675,
-    "descendants": 220,
+    "score": 679,
+    "descendants": 221,
     "time": 1781224691,
     "comments": [
       {
@@ -540,17 +1748,17 @@
         "time": 1781228691,
         "replies": [
           {
+            "id": 48506751,
+            "by": "nomel",
+            "text": "Yeap. Managers perceive complexity by how personally confused they are. I'm late in my career, and I'm realizing I wasted so many man years trying to make code clean, user friendly, and maintainable, when that code was never read by another person again and forgotten 15 minutes after it was released. This is why I think AI is coming for our jobs much sooner than many people think: clean code, separation of concerns, maintainability, etc, all the things we spend the most time on, have never actually been valued. \"Good enough\" is fine, and keeps management happy.",
+            "time": 1781284408,
+            "replies": []
+          },
+          {
             "id": 48499220,
             "by": "fugaziboutit",
             "text": "\"Je n'ai fait celle-ci plus longue que parce que je n'ai pas eu le loisir de la faire plus courte.\" (\"I have made this longer than usual, only because I have not had the time to make it shorter.\") Blaise Pascal",
             "time": 1781232024,
-            "replies": []
-          },
-          {
-            "id": 48499017,
-            "by": "npunt",
-            "text": "I feel like AI coding is accelerating everyone's work toward greater solution complexity and I think it's pushing people to build defenses and be more averse to someone else's complexity rather than being impressed by it. Bigco's are probably well behind the curve on this and are still impressed by complexity, but for people on the receiving end of AI stuff either directly via your own hand or indirectly via others, it seems like complexity is not as impressive as it once was.",
-            "time": 1781230172,
             "replies": []
           }
         ]
@@ -563,5 +1771,261 @@
         "replies": []
       }
     ]
+  },
+  {
+    "id": 48427421,
+    "title": "Vinyl succumbs to Loudness War: more than just collateral damage (2025)",
+    "url": "https://magicvinyldigital.net/2025/04/27/vinyl-succumbs-to-loudness-war-more-than-just-collateral-damage/",
+    "by": "sneela",
+    "score": 131,
+    "descendants": 195,
+    "time": 1780769393,
+    "comments": [
+      {
+        "id": 48502479,
+        "by": "TheOtherHobbes",
+        "text": "Vinyl literally has less than half the dynamic range of CD and has always been compressed before cutting. Hard limiting is a (stupid) choice, but some limiting has always been necessary. The \"warm vinyl sound\" is basically analog compression with added low-end distortion from the RIAA compensation and some wrinkles at the high end caused by stylus resonance.",
+        "time": 1781261970,
+        "replies": [
+          {
+            "id": 48502832,
+            "by": "breezybottom",
+            "text": "Which is why it's so bizarre that CDs are generally less dynamic than vinyl. There's no technical reason that should be the case.",
+            "time": 1781264399,
+            "replies": []
+          },
+          {
+            "id": 48503751,
+            "by": "pier25",
+            "text": "> Vinyl literally has less than half the dynamic range of CD A lot less than half. It's around 20-30db and every 10db is a factor of 10. The CD has between 100-1000x more dynamic range.",
+            "time": 1781270283,
+            "replies": []
+          }
+        ]
+      },
+      {
+        "id": 48427436,
+        "by": "sneela",
+        "text": "Also covered by Tech Radar (2025) -- You need to be careful when buying new vinyl \u2013 the digital music loudness war can mean they sound worse than second-hand records: https://www.techradar.com/audio/turntables/you-need-to-be-ca...",
+        "time": 1780769481,
+        "replies": [
+          {
+            "id": 48494172,
+            "by": "soupfordummies",
+            "text": "I prefer original pressings whenever possible. It's still sometimes cheaper, but that is quickly going the other way.",
+            "time": 1781201349,
+            "replies": []
+          },
+          {
+            "id": 48501144,
+            "by": "emsign",
+            "text": "I prefer to buy original releases of CDs second hand on Discogs. I then digitize them with Exact Audio Copy. I never bought into the recent vinyl hype. Though I really like the beautiful design of many new vinyl releases, I don't think they are for being played. But I used to buy new and used vinyl as a teenager to actually listen to them, and occasionally I still buy used vinyl. Vinyl records from the flea market were as cheap as 1\u20ac, so that was an efficient way to grow my music collection before file sharing was a thing. But now I prefer CDs because what really interests me is the music...",
+            "time": 1781250831,
+            "replies": []
+          }
+        ]
+      },
+      {
+        "id": 48493549,
+        "by": "larodi",
+        "text": "Depending on which vinyl you're talking about. I care very little about big names signed to big corpo - they can do whatever they want to their vinyl. There are plenty of indi/underground artists releasing both on vinyl and tampe, who succumbed to nothing, but are alive and well actually. Check bandcamp more often for clues, should you disagree.",
+        "time": 1781199269,
+        "replies": [
+          {
+            "id": 48501161,
+            "by": "maqp",
+            "text": "PSA: https://dr.loudness-war.info/ is a great place to look for info on dynamic range of releases, and also, a great place to find new music with excellent dynamic range.",
+            "time": 1781250944,
+            "replies": []
+          },
+          {
+            "id": 48501502,
+            "by": "TylerE",
+            "text": "Yeah, I know a lot of indie artists. Most of that vinyl is produced straight off the 44.1/16 digital master. If you think it's analog (or in many cases even properly mastered at all), you're fooling yourself.",
+            "time": 1781253501,
+            "replies": []
+          }
+        ]
+      },
+      {
+        "id": 48505447,
+        "by": "H1Supreme",
+        "text": "I thought the loudness war was over? This was a hot topic for many years in the music production community. Sad to see it still persists. Especially since the answer to any loudness problem is to simply for the user to turn up the volume.",
+        "time": 1781278361,
+        "replies": [
+          {
+            "id": 48505642,
+            "by": "mjr00",
+            "text": "The loudness war in the strict \"we must compress and slam everything as much as possible to make our stuff sound good on the radio\" sense is over thanks to Spotify et al doing loudness normalization, but there's still an open question of \"how much compression does sound good?\" which is extremely subjective. A lot of modern music is louder than peak loudness war stuff just because the creators want their music to be slammed to shit. I listen to/make aggressive bass music and -5, -4, -3 LUFS are common. (By comparison, some of the common examples of loudness war era CDs like Definitely Maybe...",
+            "time": 1781279315,
+            "replies": []
+          }
+        ]
+      },
+      {
+        "id": 48505123,
+        "by": "ryanmcbride",
+        "text": "I've been collecting physical music my whole life and there were times that I tried to get everything on CD, times I tried to get everything on vinyl, times I've tried to go fully digital, and the pattern I've fallen into now in my late 30s is buying music on whatever medium was popular when it came out. I've now got a pretty mixed collection of records, tapes, CDs, digital music, and even a rockbox modded ipod. An added facet of fun for me when I find new music is to decide what the most thematically appropriate format to own it is. For example I own the CD for Imaginal Disk by Magdalena...",
+        "time": 1781276734,
+        "replies": [
+          {
+            "id": 48505379,
+            "by": "threetonesun",
+            "text": "I like this idea, it's a bit like retro gaming with the original games/consoles/controllers instead of emulating things.",
+            "time": 1781278041,
+            "replies": []
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": 48505690,
+    "title": "Euro-Office, open standards, and native ODF",
+    "url": "https://blog.documentfoundation.org/blog/2026/06/11/euro-office-open-standards-and-native-odf/",
+    "by": "ChrisArchitect",
+    "score": 28,
+    "descendants": 3,
+    "time": 1781279514,
+    "comments": [
+      {
+        "id": 48506627,
+        "by": "CopyOnWrite",
+        "text": "Amen. It is so frustrating... in tech circles, it is widely known/understood for at least 2 decades, that an open file/data format is much more important than open source software. Just make ODF the mandatory file format and be done with it. (Yes, I know, old documents and the work of transforming ... but if we do not start right now, when would be a better time?)",
+        "time": 1781283909,
+        "replies": [
+          {
+            "id": 48506794,
+            "by": "Gys",
+            "text": "Because https://en.wikipedia.org/wiki/Embrace,_extend,_and_extinguis...",
+            "time": 1781284634,
+            "replies": []
+          }
+        ]
+      },
+      {
+        "id": 48505754,
+        "by": "ChrisArchitect",
+        "text": "Related: Euro-Office: First version of the open-source web office is here https://news.ycombinator.com/item?id=48490564",
+        "time": 1781279784,
+        "replies": []
+      }
+    ]
+  },
+  {
+    "id": 48502601,
+    "title": "Ryanair dark UX patterns summer 2026 refresher",
+    "url": "https://blog.osull.com/2026/06/12/ryanair-dark-ux-patterns-summer-2026-refresher/",
+    "by": "danosull",
+    "score": 210,
+    "descendants": 160,
+    "time": 1781262702,
+    "comments": [
+      {
+        "id": 48503151,
+        "by": "thimabi",
+        "text": "That \u201cDon\u2019t Insure Me\u201d option hidden in the middle of a country list is pure evil. I\u2019m used to seeing dark patterns everywhere but that\u2019s a first for me. From where I stand, it\u2019s not fair to charge the hell out of people who fall for these tricks while giving steep discounts to the ones who don\u2019t. Maybe there\u2019s a \u201cfool me once\u201d aspect to Ryanair\u2019s shenanigans, so at least their impact might be limited somehow.",
+        "time": 1781266448,
+        "replies": [
+          {
+            "id": 48503341,
+            "by": "wongarsu",
+            "text": "To be fair, that is described as an 8 year old example. Their current UX is much more clear. Their current pattern is more about playing into the fear of what happens without insurance, without selecting your seat, when you don't pay for early check in and forget to do it online on the day before the flight, or what happens if you show up with more or larger luggage than what you booked. Fears they themselves create with high fees for showing up with too much luggage or for checking in at the airport There is still a bit of praying on people who are in a hurry or are impatient, don't read...",
+            "time": 1781267774,
+            "replies": []
+          },
+          {
+            "id": 48503599,
+            "by": "rsynnott",
+            "text": "> That \u201cDon\u2019t Insure Me\u201d option hidden in the middle of a country list is pure evil. I think they may actually have gotten in trouble for that one; they've stopped doing it (as noted in the article it was from eight years ago).",
+            "time": 1781269311,
+            "replies": []
+          }
+        ]
+      },
+      {
+        "id": 48502908,
+        "by": "bojangleslover",
+        "text": "About 1/3 of their revenue is ancillary (the dark patterns are there to cause ancillary revenue). I just flew from Bournemouth to Alicante on Ryanair for \u00a350. A similar flight in the US (DC to Miami, for example) would be easily 5x that, possibly 7-8x. The dark patterns took me about 10min to click through. Doing the math, that means my time would have to be worth $1500/hr which is higher than the take-home (not billable) of senior partners at law firms. Ryanair has severely improved my life, especially for my fellow sun-deprived Northern Europeans. [1]...",
+        "time": 1781264876,
+        "replies": [
+          {
+            "id": 48503907,
+            "by": "rafram",
+            "text": "> \u00a350. A similar flight in the US (DC to Miami, for example) would be easily 5x that, possibly 7-8x. ??? Maybe round-trip at a peak time. But if you're talking about one-way flights, you can fly across the entire country (NYC to SFO) for <$150 without hunting for a deal. DC to Miami is $50 (\u00a337) each way, all of next month.",
+            "time": 1781271390,
+            "replies": []
+          },
+          {
+            "id": 48503430,
+            "by": "rithdmc",
+            "text": "I don't find Ryanair much cheaper than Aer Lingus. In my experience there's up to a 20% premium, and I just cross checked the Alicante route for next week with the same results. Compared to the high likelihood of delays or cancelled flights with Ryanair, I think it's worth it for peace of mind.",
+            "time": 1781268309,
+            "replies": []
+          }
+        ]
+      },
+      {
+        "id": 48503821,
+        "by": "leni536",
+        "text": "And a last, most sneaky one: At checkout if you pay with credit/debit card don't use Ryanair's \"guaranteed exhange rate\" if the cost of the flight is not in your card's currency (ticket by default, at least two clicks to find and untick it). That's ~6% gap from mid-market exhange rate, the worst cards do better than that.",
+        "time": 1781270760,
+        "replies": [
+          {
+            "id": 48503972,
+            "by": "reddalo",
+            "text": "Yeah but that's general advice, you shouldn't also do that with PayPal, or while paying abroad. ALWAYS pay in the local currency, never in your own.",
+            "time": 1781271801,
+            "replies": []
+          },
+          {
+            "id": 48504490,
+            "by": "ProllyInfamous",
+            "text": "This is like in stocktrading platforms where \"best rate\" is offered, and is in fact the worst of several options . ---- Can we stop with all this Newspeak, already? Words should flow with the conversationalists, not political spindoctor lexicologists.",
+            "time": 1781273925,
+            "replies": []
+          }
+        ]
+      },
+      {
+        "id": 48502935,
+        "by": "sverhagen",
+        "text": "Oh, don't get me started on Ryanair, but alas. You go through what seems the entire check-in process, you get what seems like a summary at the end, with a link to a UK government site where you need to go next to get a travel authorization, I spend an hour doing that, finally finish that, I show up to the airport the next morning to be told I'm not checked in, having to pay a hefty fee to do a late check-in for each of my five passengers. The staff at the airport isn't really Ryanair's, so recourse there. (As if having real Ryanair staff would have made a difference.) Same trip, coming...",
+        "time": 1781265073,
+        "replies": [
+          {
+            "id": 48503301,
+            "by": "cryptonym",
+            "text": "Bad UX (online, onsite, customer service) is not a bug. Ryanair makes you feel like livestock so you experience their cheapness. You must feel like they are milking everything they can to offer absolute lowest possible price. This include never taking accountability when shit hits the fan.",
+            "time": 1781267467,
+            "replies": []
+          },
+          {
+            "id": 48503645,
+            "by": "mapkkk",
+            "text": "A few years ago, I applied for a customer service job for an outsourcing company that was contracted by Ryanair. They had a two week unpaid training, I tapped out on day 3 of the training, but until that point, I was given all the training material, including the spiels they train the agents on, which they actually call spiels. Unless a customer mentions, specific wording (I forget what exactly now) - wording that matches the underlying regulation that entitles the customer to some kind of recourse by law, the agents are instructed to deny and weasel out of it. As in, even though they are...",
+            "time": 1781269591,
+            "replies": []
+          }
+        ]
+      },
+      {
+        "id": 48505361,
+        "by": "markvdb",
+        "text": "About ten years ago, Ryanaiar suffered a booking system malfunction. My ticket was wrongly booked to \"John Smith\" and apparently sent to an email address \"joxxxxxxxx@xxxxxxxxxx\" due to a flaw in their booking system. I noticed when trying to check in online far in advance. After many hours spent fruitlessly fighting the Ryanair customer disservice desk, I decided to enlist the help of my local ECC [0]. I paid Ryanair a 120\u20ac name change fee and had the ECC claim it back for me. [0] https://en.wikipedia.org/wiki/European_Consumer_Centres_Netw...",
+        "time": 1781277947,
+        "replies": []
+      }
+    ]
+  },
+  {
+    "id": 48506324,
+    "title": "New privacy frontier: Europe eyes crackdown on smart glasses",
+    "url": "https://www.politico.com/www.politico.eu/article/new-privacy-frontier-europe-eyes-crackdown-smart-glasses/",
+    "by": "1vuio0pswjnm7",
+    "score": 8,
+    "descendants": 0,
+    "time": 1781282476,
+    "comments": []
   }
 ]
