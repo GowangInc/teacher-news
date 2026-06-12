@@ -109,6 +109,22 @@ The API key is used only inside GitHub Actions; it is never sent to the browser 
 
 If no API key is configured, the workflow redeploys the committed `data.json` and database.
 
+### Running the updater from your own machine
+
+If you prefer to generate content locally (e.g. with a local Ollama model) and push the result to GitHub Pages, use `update.sh`:
+
+```bash
+# Run once
+./update.sh
+
+# Or add to crontab to run every 3 hours
+crontab -e
+# add:
+# 0 */3 * * * /path/to/teacher-news/update.sh >> /path/to/teacher-news/update.log 2>&1
+```
+
+`update.sh` commits with `[local-update]` in the message. The GitHub Actions workflow sees that marker, skips its own generation step, and just deploys the new data. Set `OPENAI_API_KEY` before calling `update.sh` if you want to use DeepSeek locally instead of Ollama.
+
 ## License
 
 MIT — do whatever you like, but maybe don’t be mean to actual teachers.
