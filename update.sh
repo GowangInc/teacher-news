@@ -18,7 +18,7 @@ fi
 
 # Adjust these to taste.
 export MAX_TOP_LEVEL="${MAX_TOP_LEVEL:-50}"
-export MAX_DEPTH="${MAX_DEPTH:-3}"
+export MAX_DEPTH="${MAX_DEPTH:-5}"
 export BATCH_SIZE="${BATCH_SIZE:-25}"
 export MAX_AGE_HOURS="${MAX_AGE_HOURS:-12}"
 export TOP_N="${TOP_N:-10}"
