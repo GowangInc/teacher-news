@@ -38,6 +38,7 @@ jobs:
         run: pip install requests
 
       - name: Generate fresh parody data
+        if: secrets.OPENAI_API_KEY != ''
         env:
           OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
           OPENAI_MODEL: ${{ vars.OPENAI_MODEL }}
@@ -48,15 +49,10 @@ jobs:
           MAX_REPLIES_PER_NODE: ${{ vars.MAX_REPLIES_PER_NODE || '3' }}
           MAX_DEPTH: ${{ vars.MAX_DEPTH || '3' }}
           BATCH_SIZE: ${{ vars.BATCH_SIZE || '12' }}
-        run: |
-          if [ -n "$OPENAI_API_KEY" ]; then
-            python3 generate.py
-          else
-            echo "No OPENAI_API_KEY secret; using committed data.json and database"
-          fi
+        run: python3 generate.py
 
       - name: Commit generated data and database
-        if: env.OPENAI_API_KEY != ''
+        if: secrets.OPENAI_API_KEY != ''
         uses: stefanzweifel/git-auto-commit-action@v5
         with:
           commit_message: "Update data.json and database [skip ci]"
