@@ -1,16 +1,26 @@
 #!/usr/bin/env python3
-"""Generate a Teacher News parody dataset from the current Hacker News front page.
+"""Generate a Teacher News parody dataset from Hacker News.
 
-Requires a local Ollama server (default model: gemma4:e4b). Set OLLAMA_MODEL to
-override, or set OPENAI_API_KEY / OPENAI_BASE_URL to use an OpenAI-compatible
-API instead.
-
-Usage:
-    python3 generate.py
+Fetches the top N stories from the last HOURS window, recursively collects
+top-level comments (up to MAX_TOP_LEVEL) and replies (up to MAX_DEPTH), then
+rewrites them as an education-themed parody using a local Ollama model or an
+OpenAI-compatible API.
 
 Outputs:
-    raw_hn.json   - fetched HN stories and comments
-    data.json     - parody dataset for the static site
+    raw_hn.json        - fetched HN stories and comments
+    data.json          - parody dataset for the static site
+    teacher_news.db    - SQLite archive of originals and parodies
+
+Environment variables:
+    TOP_N                       number of stories (default 10)
+    MAX_AGE_HOURS               story window (default 12)
+    MAX_TOP_LEVEL               top-level comments per story (default 50)
+    MAX_REPLIES_PER_NODE        replies per comment node (default 3)
+    MAX_DEPTH                   reply nesting depth (default 3)
+    COMMENT_TRUNCATE            max chars for comment text (default 600)
+    BATCH_SIZE                  comments per LLM prompt (default 12; set 0 for all)
+    OLLAMA_MODEL                default gemma4:e4b
+    OPENAI_API_KEY / OPENAI_BASE_URL / OPENAI_MODEL
 """
 
 import html
@@ -20,10 +30,20 @@ import re
 import sys
 import time
 from pathlib import Path
+from typing import Any, Dict, List
 
 import requests
 
+from database import save_dataset
+
 TOP_N = int(os.environ.get("TOP_N", "10"))
+MAX_AGE_HOURS = int(os.environ.get("MAX_AGE_HOURS", "12"))
+MAX_TOP_LEVEL = int(os.environ.get("MAX_TOP_LEVEL", "50"))
+MAX_REPLIES_PER_NODE = int(os.environ.get("MAX_REPLIES_PER_NODE", "3"))
+MAX_DEPTH = int(os.environ.get("MAX_DEPTH", "3"))
+COMMENT_TRUNCATE = int(os.environ.get("COMMENT_TRUNCATE", "600"))
+BATCH_SIZE = int(os.environ.get("BATCH_SIZE", "12"))
+
 OLLAMA_URL = os.environ.get("OLLAMA_URL", "http://localhost:11434/api/chat")
 OLLAMA_MODEL = os.environ.get("OLLAMA_MODEL", "gemma4:e4b")
 OPENAI_API_KEY = os.environ.get("OPENAI_API_KEY")
@@ -31,26 +51,68 @@ OPENAI_BASE_URL = os.environ.get("OPENAI_BASE_URL", "https://api.openai.com/v1")
 REQUEST_TIMEOUT = int(os.environ.get("REQUEST_TIMEOUT", "600"))
 
 
-def clean_text(text: str, max_len: int = 800) -> str:
+def active_model_name() -> str:
+    if OPENAI_API_KEY:
+        return os.environ.get("OPENAI_MODEL", "gpt-4o-mini")
+    return OLLAMA_MODEL
+
+
+def clean_text(text: str, max_len: int = COMMENT_TRUNCATE) -> str:
     """Strip HTML tags/entities and truncate to keep LLM prompts short."""
     if not text:
         return ""
     text = html.unescape(text)
-    text = re.sub(r"\u003c[^\u003e]+\u003e", " ", text)
+    text = re.sub(r"<[^>]+>", " ", text)
     text = re.sub(r"\s+", " ", text).strip()
     if len(text) > max_len:
         text = text[: max_len - 3].rsplit(" ", 1)[0] + "..."
     return text
 
 
-def fetch_top_stories(n=TOP_N):
-    """Fetch top stories + top comments from HN via Algolia."""
-    top_ids = requests.get(
-        "https://hacker-news.firebaseio.com/v0/topstories.json", timeout=30
-    ).json()[:n]
+def fetch_story_ids(n: int = TOP_N, max_age_hours: int = MAX_AGE_HOURS) -> List[int]:
+    """Fetch top stories posted within the last N hours, ranked by points."""
+    cutoff = int(time.time()) - max_age_hours * 3600
+    params = {
+        "tags": "story",
+        "numericFilters": f"created_at_i>{cutoff}",
+        "hitsPerPage": n,
+    }
+    resp = requests.get("https://hn.algolia.com/api/v1/search", params=params, timeout=30)
+    resp.raise_for_status()
+    data = resp.json()
+    return [int(hit["objectID"]) for hit in data.get("hits", [])[:n]]
 
+
+def build_comment(node: Dict[str, Any], depth: int = 0) -> Dict[str, Any]:
+    """Recursively build a cleaned comment tree from an Algolia item node."""
+    raw = node.get("text")
+    if not raw:
+        return None
+    text = clean_text(raw)
+    if not text:
+        return None
+
+    replies = []
+    if depth < MAX_DEPTH:
+        for child in (node.get("children") or [])[:MAX_REPLIES_PER_NODE]:
+            c = build_comment(child, depth + 1)
+            if c:
+                replies.append(c)
+
+    return {
+        "id": node.get("objectID") or node.get("id"),
+        "by": node.get("author"),
+        "text": text,
+        "time": node.get("created_at_i"),
+        "replies": replies,
+    }
+
+
+def fetch_top_stories(n: int = TOP_N) -> List[Dict[str, Any]]:
+    """Fetch story metadata and recursively collect comments."""
+    ids = fetch_story_ids(n)
     stories = []
-    for story_id in top_ids:
+    for story_id in ids:
         try:
             data = requests.get(
                 f"https://hn.algolia.com/api/v1/items/{story_id}", timeout=30
@@ -60,31 +122,10 @@ def fetch_top_stories(n=TOP_N):
             continue
 
         comments = []
-        for c in (data.get("children") or [])[:5]:
-            raw = c.get("text")
-            if not raw:
-                continue
-            replies = []
-            for r in (c.get("children") or [])[:2]:
-                rr = r.get("text")
-                if rr:
-                    replies.append(
-                        {
-                            "id": r.get("objectID") or r.get("id"),
-                            "by": r.get("author"),
-                            "text": clean_text(rr, 500),
-                            "time": r.get("created_at_i"),
-                        }
-                    )
-            comments.append(
-                {
-                    "id": c.get("objectID") or c.get("id"),
-                    "by": c.get("author"),
-                    "text": clean_text(raw, 800),
-                    "time": c.get("created_at_i"),
-                    "replies": replies,
-                }
-            )
+        for child in (data.get("children") or [])[:MAX_TOP_LEVEL]:
+            c = build_comment(child, depth=0)
+            if c:
+                comments.append(c)
 
         stories.append(
             {
@@ -157,32 +198,37 @@ def call_llm(prompt: str) -> str:
     return _call_ollama(prompt)
 
 
-def extract_json(text: str):
+def extract_json(text: str) -> Any:
     """Best-effort JSON extraction from model output."""
     text = text.strip()
-    # Strip markdown fences.
     if text.startswith("```"):
         text = re.sub(r"^```(?:json)?\s*", "", text)
         text = re.sub(r"\s*```$", "", text)
-    # Find first { ... } block.
     match = re.search(r"\{.*\}", text, re.DOTALL)
     if match:
         text = match.group(0)
     return json.loads(text)
 
 
-def parody_story(story: dict, attempt: int = 1) -> dict:
-    prompt = f"""You are writing for "Teacher News", a parody of Hacker News.
-Given the Hacker News story and its top comments below, produce an education-themed parody.
+def batch_comments(comments: List[Dict[str, Any]]) -> List[List[Dict[str, Any]]]:
+    """Split comments into batches for manageable LLM prompts."""
+    if BATCH_SIZE <= 0:
+        return [comments]
+    return [comments[i : i + BATCH_SIZE] for i in range(0, len(comments), BATCH_SIZE)]
+
+
+def first_prompt(story: Dict[str, Any], batch: List[Dict[str, Any]]) -> str:
+    return f"""You are writing for "Teacher News", a parody of Hacker News.
+Given the Hacker News story and the first batch of its comment threads below, produce an education-themed parody.
 
 Rules:
 - Change the headline only slightly so it fits primary, secondary, or tertiary education.
-- Rewrite every top-level comment and its replies as if they are written by teachers,
+- Rewrite every top-level comment and its nested replies as if they are written by teachers,
   professors, administrators, TAs, or education staff. Talk about pedagogy, classrooms,
   students, curriculum, grading, school policy, edtech, parent emails, etc.
-- Keep the Hacker News voice: concise, earnest, sometimes cranky, with nested threaded replies.
+- Keep the Hacker News voice: concise, earnest, sometimes cranky, with threaded replies.
 - Use short usernames like "mrhenry", "drlopez", "msperkins", "adjunctanon", "deptchair", "tenuredtom", "k12dev", "subplans".
-- The URL can stay the same as the original; this is a parody overlay.
+- The URL stays the same as the original; this is a parody overlay.
 - Return ONLY a valid JSON object with no markdown code fences, exactly this shape:
 
 {{
@@ -199,39 +245,100 @@ Rules:
   ]
 }}
 
-Input story:
-{json.dumps(story, indent=2)}
+Story title: {story['title']}
+Original URL: {story['url']}
+Original submitter: {story['by']}
+Score: {story.get('score', 0)} points
+
+First batch of comment threads:
+{json.dumps(batch, indent=2)}
 """
+
+
+def continuation_prompt(story: Dict[str, Any], title: str, batch: List[Dict[str, Any]]) -> str:
+    return f"""You are continuing the "Teacher News" parody of this Hacker News story.
+
+Parody title: {title}
+Original story title: {story['title']}
+Original URL: {story['url']}
+
+Rewrite the next batch of comment threads as teachers/educators discussing education.
+Keep the Hacker News voice and nested replies.
+Return ONLY a valid JSON object with no markdown code fences in this shape:
+
+{{
+  "comments": [
+    {{
+      "by": "teacher_username",
+      "text": "rewritten comment text",
+      "replies": [
+        {{"by": "teacher_username", "text": "reply text"}}
+      ]
+    }}
+  ]
+}}
+
+Next batch of comment threads:
+{json.dumps(batch, indent=2)}
+"""
+
+
+def call_with_retry(prompt: str, context: str, attempt: int = 1) -> Dict[str, Any]:
     try:
         text = call_llm(prompt)
-        parsed = extract_json(text)
+        return extract_json(text)
     except Exception as e:
         if attempt < 3:
-            print(f"  ! retry story {story['id']} (attempt {attempt}): {e}", file=sys.stderr)
+            print(f"  ! retry {context} (attempt {attempt}): {e}", file=sys.stderr)
             time.sleep(2)
-            return parody_story(story, attempt + 1)
+            return call_with_retry(prompt, context, attempt + 1)
         raise
-    return parsed
 
 
-def assign_times(generated: list, originals: list):
-    """Copy original timestamps onto generated comments/replies by position."""
+def parody_story(story: Dict[str, Any]) -> Dict[str, Any]:
+    batches = batch_comments(story.get("comments", []))
+    title = story["title"]
+    submitter = story["by"]
+    all_comments = []
+
+    for idx, batch in enumerate(batches):
+        if idx == 0:
+            prompt = first_prompt(story, batch)
+            parsed = call_with_retry(prompt, f"story {story['id']} batch {idx + 1}")
+            title = parsed.get("title", title)
+            submitter = parsed.get("submitter", submitter)
+            all_comments.extend(parsed.get("comments", []))
+        else:
+            prompt = continuation_prompt(story, title, batch)
+            parsed = call_with_retry(prompt, f"story {story['id']} batch {idx + 1}")
+            all_comments.extend(parsed.get("comments", []))
+
+    return {"title": title, "submitter": submitter, "comments": all_comments}
+
+
+def enrich_from_original(generated: List[Dict[str, Any]], originals: List[Dict[str, Any]]):
+    """Copy original metadata (id, time, author, text) onto generated comments."""
     for g, o in zip(generated, originals):
-        g["time"] = o.get("time")
         g["id"] = o.get("id")
+        g["time"] = o.get("time")
+        g["original_by"] = o.get("by")
+        g["original_text"] = o.get("text")
         if "replies" in g and "replies" in o:
-            assign_times(g["replies"], o.get("replies", []))
+            enrich_from_original(g["replies"], o.get("replies", []))
 
 
 def generate_dataset():
-    print(f"Fetching top {TOP_N} HN stories...")
+    print(
+        f"Fetching top {TOP_N} HN stories from last {MAX_AGE_HOURS}h "
+        f"(up to {MAX_TOP_LEVEL} top-level comments, depth {MAX_DEPTH})..."
+    )
     raw = fetch_top_stories(TOP_N)
     Path("raw_hn.json").write_text(json.dumps(raw, indent=2), encoding="utf-8")
-    print(f"Saved raw_hn.json ({len(raw)} stories)")
+    print(f"Saved raw_hn.json ({len(raw)} stories, {sum(len(s['comments']) for s in raw)} threads)")
 
     parodies = []
     for idx, story in enumerate(raw, 1):
-        print(f"[{idx}/{len(raw)}] Parodying: {story['title']}")
+        print(f"[{idx}/{len(raw)}] Parodying: {story['title']} ({len(story.get('comments', []))} threads)")
         try:
             p = parody_story(story)
         except Exception as e:
@@ -239,7 +346,7 @@ def generate_dataset():
             continue
 
         generated_comments = p.get("comments", [])
-        assign_times(generated_comments, story.get("comments", []))
+        enrich_from_original(generated_comments, story.get("comments", []))
 
         parodies.append(
             {
@@ -264,6 +371,8 @@ def generate_dataset():
     }
     Path("data.json").write_text(json.dumps(dataset, indent=2), encoding="utf-8")
     print(f"Saved data.json ({len(parodies)} parodied stories)")
+
+    save_dataset(dataset, raw, active_model_name())
 
 
 if __name__ == "__main__":

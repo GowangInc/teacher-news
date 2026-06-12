@@ -5,13 +5,13 @@ on:
     branches: [main]
   workflow_dispatch:
   schedule:
-    - cron: '0 6 * * *'
+    - cron: '0 */3 * * *'
 
 env:
   FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
 
 permissions:
-  contents: read
+  contents: write
   pages: write
   id-token: write
 
@@ -43,12 +43,24 @@ jobs:
           OPENAI_MODEL: ${{ vars.OPENAI_MODEL }}
           OPENAI_BASE_URL: ${{ vars.OPENAI_BASE_URL }}
           TOP_N: ${{ vars.TOP_N || '10' }}
+          MAX_AGE_HOURS: ${{ vars.MAX_AGE_HOURS || '12' }}
+          MAX_TOP_LEVEL: ${{ vars.MAX_TOP_LEVEL || '50' }}
+          MAX_REPLIES_PER_NODE: ${{ vars.MAX_REPLIES_PER_NODE || '3' }}
+          MAX_DEPTH: ${{ vars.MAX_DEPTH || '3' }}
+          BATCH_SIZE: ${{ vars.BATCH_SIZE || '12' }}
         run: |
           if [ -n "$OPENAI_API_KEY" ]; then
             python3 generate.py
           else
-            echo "No OPENAI_API_KEY secret; using committed data.json"
+            echo "No OPENAI_API_KEY secret; using committed data.json and database"
           fi
+
+      - name: Commit generated data and database
+        if: env.OPENAI_API_KEY != ''
+        uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: "Update data.json and database [skip ci]"
+          file_pattern: data.json raw_hn.json teacher_news.db
 
       - name: Setup Pages
         uses: actions/configure-pages@v5
