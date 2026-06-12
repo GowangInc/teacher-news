@@ -29,6 +29,10 @@
     }
   }
 
+  function hnItemUrl(id) {
+    return `https://news.ycombinator.com/item?id=${id}`;
+  }
+
   function textToHtml(text) {
     if (!text) return '';
     // Escape HTML, then split paragraphs on blank lines and wrap in <p>.
@@ -48,12 +52,14 @@
     const by = escapeHtml(comment.by || 'teacher');
     const time = formatTime(comment.time);
     const body = textToHtml(comment.text);
+    const commentUrl = hnItemUrl(comment.id || story.id);
 
     container.innerHTML = `
       <div class="comment">
         <div class="comment-meta">
           <span class="votebtn">▲</span>
-          <a href="#"><strong>${by}</strong></a> ${time}
+          <a href="${commentUrl}"><strong>${by}</strong></a>
+          <a href="${commentUrl}">${time}</a>
           <span class="toggle" style="margin-left:6px;">[–]</span>
         </div>
         <div class="comment-body">${body}</div>
@@ -80,9 +86,10 @@
   function renderStory(story, index) {
     const rank = index + 1;
     const domain = hostname(story.url);
-    const domainHtml = domain ? ` (<span class="sitestr"><a href="${escapeHtml(story.url)}">${escapeHtml(domain)}</a></span>)` : '';
+    const domainHtml = domain ? ` <span class="sitestr">(${escapeHtml(domain)})</span>` : '';
     const commentsCount = story.comment_count || (story.comments || []).length;
     const time = formatTime(story.time);
+    const storyUrl = hnItemUrl(story.id);
 
     const storyRow = document.createElement('tr');
     storyRow.className = 'story-row';
@@ -92,7 +99,7 @@
         <div class="votebtn" data-id="${story.id}" title="upvote">▲</div>
       </td>
       <td class="titleline">
-        <a href="${escapeHtml(story.url || '#')}">${escapeHtml(story.title)}</a>${domainHtml}
+        <a href="${storyUrl}">${escapeHtml(story.title)}</a>${domainHtml}
       </td>
     `;
 
@@ -113,10 +120,10 @@
       <td colspan="2"></td>
       <td class="subline">
         <span id="score-${story.id}" data-score="${story.score || 0}">${story.score || 0} points</span>
-        by <a href="#">${escapeHtml(story.by || 'teacher')}</a>
-        ${time}
+        by <a href="${storyUrl}">${escapeHtml(story.by || 'teacher')}</a>
+        <a href="${storyUrl}">${time}</a>
         | <a href="#" class="comments-toggle" data-id="${story.id}">${commentsCount} comments</a>
-        | <a href="${escapeHtml(story.original_url || story.url || '#')}" title="Original: ${escapeHtml(story.original_title || story.title)}">original</a>
+        | <a href="${escapeHtml(story.original_url || story.url || '#')}" title="Original article: ${escapeHtml(story.original_title || story.title)}">source article</a>
       </td>
     `;
 
