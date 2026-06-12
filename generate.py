@@ -48,10 +48,15 @@ OLLAMA_URL = os.environ.get("OLLAMA_URL", "http://localhost:11434/api/chat")
 OLLAMA_MODEL = os.environ.get("OLLAMA_MODEL", "gemma4:e4b")
 
 # Support both OPENAI_API_KEY (generic) and DEEPSEEK_API_KEY (official DeepSeek API).
+# DEEPSEEK_API_KEY takes precedence so a stale OPENAI_API_KEY in the environment
+# doesn't override it.
 DEEPSEEK_API_KEY = os.environ.get("DEEPSEEK_API_KEY")
-OPENAI_API_KEY = os.environ.get("OPENAI_API_KEY") or DEEPSEEK_API_KEY
-if DEEPSEEK_API_KEY and not os.environ.get("OPENAI_BASE_URL"):
-    OPENAI_BASE_URL = "https://api.deepseek.com/v1"
+OPENAI_API_KEY = os.environ.get("OPENAI_API_KEY")
+if DEEPSEEK_API_KEY:
+    OPENAI_API_KEY = DEEPSEEK_API_KEY
+    OPENAI_BASE_URL = os.environ.get("OPENAI_BASE_URL", "https://api.deepseek.com/v1")
+elif OPENAI_API_KEY:
+    OPENAI_BASE_URL = os.environ.get("OPENAI_BASE_URL", "https://api.openai.com/v1")
 else:
     OPENAI_BASE_URL = os.environ.get("OPENAI_BASE_URL", "https://api.openai.com/v1")
 REQUEST_TIMEOUT = int(os.environ.get("REQUEST_TIMEOUT", "600"))
@@ -194,7 +199,9 @@ def _call_openai(prompt: str) -> str:
     # Sensible defaults for common OpenAI-compatible providers.
     model = os.environ.get("OPENAI_MODEL")
     if not model:
-        if DEEPSEEK_API_KEY or "deepseek" in OPENAI_BASE_URL.lower():
+        if DEEPSEEK_API_KEY:
+            model = "deepseek-v4-flash"
+        elif "deepseek" in OPENAI_BASE_URL.lower():
             model = "deepseek-v4-flash"
         else:
             model = "gpt-4o-mini"
