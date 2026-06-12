@@ -66,6 +66,25 @@
   }
 
   async function init() {
+    // If stories are already rendered server-side, skip fetching data.json
+    if (storiesTable.querySelector('.story-row')) {
+      // Wire up vote buttons on pre-rendered content
+      storiesTable.querySelectorAll('.votebtn').forEach(btn => {
+        btn.addEventListener('click', () => {
+          btn.classList.toggle('upvoted');
+          const upvoted = btn.classList.contains('upvoted');
+          btn.title = upvoted ? 'upvoted' : 'upvote';
+          const storyId = btn.dataset.id;
+          const scoreSpan = document.getElementById(`score-${storyId}`);
+          if (scoreSpan) {
+            const baseScore = parseInt(scoreSpan.dataset.score, 10);
+            scoreSpan.textContent = (baseScore + (upvoted ? 1 : 0)) + ' points';
+          }
+        });
+      });
+      return;
+    }
+
     try {
       const resp = await fetch('data.json');
       if (!resp.ok) throw new Error(`HTTP ${resp.status}`);

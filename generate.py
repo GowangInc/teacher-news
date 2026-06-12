@@ -103,20 +103,12 @@ def hn_get(path: str, timeout: int = 30) -> Any:
     raise last_err
 
 
-def fetch_story_ids(n: int = TOP_N, max_age_hours: int = MAX_AGE_HOURS) -> List[int]:
-    """Fetch top story IDs from the last N hours via Algolia, ranked by points."""
-    cutoff = int(time.time()) - max_age_hours * 3600
-    params = {
-        "tags": "story",
-        "numericFilters": f"created_at_i>{cutoff}",
-        "hitsPerPage": n,
-    }
-    resp = requests.get(
-        "https://hn.algolia.com/api/v1/search", params=params, timeout=30
-    )
-    resp.raise_for_status()
-    data = resp.json()
-    return [int(hit["objectID"]) for hit in data.get("hits", [])[:n]]
+def fetch_story_ids(n: int = TOP_N) -> List[int]:
+    """Fetch top story IDs from the HN front page (official Firebase API)."""
+    ids = hn_get("topstories")
+    if not ids:
+        return []
+    return ids[:n]
 
 
 def build_comment_tree(item_id: int, depth: int = 0) -> Dict[str, Any]:
@@ -149,7 +141,7 @@ def build_comment_tree(item_id: int, depth: int = 0) -> Dict[str, Any]:
 
 def fetch_top_stories(n: int = TOP_N) -> List[Dict[str, Any]]:
     """Fetch story metadata and recursively collect comments."""
-    ids = fetch_story_ids(n, MAX_AGE_HOURS)
+    ids = fetch_story_ids(n)
     stories = []
     for story_id in ids:
         data = hn_get(f"item/{story_id}")
@@ -430,7 +422,144 @@ def generate_dataset():
     Path("data.json").write_text(json.dumps(dataset, indent=2), encoding="utf-8")
     print(f"Saved data.json ({len(parodies)} parodied stories)")
 
+    # Generate static index.html with stories baked in for no-JS users
+    generate_static_index(dataset)
+
     save_dataset(dataset, raw, active_model_name())
+
+
+def _html_escape(text: str) -> str:
+    return html.escape(text or "")
+
+
+def _hostname(url: str) -> str:
+    if not url:
+        return ""
+    try:
+        from urllib.parse import urlparse
+        return urlparse(url).hostname or ""
+    except Exception:
+        return ""
+
+
+def _format_time(ts: int) -> str:
+    if not ts:
+        return ""
+    now = time.time()
+    delta = now - ts
+    if delta < 60:
+        return "just now"
+    if delta < 3600:
+        return f"{int(delta // 60)} minutes ago"
+    if delta < 86400:
+        return f"{int(delta // 3600)} hours ago"
+    return f"{int(delta // 86400)} days ago"
+
+
+def generate_static_index(dataset: Dict[str, Any]) -> None:
+    """Generate index.html with stories pre-rendered as static HTML."""
+    stories = dataset.get("stories", [])
+    rows_html = []
+    for idx, story in enumerate(stories):
+        rank = idx + 1
+        domain = _hostname(story.get("url"))
+        domain_html = f' <span class="sitestr">({_html_escape(domain)})</span>' if domain else ""
+        comments_count = story.get("comment_count") or len(story.get("comments", []))
+        time_str = _format_time(story.get("time"))
+        story_url = f"https://news.ycombinator.com/item?id={story['id']}"
+        item_page = f"item.html?id={story['id']}"
+        score = story.get("score", 0)
+        by = _html_escape(story.get("by", "teacher"))
+        title = _html_escape(story.get("title", "Untitled"))
+        original_url = _html_escape(story.get("original_url") or story.get("url") or "#")
+        original_title = _html_escape(story.get("original_title") or story.get("title", ""))
+
+        rows_html.append(f"""      <tr class="story-row">
+        <td align="right" valign="top" class="rank">{rank}.</td>
+        <td valign="top" class="votelinks">
+          <div class="votebtn" data-id="{story['id']}" title="upvote">▲</div>
+        </td>
+        <td class="titleline">
+          <a href="{story_url}">{title}</a>{domain_html}
+        </td>
+      </tr>
+      <tr>
+        <td colspan="2"></td>
+        <td class="subline">
+          <span id="score-{story['id']}" data-score="{score}">{score} points</span>
+          by <a href="{story_url}">{by}</a>
+          <a href="{story_url}">{time_str}</a>
+          | <a href="{item_page}">{comments_count} comments</a>
+          | <a href="{original_url}" title="Original article: {original_title}">source article</a>
+        </td>
+      </tr>
+      <tr style="height:5px"></tr>""")
+
+    stories_html = "\n".join(rows_html)
+
+    index_html = f"""<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Teacher News</title>
+  <link rel="icon" type="image/svg+xml" href="favicon.svg">
+  <link rel="stylesheet" href="style.css?v=2">
+</head>
+<body>
+  <center>
+    <table id="hnmain" border="0" cellpadding="0" cellspacing="0" width="85%" bgcolor="#f6f6ef">
+      <tr>
+        <td bgcolor="#ff6600">
+          <table border="0" cellpadding="0" cellspacing="0" width="100%" style="padding:2px">
+            <tr>
+              <td style="width:18px;padding-right:4px">
+                <a href="./">
+                  <div class="logo" aria-hidden="true">T</div>
+                </a>
+              </td>
+              <td style="line-height:12pt; height:10px;">
+                <span class="pagetop">
+                  <b class="hnname"><a href="./">Teacher News</a></b>
+                </span>
+              </td>
+              <td style="text-align:right;padding-right:4px;">
+                <span class="pagetop">
+                  <a href="https://github.com/GowangInc/teacher-news">source</a>
+                </span>
+              </td>
+            </tr>
+          </table>
+        </td>
+      </tr>
+      <tr style="height:10px"></tr>
+      <tr>
+        <td>
+          <table id="stories" border="0" cellpadding="0" cellspacing="0" class="itemlist">
+{stories_html}
+      </table>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <table width="100%" cellspacing="0" cellpadding="1">
+            <tr><td bgcolor="#ff6600"></td></tr>
+          </table>
+          <div class="footer">
+            A parody of <a href="https://news.ycombinator.com/">Hacker News</a>.
+            Generated from the HN front page, rewritten for primary&#8209;tertiary education.
+          </div>
+        </td>
+      </tr>
+    </table>
+  </center>
+  <script src="common.js?v=2"></script>
+  <script src="app.js?v=2"></script>
+</body>
+</html>"""
+
+    Path("index.html").write_text(index_html, encoding="utf-8")
+    print(f"Saved index.html ({len(stories)} stories pre-rendered)")
 
 
 if __name__ == "__main__":
