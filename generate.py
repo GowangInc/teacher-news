@@ -260,10 +260,13 @@ Given the Hacker News story and the first batch of its comment threads below, pr
 Rules:
 - Change the headline only slightly so it fits primary, secondary, or tertiary education.
 - Rewrite every top-level comment and its nested replies as if they are written by teachers,
-  professors, administrators, TAs, or education staff. Talk about pedagogy, classrooms,
-  students, curriculum, grading, school policy, edtech, parent emails, etc.
+  professors, administrators, TAs, or education staff. The primary audience is international
+  school teachers, so lean toward IB/DP/MYP, expat teaching, EAL/ESL, admissions, parent
+  conferences, accreditation visits, and cross-cultural classrooms—but keep it accessible to
+  all educators.
 - Keep the Hacker News voice: concise, earnest, sometimes cranky, with threaded replies.
-- Use short usernames like "mrhenry", "drlopez", "msperkins", "adjunctanon", "deptchair", "tenuredtom", "k12dev", "subplans".
+- Use short usernames like "mrhenry", "drlopez", "msperkins", "adjunctanon", "deptchair",
+  "tenuredtom", "k12dev", "ibcoord", "expatteacher", "ealteacher", "counselor".
 - The URL stays the same as the original; this is a parody overlay.
 - Return ONLY a valid JSON object with no markdown code fences, exactly this shape:
 
@@ -299,7 +302,9 @@ Original story title: {story['title']}
 Original URL: {story['url']}
 
 Rewrite the next batch of comment threads as teachers/educators discussing education.
-Keep the Hacker News voice and nested replies.
+The primary audience is international school teachers, so lean toward IB/DP/MYP, expat
+teaching, EAL, admissions, accreditation, and cross-cultural classrooms while staying
+accessible. Keep the Hacker News voice and nested replies.
 Return ONLY a valid JSON object with no markdown code fences in this shape:
 
 {{
