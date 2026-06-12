@@ -1,10 +1,9 @@
 #!/usr/bin/env python3
 """Generate a Teacher News parody dataset from Hacker News.
 
-Fetches the top N stories from the last HOURS window, recursively collects
-top-level comments (up to MAX_TOP_LEVEL) and replies (up to MAX_DEPTH), then
-rewrites them as an education-themed parody using a local Ollama model or an
-OpenAI-compatible API.
+Fetches the current HN front page, recursively collects comments, then rewrites
+them as an education-themed parody using a local Ollama model or an
+OpenAI-compatible API (DeepSeek, OpenAI, OpenRouter, etc.).
 
 Outputs:
     raw_hn.json        - fetched HN stories and comments
@@ -13,14 +12,16 @@ Outputs:
 
 Environment variables:
     TOP_N                       number of stories (default 10)
-    MAX_AGE_HOURS               story window (default 12)
+    MAX_AGE_HOURS               story window via Algolia fallback (default 12)
     MAX_TOP_LEVEL               top-level comments per story (default 50)
-    MAX_REPLIES_PER_NODE        replies per comment node (default 3)
-    MAX_DEPTH                   reply nesting depth (default 3)
-    COMMENT_TRUNCATE            max chars for comment text (default 600)
-    BATCH_SIZE                  comments per LLM prompt (default 12; set 0 for all)
+    MAX_REPLIES_PER_NODE        replies per comment node (default 5)
+    MAX_DEPTH                   reply nesting depth (default 5)
+    COMMENT_TRUNCATE            max chars for raw comment text (default 600)
+    BATCH_SIZE                  comments per LLM prompt (default 5; 0 = all)
+    CONCURRENCY                 stories processed in parallel (default 3)
     OLLAMA_MODEL                default gemma4:e4b
     OPENAI_API_KEY / OPENAI_BASE_URL / OPENAI_MODEL
+    DEEPSEEK_API_KEY            uses https://api.deepseek.com/v1 automatically
 """
 
 import html
@@ -29,6 +30,7 @@ import os
 import re
 import sys
 import time
+from concurrent.futures import ThreadPoolExecutor, as_completed
 from pathlib import Path
 from typing import Any, Dict, List
 
@@ -39,10 +41,11 @@ from database import save_dataset
 TOP_N = int(os.environ.get("TOP_N", "10"))
 MAX_AGE_HOURS = int(os.environ.get("MAX_AGE_HOURS", "12"))
 MAX_TOP_LEVEL = int(os.environ.get("MAX_TOP_LEVEL", "50"))
-MAX_REPLIES_PER_NODE = int(os.environ.get("MAX_REPLIES_PER_NODE", "3"))
-MAX_DEPTH = int(os.environ.get("MAX_DEPTH", "3"))
+MAX_REPLIES_PER_NODE = int(os.environ.get("MAX_REPLIES_PER_NODE", "5"))
+MAX_DEPTH = int(os.environ.get("MAX_DEPTH", "5"))
 COMMENT_TRUNCATE = int(os.environ.get("COMMENT_TRUNCATE", "600"))
-BATCH_SIZE = int(os.environ.get("BATCH_SIZE", "12"))
+BATCH_SIZE = int(os.environ.get("BATCH_SIZE", "5"))
+CONCURRENCY = int(os.environ.get("CONCURRENCY", "3"))
 
 OLLAMA_URL = os.environ.get("OLLAMA_URL", "http://localhost:11434/api/chat")
 OLLAMA_MODEL = os.environ.get("OLLAMA_MODEL", "gemma4:e4b")
@@ -60,6 +63,8 @@ elif OPENAI_API_KEY:
 else:
     OPENAI_BASE_URL = os.environ.get("OPENAI_BASE_URL", "https://api.openai.com/v1")
 REQUEST_TIMEOUT = int(os.environ.get("REQUEST_TIMEOUT", "600"))
+
+HN_SESSION = requests.Session()
 
 
 def active_model_name() -> str:
@@ -82,35 +87,33 @@ def clean_text(text: str, max_len: int = COMMENT_TRUNCATE) -> str:
     return text
 
 
-def _get_with_retry(url: str, params: dict = None, timeout: int = 30, attempts: int = 3):
+def hn_get(path: str, timeout: int = 30) -> Any:
+    """Fetch a JSON object from the official HN Firebase API."""
+    url = f"https://hacker-news.firebaseio.com/v0/{path}.json"
     last_err = None
-    for attempt in range(1, attempts + 1):
+    for attempt in range(1, 4):
         try:
-            resp = requests.get(url, params=params, timeout=timeout)
+            resp = HN_SESSION.get(url, timeout=timeout)
             resp.raise_for_status()
-            return resp
+            return resp.json()
         except Exception as e:
             last_err = e
-            print(f"  ! fetch attempt {attempt}/{attempts} failed for {url}: {e}", file=sys.stderr)
+            print(f"  ! HN fetch attempt {attempt}/3 failed for {url}: {e}", file=sys.stderr)
             time.sleep(1)
     raise last_err
 
 
-def fetch_story_ids(n: int = TOP_N, max_age_hours: int = MAX_AGE_HOURS) -> List[int]:
-    """Fetch top stories posted within the last N hours, ranked by points."""
-    cutoff = int(time.time()) - max_age_hours * 3600
-    params = {
-        "tags": "story",
-        "numericFilters": f"created_at_i>{cutoff}",
-        "hitsPerPage": n,
-    }
-    resp = _get_with_retry("http://hn.algolia.com/api/v1/search", params=params, timeout=30)
-    data = resp.json()
-    return [int(hit["objectID"]) for hit in data.get("hits", [])[:n]]
+def fetch_story_ids(n: int = TOP_N) -> List[int]:
+    """Fetch top story IDs from the HN front page."""
+    ids = hn_get("topstories") or []
+    return ids[:n]
 
 
-def build_comment(node: Dict[str, Any], depth: int = 0) -> Dict[str, Any]:
-    """Recursively build a cleaned comment tree from an Algolia item node."""
+def build_comment_tree(item_id: int, depth: int = 0) -> Dict[str, Any]:
+    """Recursively fetch and clean a comment thread."""
+    node = hn_get(f"item/{item_id}")
+    if not node or node.get("deleted") or node.get("dead"):
+        return None
     raw = node.get("text")
     if not raw:
         return None
@@ -120,16 +123,16 @@ def build_comment(node: Dict[str, Any], depth: int = 0) -> Dict[str, Any]:
 
     replies = []
     if depth < MAX_DEPTH:
-        for child in (node.get("children") or [])[:MAX_REPLIES_PER_NODE]:
-            c = build_comment(child, depth + 1)
+        for child_id in (node.get("kids") or [])[:MAX_REPLIES_PER_NODE]:
+            c = build_comment_tree(child_id, depth + 1)
             if c:
                 replies.append(c)
 
     return {
-        "id": node.get("objectID") or node.get("id"),
-        "by": node.get("author"),
+        "id": node.get("id"),
+        "by": node.get("by"),
         "text": text,
-        "time": node.get("created_at_i"),
+        "time": node.get("time"),
         "replies": replies,
     }
 
@@ -139,18 +142,13 @@ def fetch_top_stories(n: int = TOP_N) -> List[Dict[str, Any]]:
     ids = fetch_story_ids(n)
     stories = []
     for story_id in ids:
-        try:
-            resp = _get_with_retry(
-                f"http://hn.algolia.com/api/v1/items/{story_id}", timeout=30
-            )
-            data = resp.json()
-        except Exception as e:
-            print(f"  ! failed to fetch story {story_id}: {e}", file=sys.stderr)
+        data = hn_get(f"item/{story_id}")
+        if not data or data.get("deleted") or data.get("dead"):
             continue
 
         comments = []
-        for child in (data.get("children") or [])[:MAX_TOP_LEVEL]:
-            c = build_comment(child, depth=0)
+        for child_id in (data.get("kids") or [])[:MAX_TOP_LEVEL]:
+            c = build_comment_tree(child_id, depth=0)
             if c:
                 comments.append(c)
 
@@ -159,14 +157,13 @@ def fetch_top_stories(n: int = TOP_N) -> List[Dict[str, Any]]:
                 "id": story_id,
                 "title": data.get("title"),
                 "url": data.get("url"),
-                "by": data.get("author"),
-                "score": data.get("points"),
-                "descendants": data.get("num_comments"),
-                "time": data.get("created_at_i"),
+                "by": data.get("by"),
+                "score": data.get("score"),
+                "descendants": data.get("descendants"),
+                "time": data.get("time"),
                 "comments": comments,
             }
         )
-        time.sleep(0.2)
     return stories
 
 
@@ -196,7 +193,6 @@ def _call_ollama(prompt: str) -> str:
 
 def _call_openai(prompt: str) -> str:
     headers = {"Authorization": f"Bearer {OPENAI_API_KEY}"}
-    # Sensible defaults for common OpenAI-compatible providers.
     model = os.environ.get("OPENAI_MODEL")
     if not model:
         if DEEPSEEK_API_KEY:
@@ -247,7 +243,7 @@ def extract_json(text: str) -> Any:
 
 
 def batch_comments(comments: List[Dict[str, Any]]) -> List[List[Dict[str, Any]]]:
-    """Split comments into batches for manageable LLM prompts."""
+    """Split comments into small batches for manageable LLM prompts."""
     if BATCH_SIZE <= 0:
         return [comments]
     return [comments[i : i + BATCH_SIZE] for i in range(0, len(comments), BATCH_SIZE)]
@@ -368,42 +364,53 @@ def enrich_from_original(generated: List[Dict[str, Any]], originals: List[Dict[s
             enrich_from_original(g["replies"], o.get("replies", []))
 
 
+def process_story(story: Dict[str, Any]) -> Dict[str, Any]:
+    """Parody a single story and return the dataset record."""
+    print(f"[{story['id']}] Parodying: {story['title']} ({len(story.get('comments', []))} threads)")
+    try:
+        p = parody_story(story)
+    except Exception as e:
+        print(f"  ! failed permanently: {e}", file=sys.stderr)
+        return None
+
+    generated_comments = p.get("comments", [])
+    enrich_from_original(generated_comments, story.get("comments", []))
+
+    return {
+        "id": story["id"],
+        "original_title": story["title"],
+        "original_url": story["url"],
+        "original_by": story["by"],
+        "title": p.get("title", story["title"]),
+        "url": story["url"],
+        "by": p.get("submitter", story["by"]),
+        "score": story.get("score", 0),
+        "time": story.get("time"),
+        "comment_count": story.get("descendants") or len(generated_comments),
+        "comments": generated_comments,
+    }
+
+
 def generate_dataset():
     print(
-        f"Fetching top {TOP_N} HN stories from last {MAX_AGE_HOURS}h "
-        f"(up to {MAX_TOP_LEVEL} top-level comments, depth {MAX_DEPTH})..."
+        f"Fetching top {TOP_N} HN stories "
+        f"(up to {MAX_TOP_LEVEL} top-level comments, depth {MAX_DEPTH}, batch {BATCH_SIZE})..."
     )
     raw = fetch_top_stories(TOP_N)
     Path("raw_hn.json").write_text(json.dumps(raw, indent=2), encoding="utf-8")
     print(f"Saved raw_hn.json ({len(raw)} stories, {sum(len(s['comments']) for s in raw)} threads)")
 
     parodies = []
-    for idx, story in enumerate(raw, 1):
-        print(f"[{idx}/{len(raw)}] Parodying: {story['title']} ({len(story.get('comments', []))} threads)")
-        try:
-            p = parody_story(story)
-        except Exception as e:
-            print(f"  ! failed permanently: {e}", file=sys.stderr)
-            continue
+    with ThreadPoolExecutor(max_workers=CONCURRENCY) as executor:
+        futures = {executor.submit(process_story, story): story for story in raw}
+        for future in as_completed(futures):
+            result = future.result()
+            if result:
+                parodies.append(result)
 
-        generated_comments = p.get("comments", [])
-        enrich_from_original(generated_comments, story.get("comments", []))
-
-        parodies.append(
-            {
-                "id": story["id"],
-                "original_title": story["title"],
-                "original_url": story["url"],
-                "original_by": story["by"],
-                "title": p.get("title", story["title"]),
-                "url": story["url"],
-                "by": p.get("submitter", story["by"]),
-                "score": story.get("score", 0),
-                "time": story.get("time"),
-                "comment_count": story.get("descendants") or len(generated_comments),
-                "comments": generated_comments,
-            }
-        )
+    # Preserve original ranking order.
+    raw_order = {story["id"]: idx for idx, story in enumerate(raw)}
+    parodies.sort(key=lambda s: raw_order.get(s["id"], 9999))
 
     dataset = {
         "generated_at": time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime()),

@@ -16,6 +16,11 @@ if [ -f "$REPO_DIR/.env" ]; then
   set +a
 fi
 
+# If we have a DeepSeek key, make sure the generic OpenAI-compatible client uses it.
+if [ -n "$DEEPSEEK_API_KEY" ]; then
+  export OPENAI_API_KEY="$DEEPSEEK_API_KEY"
+fi
+
 # Adjust these to taste.
 export MAX_TOP_LEVEL="${MAX_TOP_LEVEL:-50}"
 export MAX_REPLIES_PER_NODE="${MAX_REPLIES_PER_NODE:-5}"
