@@ -509,7 +509,7 @@ def generate_static_index(dataset: Dict[str, Any]) -> None:
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Teacher News</title>
   <link rel="icon" type="image/svg+xml" href="favicon.svg">
-  <link rel="stylesheet" href="style.css?v=2">
+  <link rel="stylesheet" href="style.css?v=3">
 </head>
 <body>
   <center>
@@ -558,8 +558,8 @@ def generate_static_index(dataset: Dict[str, Any]) -> None:
       </tr>
     </table>
   </center>
-  <script src="common.js?v=2"></script>
-  <script src="app.js?v=2"></script>
+  <script src="common.js?v=3"></script>
+  <script src="app.js?v=3"></script>
 </body>
 </html>"""
 

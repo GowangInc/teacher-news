@@ -86,7 +86,7 @@
     }
 
     try {
-      const resp = await fetch('data.json');
+      const resp = await fetch('data.json?_=' + Date.now());
       if (!resp.ok) throw new Error(`HTTP ${resp.status}`);
       const data = await resp.json();
       (data.stories || []).forEach(renderStory);
