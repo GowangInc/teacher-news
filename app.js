@@ -70,6 +70,8 @@
 
   function addMoreLink(currentPage, totalPages) {
     if (currentPage >= totalPages) return;
+    // Don't add if there's already a More link
+    if (storiesTable.querySelector('.more-link')) return;
     const nextPage = currentPage + 1;
     const spacer = document.createElement('tr');
     spacer.style.height = '10px';
