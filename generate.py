@@ -11,15 +11,15 @@ Outputs:
     teacher_news.db    - SQLite archive of originals and parodies
 
 Environment variables:
-    TOP_N                       number of stories (default 10)
+    TOP_N                       number of stories (default 5)
     MAX_AGE_HOURS               story window via Algolia fallback (default 12)
-    MAX_TOP_LEVEL               top-level comments per story (default 50)
-    MAX_REPLIES_PER_NODE        replies per comment node (default 5)
-    MAX_DEPTH                   reply nesting depth (default 5)
-    COMMENT_TRUNCATE            max chars for raw comment text (default 600)
-    BATCH_SIZE                  comments per LLM prompt (default 5; 0 = all)
-    CONCURRENCY                 stories processed in parallel (default 3)
-    TARGET_COMMENTS_PER_STORY    generate at least this many parody comments (default 30)
+    MAX_TOP_LEVEL               top-level comments per story (default 0 = unlimited)
+    MAX_REPLIES_PER_NODE        replies per comment node (default 0 = unlimited)
+    MAX_DEPTH                   reply nesting depth (default 0 = unlimited)
+    COMMENT_TRUNCATE            max chars for raw comment text (default 800)
+    BATCH_SIZE                  comments per LLM prompt (default 20)
+    CONCURRENCY                 stories processed in parallel (default 2)
+    TARGET_COMMENTS_PER_STORY    synthetic padding target (default 0 = disabled)
     OLLAMA_MODEL                default gemma4:e4b
     OPENAI_API_KEY / OPENAI_BASE_URL / OPENAI_MODEL
     DEEPSEEK_API_KEY            uses https://api.deepseek.com/v1 automatically
@@ -39,15 +39,15 @@ import requests
 
 from database import save_dataset
 
-TOP_N = int(os.environ.get("TOP_N", "10"))
+TOP_N = int(os.environ.get("TOP_N", "5"))
 MAX_AGE_HOURS = int(os.environ.get("MAX_AGE_HOURS", "12"))
-MAX_TOP_LEVEL = int(os.environ.get("MAX_TOP_LEVEL", "50"))
-MAX_REPLIES_PER_NODE = int(os.environ.get("MAX_REPLIES_PER_NODE", "5"))
-MAX_DEPTH = int(os.environ.get("MAX_DEPTH", "5"))
-COMMENT_TRUNCATE = int(os.environ.get("COMMENT_TRUNCATE", "600"))
-BATCH_SIZE = int(os.environ.get("BATCH_SIZE", "5"))
-CONCURRENCY = int(os.environ.get("CONCURRENCY", "3"))
-TARGET_COMMENTS_PER_STORY = int(os.environ.get("TARGET_COMMENTS_PER_STORY", "30"))
+MAX_TOP_LEVEL = int(os.environ.get("MAX_TOP_LEVEL", "0"))
+MAX_REPLIES_PER_NODE = int(os.environ.get("MAX_REPLIES_PER_NODE", "0"))
+MAX_DEPTH = int(os.environ.get("MAX_DEPTH", "0"))
+COMMENT_TRUNCATE = int(os.environ.get("COMMENT_TRUNCATE", "800"))
+BATCH_SIZE = int(os.environ.get("BATCH_SIZE", "20"))
+CONCURRENCY = int(os.environ.get("CONCURRENCY", "2"))
+TARGET_COMMENTS_PER_STORY = int(os.environ.get("TARGET_COMMENTS_PER_STORY", "0"))
 
 OLLAMA_URL = os.environ.get("OLLAMA_URL", "http://localhost:11434/api/chat")
 OLLAMA_MODEL = os.environ.get("OLLAMA_MODEL", "gemma4:e4b")
