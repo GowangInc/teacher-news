@@ -285,5 +285,10 @@ a:hover {
 
   .itemlist tr:not(.story-row) td:last-child {
     padding-left: 24px;
+    text-align: left;
+  }
+
+  .subline {
+    text-align: left;
   }
 }
