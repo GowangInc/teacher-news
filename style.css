@@ -207,3 +207,54 @@ a:hover {
   color: #828282;
   font-size: 9pt;
 }
+
+/* Mobile fixes */
+@media (max-width: 600px) {
+  body {
+    margin: 0;
+    font-size: 11pt;
+  }
+
+  #hnmain {
+    width: 100% !important;
+  }
+
+  .titleline {
+    font-size: 11pt;
+  }
+
+  .subline {
+    font-size: 8pt;
+  }
+
+  .comment {
+    font-size: 10pt;
+  }
+
+  .comment-meta {
+    font-size: 8pt;
+  }
+
+  .comment-body {
+    word-break: break-word;
+    overflow-wrap: anywhere;
+  }
+
+  .nested-comment {
+    margin-left: 0 !important;
+    border-left: 2px solid #e0e0e0;
+    padding-left: 8px;
+  }
+
+  .reply {
+    margin-left: 0;
+  }
+
+  .rank {
+    display: none;
+  }
+
+  .votelinks {
+    width: 24px;
+  }
+}

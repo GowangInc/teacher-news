@@ -44,7 +44,9 @@
   function renderComment(storyId, comment, depth) {
     const container = document.createElement('div');
     container.className = 'nested-comment';
-    container.style.marginLeft = (depth * 40) + 'px';
+    const isMobile = window.innerWidth <= 600;
+    const indent = isMobile ? Math.min(depth * 12, 36) : (depth * 40);
+    container.style.marginLeft = indent + 'px';
 
     const by = escapeHtml(comment.by || 'teacher');
     const time = formatTime(comment.time);
