@@ -656,49 +656,101 @@ def generate_dataset():
     raw_order = {story["id"]: idx for idx, story in enumerate(raw)}
     parodies.sort(key=lambda s: raw_order.get(s["id"], 9999))
 
+    generated_at = time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime())
+
+    # Prepend new stories to existing ones, like HN's front page
+    all_stories = _load_existing_stories()
+    # Prepend new stories, avoiding duplicates by ID
+    new_ids = {s["id"] for s in parodies}
+    all_stories = parodies + [s for s in all_stories if s["id"] not in new_ids]
+    print(f"Combined: {len(parodies)} new + {len(all_stories) - len(parodies)} existing = {len(all_stories)} total")
+
+    # Split into pages of 30 stories each
+    _save_paginated(all_stories, generated_at)
+
+    # Save data.json as page 1 (up to 30 stories) for backwards compat
+    page1 = all_stories[:PAGE_SIZE]
     dataset = {
-        "generated_at": time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime()),
+        "generated_at": generated_at,
         "source": "https://news.ycombinator.com/",
-        "stories": parodies,
+        "stories": page1,
     }
-
-    # Save the latest generation as data.json (for backwards compat)
     Path("data.json").write_text(json.dumps(dataset, indent=2), encoding="utf-8")
-    print(f"Saved data.json ({len(parodies)} parodied stories)")
+    print(f"Saved data.json ({len(page1)} stories on front page)")
 
-    # Rotate pagination files: page 1 = latest, page 2 = previous, etc.
-    _update_pagination_files(dataset)
-
-    # Generate static index.html with stories baked in for no-JS users
+    # Generate static index.html
     generate_static_index(dataset)
 
     save_dataset(dataset, raw, active_model_name())
 
 
-MAX_PAGES = 20
+PAGE_SIZE = 30
+MAX_PAGES = 50
 
 
-def _update_pagination_files(dataset: Dict[str, Any]):
-    """Rotate pagination files so each generation is accessible via ?p=N.
-    data-p1.json is the latest, data-p2.json the previous, etc.
-    """
-    # Shift existing files: p2→p3, p1→p2, etc.
-    for page in range(MAX_PAGES, 1, -1):
-        src = Path(f"data-p{page-1}.json")
-        dst = Path(f"data-p{page}.json")
-        if src.exists():
-            src.rename(dst)
-    # Write current as page 1
-    Path("data-p1.json").write_text(json.dumps(dataset, indent=2), encoding="utf-8")
-    # Build manifest
-    manifest = {"pages": 1, "latest": dataset.get("generated_at")}
-    # Count actual pages
+def _load_existing_stories() -> List[Dict]:
+    """Load all existing stories from all data-p*.json files, preserving order."""
+    all_stories = []
+    # First load data.json (the current front page)
+    data_path = Path("data.json")
+    if data_path.exists():
+        try:
+            d = json.loads(data_path.read_text(encoding="utf-8"))
+            all_stories.extend(d.get("stories", []))
+        except Exception:
+            pass
+    # Then load additional pages
     for page in range(2, MAX_PAGES + 1):
-        if Path(f"data-p{page}.json").exists():
-            manifest["pages"] = page
-    manifest["total_pages"] = manifest["pages"]
+        path = Path(f"data-p{page}.json")
+        if path.exists():
+            try:
+                d = json.loads(path.read_text(encoding="utf-8"))
+                p_stories = d.get("stories", [])
+                all_stories.extend(p_stories)
+            except Exception:
+                pass
+    return all_stories
+
+
+def _save_paginated(all_stories: List[Dict], generated_at: str):
+    """Split all stories into pages of PAGE_SIZE and save each page.
+    New stories are at the top, so they appear on page 1.
+    """
+    total_pages = max(1, (len(all_stories) + PAGE_SIZE - 1) // PAGE_SIZE)
+    total_pages = min(total_pages, MAX_PAGES)
+
+    # Build story-index: map story id → page number
+    story_index = {}
+
+    for page in range(1, total_pages + 1):
+        start = (page - 1) * PAGE_SIZE
+        end = start + PAGE_SIZE
+        chunk = all_stories[start:end]
+        page_data = {
+            "generated_at": generated_at,
+            "page": page,
+            "source": "https://news.ycombinator.com/",
+            "stories": chunk,
+        }
+        if page == 1:
+            Path("data-p1.json").write_text(json.dumps(page_data, indent=2), encoding="utf-8")
+        else:
+            Path(f"data-p{page}.json").write_text(json.dumps(page_data, indent=2), encoding="utf-8")
+        for s in chunk:
+            story_index[str(s["id"])] = page
+        print(f"  Page {page}: {len(chunk)} stories")
+
+    # Save story index for item.js to find stories across pages
+    Path("story-index.json").write_text(json.dumps(story_index, indent=2), encoding="utf-8")
+
+    # Save manifest
+    manifest = {
+        "pages": total_pages,
+        "latest": generated_at,
+        "total_pages": total_pages,
+    }
     Path("data-manifest.json").write_text(json.dumps(manifest, indent=2), encoding="utf-8")
-    print(f"Updated pagination: {manifest['total_pages']} pages total")
+    print(f"Saved {total_pages} pages, {len(all_stories)} stories total")
 
 
 def _html_escape(text: str) -> str:
