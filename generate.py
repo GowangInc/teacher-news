@@ -862,7 +862,7 @@ def generate_static_index(dataset: Dict[str, Any]) -> None:
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Teacher News</title>
-  <link rel="icon" type="image/svg+xml" href="favicon.svg">
+  <link rel="icon" type="image/svg+xml" href="favicon.svg?v={cache_buster}">
   <link rel="stylesheet" href="style.css?v={cache_buster}">
 </head>
 <body>
