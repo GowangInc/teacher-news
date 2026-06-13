@@ -70,10 +70,28 @@
       return;
     }
     try {
-      const resp = await fetch('data.json?_=' + Date.now());
-      if (!resp.ok) throw new Error(`HTTP ${resp.status}`);
-      const data = await resp.json();
-      const story = (data.stories || []).find(s => s.id === storyId);
+      // Try page 1 first
+      let resp = await fetch('data.json?_=' + Date.now());
+      let data = await resp.json();
+      let story = (data.stories || []).find(s => s.id === storyId);
+      
+      // If not found, try other pages
+      if (!story) {
+        const manifestResp = await fetch('data-manifest.json?_=' + Date.now());
+        if (manifestResp.ok) {
+          const manifest = await manifestResp.json();
+          const totalPages = manifest.total_pages || 1;
+          for (let p = 2; p <= totalPages; p++) {
+            resp = await fetch(`data-p${p}.json?_=` + Date.now());
+            if (resp.ok) {
+              data = await resp.json();
+              story = (data.stories || []).find(s => s.id === storyId);
+              if (story) break;
+            }
+          }
+        }
+      }
+      
       if (!story) {
         showError('Story not found.');
         return;

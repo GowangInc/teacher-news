@@ -120,29 +120,10 @@
       storiesTable.innerHTML = '';
     }
 
-    // For page 1 with pre-rendered content, just wire up buttons and add nav
+    // For page 1 with pre-rendered content, load full 30 stories from JSON
     if (page === 1 && storiesTable.querySelector('.story-row')) {
-      storiesTable.querySelectorAll('.votebtn').forEach(btn => {
-        btn.addEventListener('click', () => {
-          btn.classList.toggle('upvoted');
-          const upvoted = btn.classList.contains('upvoted');
-          btn.title = upvoted ? 'upvoted' : 'upvote';
-          const storyId = btn.dataset.id;
-          const scoreSpan = document.getElementById(`score-${storyId}`);
-          if (scoreSpan) {
-            const baseScore = parseInt(scoreSpan.dataset.score, 10);
-            scoreSpan.textContent = (baseScore + (upvoted ? 1 : 0)) + ' points';
-          }
-        });
-      });
-      try {
-        const manifestResp = await fetch('data-manifest.json?_=' + Date.now());
-        if (manifestResp.ok) {
-          const manifest = await manifestResp.json();
-          addMoreLink(1, manifest.total_pages || 999);
-        }
-      } catch (_) {}
-      return;
+      // Clear pre-rendered content and load fresh
+      storiesTable.innerHTML = '';
     }
 
     try {
