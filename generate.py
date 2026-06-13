@@ -869,7 +869,7 @@ def generate_static_index(dataset: Dict[str, Any]) -> None:
   <center>
     <table id="hnmain" border="0" cellpadding="0" cellspacing="0" width="85%" bgcolor="#f6f6ef">
       <tr>
-        <td bgcolor="#ff6600">
+        <td bgcolor="#0066CC">
           <table border="0" cellpadding="0" cellspacing="0" width="100%" style="padding:2px">
             <tr>
               <td style="width:18px;padding-right:4px">
@@ -902,7 +902,7 @@ def generate_static_index(dataset: Dict[str, Any]) -> None:
       <tr>
         <td>
           <table width="100%" cellspacing="0" cellpadding="1">
-            <tr><td bgcolor="#ff6600"></td></tr>
+            <tr><td bgcolor="#0066CC"></td></tr>
           </table>
           <div class="footer">
             A parody of <a href="https://news.ycombinator.com/">Hacker News</a>.

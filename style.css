@@ -25,7 +25,7 @@ a:hover {
   line-height: 18px;
   border: 1px solid #ffffff;
   color: #ffffff;
-  background-color: #ff6600;
+  background-color: #0066CC;
   font-weight: bold;
   text-align: center;
   font-size: 12px;
@@ -103,7 +103,7 @@ a:hover {
 }
 
 .votebtn.upvoted {
-  color: #ff6600;
+  color: #0066CC;
 }
 
 .rank {
