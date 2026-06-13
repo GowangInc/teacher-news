@@ -689,14 +689,20 @@ MAX_PAGES = 50
 
 
 def _load_existing_stories() -> List[Dict]:
-    """Load all existing stories from all data-p*.json files, preserving order."""
+    """Load all existing stories from all data-p*.json files, preserving order.
+    Deduplicates by story ID (keeps first occurrence = most recent).
+    """
     all_stories = []
+    seen_ids = set()
     # First load data.json (the current front page)
     data_path = Path("data.json")
     if data_path.exists():
         try:
             d = json.loads(data_path.read_text(encoding="utf-8"))
-            all_stories.extend(d.get("stories", []))
+            for s in d.get("stories", []):
+                if s["id"] not in seen_ids:
+                    seen_ids.add(s["id"])
+                    all_stories.append(s)
         except Exception:
             pass
     # Then load additional pages
@@ -705,8 +711,10 @@ def _load_existing_stories() -> List[Dict]:
         if path.exists():
             try:
                 d = json.loads(path.read_text(encoding="utf-8"))
-                p_stories = d.get("stories", [])
-                all_stories.extend(p_stories)
+                for s in d.get("stories", []):
+                    if s["id"] not in seen_ids:
+                        seen_ids.add(s["id"])
+                        all_stories.append(s)
             except Exception:
                 pass
     return all_stories
@@ -750,6 +758,12 @@ def _save_paginated(all_stories: List[Dict], generated_at: str):
         "total_pages": total_pages,
     }
     Path("data-manifest.json").write_text(json.dumps(manifest, indent=2), encoding="utf-8")
+    # Clean up any stale page files from previous pagination schemes
+    for page in range(total_pages + 1, MAX_PAGES + 1):
+        path = Path(f"data-p{page}.json")
+        if path.exists():
+            path.unlink()
+            print(f"  Cleaned stale data-p{page}.json")
     print(f"Saved {total_pages} pages, {len(all_stories)} stories total")
 
 
@@ -888,4 +902,14 @@ def generate_static_index(dataset: Dict[str, Any]) -> None:
 
 
 if __name__ == "__main__":
+    # Prevent SIGPIPE from killing the process when output is piped
+    import signal
+    signal.signal(signal.SIGPIPE, signal.SIG_DFL) if hasattr(signal, 'SIGPIPE') else None
+    # Redirect all print output to stderr so pipes don't kill us
+    import builtins
+    _orig_print = builtins.print
+    def _safe_print(*args, **kwargs):
+        kwargs.setdefault('file', sys.stderr)
+        _orig_print(*args, **kwargs)
+    builtins.print = _safe_print
     generate_dataset()
