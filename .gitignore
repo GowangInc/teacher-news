@@ -8,4 +8,5 @@ node_modules/
 HANDOFF.md
 progress.md
 *.progress.md
+.parinprog.md
 PLAN.md

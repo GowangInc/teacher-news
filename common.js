@@ -45,7 +45,7 @@
     const container = document.createElement('div');
     container.className = 'nested-comment';
     const isMobile = window.innerWidth <= 600;
-    const indent = isMobile ? Math.min(depth * 12, 36) : (depth * 40);
+    const indent = isMobile ? Math.min(depth * 10, 40) : Math.min(depth * 12, 60);
     container.style.marginLeft = indent + 'px';
 
     const by = escapeHtml(comment.by || 'teacher');
