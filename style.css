@@ -270,18 +270,20 @@ a:hover {
   }
 
   .itemlist td[colspan="2"] {
-    display: none;
+    width: 0;
+    padding: 0;
+    font-size: 0;
+    line-height: 0;
   }
 
   .itemlist tr:not(.story-row) td:first-child {
-    display: none;
+    width: 0;
+    padding: 0;
+    font-size: 0;
+    line-height: 0;
   }
 
-  .itemlist tr:not(.story-row) td:nth-child(2) {
-    display: none;
-  }
-
-  .itemlist tr:not(.story-row) td:nth-child(3) {
+  .itemlist tr:not(.story-row) td:last-child {
     padding-left: 24px;
   }
 }
