@@ -661,12 +661,17 @@ def generate_dataset():
 
     generated_at = time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime())
 
-    # Prepend new stories to existing ones, like HN's front page
+    # Prepend new stories to existing ones, like HN's front page.
+    # Existing stories are immutable: if an ID is already in the archive,
+    # the new parody is discarded so bookmarks and comment threads stay stable.
     all_stories = _load_existing_stories()
-    # Prepend new stories, avoiding duplicates by ID
-    new_ids = {s["id"] for s in parodies}
-    all_stories = parodies + [s for s in all_stories if s["id"] not in new_ids]
-    print(f"Combined: {len(parodies)} new + {len(all_stories) - len(parodies)} existing = {len(all_stories)} total")
+    existing_ids = {s["id"] for s in all_stories}
+    new_parodies = [s for s in parodies if s["id"] not in existing_ids]
+    skipped = [s["id"] for s in parodies if s["id"] in existing_ids]
+    if skipped:
+        print(f"Skipping {len(skipped)} already-archived story IDs: {skipped}")
+    all_stories = new_parodies + all_stories
+    print(f"Combined: {len(new_parodies)} new + {len(all_stories) - len(new_parodies)} existing = {len(all_stories)} total")
 
     # Split into pages of 30 stories each
     _save_paginated(all_stories, generated_at)
