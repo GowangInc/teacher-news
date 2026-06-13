@@ -6,4 +6,6 @@ __pycache__/
 node_modules/
 .pi/
 HANDOFF.md
+progress.md
+*.progress.md
 PLAN.md

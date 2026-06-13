@@ -138,14 +138,13 @@
       }
       const data = await resp.json();
       const stories = data.stories || [];
-      
+
       // Calculate starting rank for this page
       const startRank = (page - 1) * STORIES_PER_PAGE + 1;
-      
+
       stories.forEach((story, idx) => renderStory(story, startRank + idx - 1));
 
-      const totalStories = data.total_stories || (stories.length * page);
-      const totalPages = Math.ceil(totalStories / STORIES_PER_PAGE) || page + 1;
+      const totalPages = data.total_pages || page + 1;
       
       addPrevLink(page);
       addMoreLink(page, totalPages);

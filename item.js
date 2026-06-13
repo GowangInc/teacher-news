@@ -72,12 +72,18 @@
     try {
       // First, check which page contains this story
       let pageNum = 1;
-      const indexResp = await fetch('story-index.json?_=' + Date.now());
-      if (indexResp.ok) {
-        const index = await indexResp.json();
-        pageNum = index[String(storyId)] || 1;
+      try {
+        const indexResp = await fetch('story-index.json?_=' + Date.now());
+        if (indexResp.ok) {
+          const index = await indexResp.json();
+          pageNum = index[String(storyId)] || 1;
+        }
+      } catch (indexErr) {
+        // story-index.json is optional; fall back to page 1
+        console.warn('Could not load story-index.json, falling back to page 1', indexErr);
+        pageNum = 1;
       }
-      
+
       // Fetch only the page containing this story
       const dataUrl = pageNum === 1 ? 'data.json?_=' + Date.now() : 'data-p' + pageNum + '.json?_=' + Date.now();
       const resp = await fetch(dataUrl);

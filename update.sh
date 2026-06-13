@@ -17,20 +17,12 @@ fi
 echo "[$(date -Iseconds)] Starting update..."
 python3 -u generate.py
 
-# Generate the static index page after data.json is created
-python3 -c "
-import sys; sys.path.insert(0, '.')
-import json
-from generate import generate_static_index
-d = json.load(open('data.json'))
-generate_static_index(d)
-"
-
 # Commit and push any new content.
-if ! git diff --quiet -- data.json index.html data-manifest.json; then
+if [ -n "$(git status --porcelain)" ]; then
+  shopt -s nullglob
   git add data.json index.html raw_hn.json data-p*.json data-manifest.json story-index.json
   git commit -m "Update content from local cron [local-update]"
-  git push origin main 2>/dev/null || git push --force-with-lease origin main
+  git pull --rebase origin main && git push origin main
   echo "[$(date -Iseconds)] Update pushed."
 else
   echo "[$(date -Iseconds)] No changes to publish."

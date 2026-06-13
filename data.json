@@ -1,5 +1,6 @@
 {
   "generated_at": "2026-06-13T13:04:49Z",
+  "page": 1,
   "source": "https://news.ycombinator.com/",
   "stories": [
     {
@@ -34766,5 +34767,6 @@
       ],
       "generated_at": "2026-06-12T17:25:19Z"
     }
-  ]
+  ],
+  "total_pages": 2
 }

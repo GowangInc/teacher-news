@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 """SQLite persistence for fetched HN stories and generated parodies."""
 
+import hashlib
 import os
 import sqlite3
 from pathlib import Path
@@ -75,7 +76,8 @@ def _insert_comments(
     for idx, c in enumerate(comments):
         comment_id = c.get("id")
         if comment_id is None:
-            comment_id = -(abs(hash((c.get("text", ""), idx, parent_id))) % (10 ** 10))
+            key = f"{c.get('text', '')}|{idx}|{parent_id}"
+            comment_id = -(int(hashlib.md5(key.encode()).hexdigest(), 16) % (10 ** 10))
         cur.execute(
             """
             INSERT INTO comments (

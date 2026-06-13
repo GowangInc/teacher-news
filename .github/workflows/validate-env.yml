@@ -1,0 +1,40 @@
+name: Validate env defaults
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  validate-env:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Validate .env.example defaults
+        run: |
+          set -e
+          EXPECTED=(
+            "TOP_N=5"
+            "MAX_TOP_LEVEL=0"
+            "MAX_REPLIES_PER_NODE=0"
+            "MAX_DEPTH=0"
+            "TARGET_COMMENTS_PER_STORY=0"
+          )
+          FAIL=0
+          for pair in "${EXPECTED[@]}"; do
+            key="${pair%%=*}"
+            val="${pair#*=}"
+            actual=$(grep -E "^${key}\s*=" .env.example | tail -n1 | sed -E "s/^${key}\s*=\s*//")
+            if [ "$actual" != "$val" ]; then
+              echo "❌ $key expected '$val' but found '${actual:-<unset>}'"
+              FAIL=1
+            else
+              echo "✅ $key=$actual"
+            fi
+          done
+          if [ "$FAIL" -ne 0 ]; then
+            echo "Subagent overwrite detected in .env.example. Failing build."
+            exit 1
+          fi

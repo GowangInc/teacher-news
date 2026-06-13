@@ -672,14 +672,9 @@ def generate_dataset():
     _save_paginated(all_stories, generated_at)
 
     # Save data.json as page 1 (up to 30 stories) for backwards compat
-    page1 = all_stories[:PAGE_SIZE]
-    dataset = {
-        "generated_at": generated_at,
-        "source": "https://news.ycombinator.com/",
-        "stories": page1,
-    }
+    dataset = json.loads(Path("data-p1.json").read_text(encoding="utf-8"))
     Path("data.json").write_text(json.dumps(dataset, indent=2), encoding="utf-8")
-    print(f"Saved data.json ({len(page1)} stories on front page)")
+    print(f"Saved data.json ({len(dataset['stories'])} stories on front page)")
 
     # Generate static index.html
     generate_static_index(dataset)
