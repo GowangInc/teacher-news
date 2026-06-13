@@ -72,7 +72,7 @@ HN_SESSION = requests.Session()
 def active_model_name() -> str:
     if OPENAI_API_KEY:
         if DEEPSEEK_API_KEY and not os.environ.get("OPENAI_MODEL"):
-            return "deepseek-v4-flash"
+            return "deepseek-chat"
         return os.environ.get("OPENAI_MODEL", "gpt-4o-mini")
     return OLLAMA_MODEL
 
@@ -253,9 +253,9 @@ def _call_openai(prompt: str) -> str:
     model = os.environ.get("OPENAI_MODEL")
     if not model:
         if DEEPSEEK_API_KEY:
-            model = "deepseek-v4-flash"
+            model = "deepseek-chat"
         elif "deepseek" in OPENAI_BASE_URL.lower():
-            model = "deepseek-v4-flash"
+            model = "deepseek-chat"
         else:
             model = "gpt-4o-mini"
     resp = requests.post(
@@ -627,7 +627,10 @@ def generate_dataset():
             else:
                 print(f"Cached raw_hn.json stale (different front page), re-fetching...")
                 raw = None
-        except Exception:
+        except FileNotFoundError:
+            raw = None
+        except json.JSONDecodeError as e:
+            print(f"  ! raw_hn.json is corrupted, will refetch: {e}", file=sys.stderr)
             raw = None
     else:
         raw = None
@@ -694,29 +697,32 @@ def _load_existing_stories() -> List[Dict]:
     """
     all_stories = []
     seen_ids = set()
-    # First load data.json (the current front page)
-    data_path = Path("data.json")
-    if data_path.exists():
+
+    def _load_page(path: Path) -> List[Dict]:
         try:
-            d = json.loads(data_path.read_text(encoding="utf-8"))
-            for s in d.get("stories", []):
-                if s["id"] not in seen_ids:
-                    seen_ids.add(s["id"])
-                    all_stories.append(s)
-        except Exception:
-            pass
+            d = json.loads(path.read_text(encoding="utf-8"))
+            return d.get("stories", [])
+        except FileNotFoundError:
+            return []
+        except json.JSONDecodeError as e:
+            print(f"  ! JSON decode error loading {path}: {e}", file=sys.stderr)
+            return []
+
+    # First load data.json (the current front page)
+    for s in _load_page(Path("data.json")):
+        sid = str(s.get("id", ""))
+        if sid and sid not in seen_ids:
+            seen_ids.add(sid)
+            all_stories.append(s)
+
     # Then load additional pages
     for page in range(2, MAX_PAGES + 1):
         path = Path(f"data-p{page}.json")
-        if path.exists():
-            try:
-                d = json.loads(path.read_text(encoding="utf-8"))
-                for s in d.get("stories", []):
-                    if s["id"] not in seen_ids:
-                        seen_ids.add(s["id"])
-                        all_stories.append(s)
-            except Exception:
-                pass
+        for s in _load_page(path):
+            sid = str(s.get("id", ""))
+            if sid and sid not in seen_ids:
+                seen_ids.add(sid)
+                all_stories.append(s)
     return all_stories
 
 
@@ -737,6 +743,7 @@ def _save_paginated(all_stories: List[Dict], generated_at: str):
         page_data = {
             "generated_at": generated_at,
             "page": page,
+            "total_pages": total_pages,
             "source": "https://news.ycombinator.com/",
             "stories": chunk,
         }
@@ -749,7 +756,10 @@ def _save_paginated(all_stories: List[Dict], generated_at: str):
         print(f"  Page {page}: {len(chunk)} stories")
 
     # Save story index for item.js to find stories across pages
-    Path("story-index.json").write_text(json.dumps(story_index, indent=2), encoding="utf-8")
+    try:
+        Path("story-index.json").write_text(json.dumps(story_index, indent=2), encoding="utf-8")
+    except OSError as e:
+        print(f"  ! Failed to write story-index.json: {e}", file=sys.stderr)
 
     # Save manifest
     manifest = {
@@ -757,13 +767,22 @@ def _save_paginated(all_stories: List[Dict], generated_at: str):
         "latest": generated_at,
         "total_pages": total_pages,
     }
-    Path("data-manifest.json").write_text(json.dumps(manifest, indent=2), encoding="utf-8")
+    try:
+        Path("data-manifest.json").write_text(json.dumps(manifest, indent=2), encoding="utf-8")
+    except OSError as e:
+        print(f"  ! Failed to write data-manifest.json: {e}", file=sys.stderr)
+
     # Clean up any stale page files from previous pagination schemes
-    for page in range(total_pages + 1, MAX_PAGES + 1):
-        path = Path(f"data-p{page}.json")
-        if path.exists():
-            path.unlink()
-            print(f"  Cleaned stale data-p{page}.json")
+    for path in Path('.').glob('data-p*.json'):
+        match = re.match(r'data-p(\d+)\.json$', path.name)
+        if match:
+            page_num = int(match.group(1))
+            if page_num > total_pages:
+                try:
+                    path.unlink()
+                    print(f"  Cleaned stale {path.name}")
+                except OSError as e:
+                    print(f"  ! Failed to delete {path.name}: {e}", file=sys.stderr)
     print(f"Saved {total_pages} pages, {len(all_stories)} stories total")
 
 
@@ -798,6 +817,7 @@ def _format_time(ts: int) -> str:
 def generate_static_index(dataset: Dict[str, Any]) -> None:
     """Generate index.html with stories pre-rendered as static HTML."""
     stories = dataset.get("stories", [])
+    cache_buster = str(dataset.get("generated_at", "")).replace(":", "-")
     rows_html = []
     for idx, story in enumerate(stories):
         rank = idx + 1
@@ -843,7 +863,7 @@ def generate_static_index(dataset: Dict[str, Any]) -> None:
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Teacher News</title>
   <link rel="icon" type="image/svg+xml" href="favicon.svg">
-  <link rel="stylesheet" href="style.css?v=3">
+  <link rel="stylesheet" href="style.css?v={cache_buster}">
 </head>
 <body>
   <center>
@@ -892,8 +912,8 @@ def generate_static_index(dataset: Dict[str, Any]) -> None:
       </tr>
     </table>
   </center>
-  <script src="common.js?v=3"></script>
-  <script src="app.js?v=3"></script>
+  <script src="common.js?v={cache_buster}"></script>
+  <script src="app.js?v={cache_buster}"></script>
 </body>
 </html>"""
 
@@ -902,9 +922,9 @@ def generate_static_index(dataset: Dict[str, Any]) -> None:
 
 
 if __name__ == "__main__":
-    # Prevent SIGPIPE from killing the process when output is piped
+    # Ignore SIGPIPE so broken output pipes don't kill the generation process
     import signal
-    signal.signal(signal.SIGPIPE, signal.SIG_DFL) if hasattr(signal, 'SIGPIPE') else None
+    signal.signal(signal.SIGPIPE, signal.SIG_IGN) if hasattr(signal, 'SIGPIPE') else None
     # Redirect all print output to stderr so pipes don't kill us
     import builtins
     _orig_print = builtins.print
