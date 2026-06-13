@@ -257,38 +257,17 @@ a:hover {
   }
 
   .rank {
-    display: none;
-  }
-
-  .story-row .rank {
-    display: none;
+    font-size: 8pt;
+    padding-right: 2px;
+    min-width: 14px;
   }
 
   .story-row td.votelinks {
-    width: 24px;
-    min-width: 24px;
+    width: 20px;
+    min-width: 20px;
   }
 
-  .itemlist td[colspan="2"] {
-    width: 0;
-    padding: 0;
-    font-size: 0;
-    line-height: 0;
-  }
-
-  .itemlist tr:not(.story-row) td:first-child {
-    width: 0;
-    padding: 0;
-    font-size: 0;
-    line-height: 0;
-  }
-
-  .itemlist tr:not(.story-row) td:last-child {
-    padding-left: 24px;
-    text-align: left;
-  }
-
-  .subline {
-    text-align: left;
+  .votebtn {
+    font-size: 8pt;
   }
 }
