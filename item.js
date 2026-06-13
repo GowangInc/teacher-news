@@ -21,6 +21,7 @@
 
     header.innerHTML = `
       <tr class="story-row">
+        <td class="rank">&nbsp;</td>
         <td valign="top" class="votelinks">
           <div class="votebtn" data-id="${story.id}" title="upvote">▲</div>
         </td>

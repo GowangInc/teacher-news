@@ -263,6 +263,26 @@ a:hover {
     min-width: 14px;
   }
 
+  /* Item page: force subline directly below headline, not right-aligned */
+  #story-header .story-row td.titleline,
+  #story-header .subline {
+    display: block;
+    width: 100%;
+    padding-left: 0;
+  }
+
+  #story-header .story-row td.votelinks,
+  #story-header .story-row td.rank {
+    display: inline-block;
+    width: auto;
+    vertical-align: top;
+  }
+
+  #story-header .subline {
+    padding-top: 2px;
+    padding-bottom: 6px;
+  }
+
   .story-row td.votelinks {
     width: 20px;
     min-width: 20px;
