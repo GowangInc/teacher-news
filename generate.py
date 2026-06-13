@@ -393,7 +393,7 @@ def process_story(story: Dict[str, Any]) -> Dict[str, Any]:
         "by": p.get("submitter", story["by"]),
         "score": story.get("score", 0),
         "time": story.get("time"),
-        "comment_count": story.get("descendants") or len(generated_comments),
+        "comment_count": len(generated_comments),
         "comments": generated_comments,
     }
 
