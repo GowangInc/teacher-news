@@ -27,8 +27,8 @@ generate_static_index(d)
 "
 
 # Commit and push any new content.
-if ! git diff --quiet -- data.json index.html; then
-  git add data.json index.html raw_hn.json
+if ! git diff --quiet -- data.json index.html data-manifest.json; then
+  git add data.json index.html raw_hn.json data-p*.json data-manifest.json story-index.json
   git commit -m "Update content from local cron [local-update]"
   git push origin main 2>/dev/null || git push --force-with-lease origin main
   echo "[$(date -Iseconds)] Update pushed."

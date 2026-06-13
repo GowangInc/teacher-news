@@ -614,15 +614,19 @@ def process_story(story: Dict[str, Any], name_pool: List[str]) -> Dict[str, Any]
 
 def generate_dataset():
     raw_path = Path("raw_hn.json")
-    # Re-use existing raw_hn.json if it has at least TOP_N stories with comments
+    # Re-use existing raw_hn.json only if it matches the current HN front page
     if raw_path.exists():
         try:
             cached = json.loads(raw_path.read_text(encoding="utf-8"))
-            if len(cached) >= TOP_N and sum(len(s.get("comments", [])) for s in cached) > 50:
+            current_ids = fetch_story_ids(TOP_N)
+            cached_ids = {s["id"] for s in cached}
+            # Only reuse if the cached stories match the current HN front page
+            if all(sid in cached_ids for sid in current_ids) and len(cached) >= TOP_N:
                 raw = cached
-                print(f"Using cached raw_hn.json ({len(raw)} stories, {sum(len(s['comments']) for s in raw)} threads)")
+                print(f"Using cached raw_hn.json (matches current HN front page, {len(raw)} stories)")
             else:
-                raise ValueError("not enough cached data")
+                print(f"Cached raw_hn.json stale (different front page), re-fetching...")
+                raw = None
         except Exception:
             raw = None
     else:
