@@ -80,10 +80,14 @@ def active_model_name() -> str:
 def algolia_to_comments(children: List[Dict], top_level_limit: int = MAX_TOP_LEVEL,
                         depth_limit: int = MAX_DEPTH,
                         replies_per_node: int = MAX_REPLIES_PER_NODE) -> List[Dict]:
-    """Convert Algolia's nested children array into our comment tree format."""
+    """Convert Algolia's nested children array into our comment tree format.
+    0 = unlimited for any limit.
+    """
     def _convert(children_list: List[Dict], depth: int) -> List[Dict]:
         result = []
-        for child in children_list[:]:
+        for idx, child in enumerate(children_list):
+            if top_level_limit > 0 and len(result) >= top_level_limit and depth == 0:
+                break
             if child.get("deleted") or child.get("dead"):
                 continue
             text = clean_text(child.get("text", ""))
@@ -96,12 +100,11 @@ def algolia_to_comments(children: List[Dict], top_level_limit: int = MAX_TOP_LEV
                 "time": child.get("created_at_i"),
                 "replies": [],
             }
-            if depth < depth_limit:
+            if depth_limit == 0 or depth < depth_limit:
                 grandkids = child.get("children", [])
-                node["replies"] = _convert(grandkids[:replies_per_node], depth + 1)
+                limited_kids = grandkids[:replies_per_node] if replies_per_node > 0 else grandkids
+                node["replies"] = _convert(limited_kids, depth + 1)
             result.append(node)
-            if len(result) >= top_level_limit:
-                break
         return result
     return _convert(children, depth=0)
 
@@ -379,7 +382,14 @@ Next batch of comment threads:
 
 def synthetic_prompt(story: Dict[str, Any], title: str, count: int, existing: List[Dict[str, Any]]) -> str:
     """Prompt to generate additional synthetic comment threads."""
-    existing_sample = json.dumps(existing[:3], indent=2) if existing else "None"
+    # Strip usernames from examples — we assign them programmatically from real HN pool
+    existing_anon = []
+    for c in (existing[:3] if existing else []):
+        anon = {"text": c.get("text", "")}
+        if c.get("replies"):
+            anon["replies"] = [{"text": r.get("text", "")} for r in c["replies"][:2]]
+        existing_anon.append(anon)
+    existing_sample = json.dumps(existing_anon, indent=2) if existing_anon else "None"
     return f'''You are continuing the "Teacher News" parody of this Hacker News story.
 
 The story already has some parodied comments below, but we need MORE discussion.
@@ -389,9 +399,8 @@ from an international school teacher perspective (IB/DP/MYP, expat teaching, EAL
 admissions, accreditation, cross-cultural classrooms). Keep the Hacker News voice:
 concise, earnest, sometimes cranky, with threaded replies.
 
-Use realistic, varied Hacker News-style usernames (like "johndoe", "techuser42", 
-"coder101", "random_walker", "quantum_leap", "northcountry", etc.). Do NOT use
-the same usernames across different stories. Each thread should have unique names.
+IMPORTANT: The "by" field is ignored — usernames are assigned automatically by the system.
+Just put any placeholder like "user" in the by fields. Only the comment text matters.
 
 Parody title: {title}
 Story title: {story['title']}
@@ -404,10 +413,10 @@ Return ONLY a valid JSON object with no markdown code fences in this shape:
 {{
   "comments": [
     {{
-      "by": "hacker_news_style_username",
+      "by": "user",
       "text": "synthetic comment text discussing the topic from an education angle",
       "replies": [
-        {{"by": "another_username", "text": "reply text"}}
+        {{"by": "user", "text": "reply text"}}
       ]
     }},
     ... repeat for {count} top-level threads
@@ -461,9 +470,68 @@ def parody_story(story: Dict[str, Any]) -> Dict[str, Any]:
     return {"title": title, "submitter": submitter, "comments": all_comments}
 
 
-def enrich_from_original(generated: List[Dict[str, Any]], originals: List[Dict[str, Any]], story_id: int = 0):
+def collect_hn_usernames(raw_stories: List[Dict]) -> List[str]:
+    """Collect all unique real HN usernames from fetched stories."""
+    names = set()
+    def _walk(comments):
+        for c in comments:
+            if c.get("by"):
+                names.add(c["by"])
+            _walk(c.get("replies", []))
+    for s in raw_stories:
+        if s.get("by"):
+            names.add(s["by"])
+        _walk(s.get("comments", []))
+    # Filter out purely numeric, date-like, or too-short names
+    import re
+    filtered = [n for n in sorted(names)
+                if not re.match(r'^\d+$', n)
+                and not re.match(r'^\d{4}-\d{2}-\d{2}$', n)
+                and len(n) >= 2]
+    return filtered
+
+
+_hacker_adjectives = ["tiny","meta","quantum","functional","recursive","async","lazy","eager",
+    "pure","mutable","static","dynamic","nominal","structural","latent","distributed",
+    "concurrent","parallel","linear","fractal","bayesian","semantic","deterministic",
+    "stochastic","heuristic","empirical","abstract","concrete","generic","phantom",
+    "opaque","transparent","spatial","temporal","atomic","modular","polymorphic"]
+_hacker_nouns = ["lambda","closure","monad","functor","combinator","curry","thunk","macro",
+    "tuple","vector","buffer","cache","daemon","kernel","socket","mutex","semaphore",
+    "pragma","schema","alias","pointer","alloc","stream","chunk","hash","bloom",
+    "trie","graph","stack","heap","queue","ring","array","slice","map","filter",
+    "reduce","fold","bind","lift","flatmap","foldl","foldr","zipper"]
+_hn_name_pool_seed = 0
+
+
+def _assign_hn_name(pool: List[str], used: set) -> str:
+    """Pick a name from the real HN pool, or generate a synthetic HN-style name."""
+    # Find unused names from the real pool
+    avail = [n for n in pool if n not in used]
+    if avail:
+        name = avail[0]
+        used.add(name)
+        return name
+    # Fall back to generated name
+    global _hn_name_pool_seed
+    _hn_name_pool_seed += 1
+    adj = _hacker_adjectives[_hn_name_pool_seed % len(_hacker_adjectives)]
+    noun = _hacker_nouns[(_hn_name_pool_seed * 7) % len(_hacker_nouns)]
+    name = f"{adj}_{noun}"
+    # Ensure uniqueness
+    while name in used:
+        _hn_name_pool_seed += 1
+        adj = _hacker_adjectives[_hn_name_pool_seed % len(_hacker_adjectives)]
+        noun = _hacker_nouns[(_hn_name_pool_seed * 7) % len(_hacker_nouns)]
+        name = f"{adj}_{noun}"
+    used.add(name)
+    return name
+
+
+def enrich_from_original(generated: List[Dict[str, Any]], originals: List[Dict[str, Any]],
+                         name_pool: List[str], used_names: set, story_id: int = 0):
     """Copy original metadata (id, time, author, text) onto generated comments.
-    Synthetic comments beyond the originals list get a synthetic ID.
+    Synthetic comments beyond the originals list get real HN usernames from the pool.
     """
     base_syn_id = 900000000 + (story_id * 1000)
     for idx, g in enumerate(generated):
@@ -473,26 +541,46 @@ def enrich_from_original(generated: List[Dict[str, Any]], originals: List[Dict[s
             g["time"] = o.get("time")
             g["original_by"] = o.get("by")
             g["original_text"] = o.get("text")
-            # Use the original HN commenter's name instead of the teacher-themed fake
+            # Use the original HN commenter's display name
             if o.get("by"):
                 g["by"] = o.get("by")
+                used_names.add(o["by"])
             if "replies" in g and "replies" in o:
-                enrich_from_original(g["replies"], o.get("replies", []), story_id)
+                enrich_from_original(g["replies"], o.get("replies", []),
+                                     name_pool, used_names, story_id)
+            if "replies" in g and not o.get("replies"):
+                _assign_synthetic_ids_and_names(g["replies"], base_syn_id + 1000 + idx,
+                                                 name_pool, used_names, story_id)
         else:
-            # Synthetic comment — assign a dummy HN-style ID
+            # Synthetic comment — assign a real HN username from the pool
+            hn_name = _assign_hn_name(name_pool, used_names)
             g["id"] = base_syn_id + idx
             g["time"] = int(time.time()) - (idx * 300)
-            g["original_by"] = "hn_user"
+            g["original_by"] = hn_name
             g["original_text"] = g.get("text", "")
+            g["by"] = hn_name
             if "replies" in g:
-                for ri, r in enumerate(g["replies"]):
-                    r["id"] = base_syn_id + idx + 1 + ri
-                    r["time"] = int(time.time()) - (idx * 300) - 60
-                    r["original_by"] = "hn_user"
-                    r["original_text"] = r.get("text", "")
+                _assign_synthetic_ids_and_names(g["replies"], base_syn_id + 1000 + idx,
+                                                 name_pool, used_names, story_id)
 
 
-def process_story(story: Dict[str, Any]) -> Dict[str, Any]:
+def _assign_synthetic_ids_and_names(comments: List[Dict], start_id: int,
+                                     name_pool: List[str], used_names: set,
+                                     story_id: int = 0):
+    """Assign synthetic IDs and real HN usernames to generated replies."""
+    for ri, r in enumerate(comments):
+        hn_name = _assign_hn_name(name_pool, used_names)
+        r["id"] = start_id + ri
+        r["time"] = r.get("time", int(time.time()) - (ri * 60))
+        r["original_by"] = hn_name
+        r["original_text"] = r.get("text", "")
+        r["by"] = hn_name
+        if "replies" in r:
+            _assign_synthetic_ids_and_names(r["replies"], start_id + 100 + ri,
+                                             name_pool, used_names, story_id)
+
+
+def process_story(story: Dict[str, Any], name_pool: List[str]) -> Dict[str, Any]:
     """Parody a single story and return the dataset record."""
     print(f"[{story['id']}] Parodying: {story['title']} ({len(story.get('comments', []))} threads)")
     try:
@@ -502,8 +590,10 @@ def process_story(story: Dict[str, Any]) -> Dict[str, Any]:
         return None
 
     generated_comments = p.get("comments", [])
-    enrich_from_original(generated_comments, story.get("comments", []), story_id=story["id"])
-    # Use the original HN submitter name, not a generated one
+    used_names = set()
+    enrich_from_original(generated_comments, story.get("comments", []),
+                         name_pool, used_names, story_id=story["id"])
+    # Use the original HN submitter name
     if story.get("by"):
         p["submitter"] = story["by"]
 
@@ -547,9 +637,12 @@ def generate_dataset():
         raw_path.write_text(json.dumps(raw, indent=2), encoding="utf-8")
         print(f"Saved raw_hn.json ({len(raw)} stories, {sum(len(s['comments']) for s in raw)} threads)")
 
+    name_pool = collect_hn_usernames(raw)
+    print(f"Collected {len(name_pool)} unique HN usernames for synthetic comments")
+
     parodies = []
     with ThreadPoolExecutor(max_workers=CONCURRENCY) as executor:
-        futures = {executor.submit(process_story, story): story for story in raw}
+        futures = {executor.submit(process_story, story, name_pool): story for story in raw}
         for future in as_completed(futures):
             result = future.result()
             if result:
@@ -564,13 +657,44 @@ def generate_dataset():
         "source": "https://news.ycombinator.com/",
         "stories": parodies,
     }
+
+    # Save the latest generation as data.json (for backwards compat)
     Path("data.json").write_text(json.dumps(dataset, indent=2), encoding="utf-8")
     print(f"Saved data.json ({len(parodies)} parodied stories)")
+
+    # Rotate pagination files: page 1 = latest, page 2 = previous, etc.
+    _update_pagination_files(dataset)
 
     # Generate static index.html with stories baked in for no-JS users
     generate_static_index(dataset)
 
     save_dataset(dataset, raw, active_model_name())
+
+
+MAX_PAGES = 20
+
+
+def _update_pagination_files(dataset: Dict[str, Any]):
+    """Rotate pagination files so each generation is accessible via ?p=N.
+    data-p1.json is the latest, data-p2.json the previous, etc.
+    """
+    # Shift existing files: p2→p3, p1→p2, etc.
+    for page in range(MAX_PAGES, 1, -1):
+        src = Path(f"data-p{page-1}.json")
+        dst = Path(f"data-p{page}.json")
+        if src.exists():
+            src.rename(dst)
+    # Write current as page 1
+    Path("data-p1.json").write_text(json.dumps(dataset, indent=2), encoding="utf-8")
+    # Build manifest
+    manifest = {"pages": 1, "latest": dataset.get("generated_at")}
+    # Count actual pages
+    for page in range(2, MAX_PAGES + 1):
+        if Path(f"data-p{page}.json").exists():
+            manifest["pages"] = page
+    manifest["total_pages"] = manifest["pages"]
+    Path("data-manifest.json").write_text(json.dumps(manifest, indent=2), encoding="utf-8")
+    print(f"Updated pagination: {manifest['total_pages']} pages total")
 
 
 def _html_escape(text: str) -> str:

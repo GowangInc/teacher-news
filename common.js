@@ -44,7 +44,7 @@
   function renderComment(storyId, comment, depth) {
     const container = document.createElement('div');
     container.className = 'nested-comment';
-    container.style.marginLeft = depth > 0 ? '40px' : '0';
+    container.style.marginLeft = (depth * 40) + 'px';
 
     const by = escapeHtml(comment.by || 'teacher');
     const time = formatTime(comment.time);

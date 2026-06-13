@@ -4,6 +4,15 @@
   const { escapeHtml, formatTime, hostname, hnItemUrl } = window.TN;
   const storiesTable = document.getElementById('stories');
 
+  function getPageFromUrl() {
+    const params = new URLSearchParams(window.location.search);
+    return parseInt(params.get('p'), 10) || 1;
+  }
+
+  function dataUrlForPage(page) {
+    return page === 1 ? 'data.json?_=' + Date.now() : 'data-p' + page + '.json?_=' + Date.now();
+  }
+
   function renderStory(story, index) {
     const rank = index + 1;
     const domain = hostname(story.url);
@@ -59,6 +68,39 @@
     storiesTable.appendChild(spacer);
   }
 
+  function addMoreLink(currentPage, totalPages) {
+    if (currentPage >= totalPages) return;
+    const nextPage = currentPage + 1;
+    const spacer = document.createElement('tr');
+    spacer.style.height = '10px';
+    storiesTable.appendChild(spacer);
+
+    const row = document.createElement('tr');
+    row.innerHTML = `
+      <td colspan="3" class="more-link">
+        <a href="?p=${nextPage}">More</a>
+      </td>
+    `;
+    storiesTable.appendChild(row);
+  }
+
+  function addPrevLink(currentPage) {
+    if (currentPage <= 1) return;
+    const spacer = document.createElement('tr');
+    spacer.style.height = '10px';
+    storiesTable.appendChild(spacer);
+
+    const row = document.createElement('tr');
+    row.innerHTML = `
+      <td colspan="3" class="more-link">
+        <a href="?p=${currentPage - 1}">&lt; Previous</a>
+        &nbsp;|&nbsp;
+        <a href="?p=1">Front Page</a>
+      </td>
+    `;
+    storiesTable.appendChild(row);
+  }
+
   function showError(msg) {
     const row = document.createElement('tr');
     row.innerHTML = `<td colspan="3" class="error">${escapeHtml(msg)}</td>`;
@@ -66,8 +108,11 @@
   }
 
   async function init() {
-    // If stories are already rendered server-side, skip fetching data.json
-    if (storiesTable.querySelector('.story-row')) {
+    const page = getPageFromUrl();
+    const dataUrl = dataUrlForPage(page);
+
+    // Try pre-rendered content only for page 1
+    if (page === 1 && storiesTable.querySelector('.story-row')) {
       // Wire up vote buttons on pre-rendered content
       storiesTable.querySelectorAll('.votebtn').forEach(btn => {
         btn.addEventListener('click', () => {
@@ -82,14 +127,45 @@
           }
         });
       });
+      // Add navigation for pre-rendered page 1
+      try {
+        const manifestResp = await fetch('data-manifest.json?_=' + Date.now());
+        if (manifestResp.ok) {
+          const manifest = await manifestResp.json();
+          addMoreLink(1, manifest.total_pages || 999);
+        }
+      } catch (_) {}
       return;
     }
 
     try {
-      const resp = await fetch('data.json?_=' + Date.now());
-      if (!resp.ok) throw new Error(`HTTP ${resp.status}`);
+      const resp = await fetch(dataUrl);
+      if (!resp.ok) {
+        if (page > 1) {
+          showError('Page ' + page + ' not found. <a href="?p=1">Back to front page</a>');
+        } else {
+          throw new Error('HTTP ' + resp.status);
+        }
+        return;
+      }
       const data = await resp.json();
       (data.stories || []).forEach(renderStory);
+
+      // Determine total pages from manifest or allow next page attempt
+      try {
+        const manifestResp = await fetch('data-manifest.json?_=' + Date.now());
+        if (manifestResp.ok) {
+          const manifest = await manifestResp.json();
+          addPrevLink(page);
+          addMoreLink(page, manifest.total_pages || (page + 1));
+        } else {
+          addPrevLink(page);
+          addMoreLink(page, page + 1);
+        }
+      } catch (_) {
+        addPrevLink(page);
+        addMoreLink(page, page + 1);
+      }
     } catch (err) {
       showError('Could not load stories: ' + err.message);
       console.error(err);

@@ -188,6 +188,19 @@ a:hover {
   color: #828282;
 }
 
+.more-link {
+  font-family: Verdana, Geneva, sans-serif;
+  font-size: 10pt;
+  padding: 8px 0 8px 20px;
+}
+.more-link a {
+  color: #000;
+  text-decoration: none;
+}
+.more-link a:hover {
+  text-decoration: underline;
+}
+
 .loading,
 .error {
   padding: 10px 20px;
