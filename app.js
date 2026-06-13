@@ -109,13 +109,19 @@
     storiesTable.appendChild(row);
   }
 
+  const STORIES_PER_PAGE = 30;
+
   async function init() {
     const page = getPageFromUrl();
     const dataUrl = dataUrlForPage(page);
 
-    // Try pre-rendered content only for page 1
+    // Clear pre-rendered content if we're not on page 1
+    if (page !== 1 && storiesTable.querySelector('.story-row')) {
+      storiesTable.innerHTML = '';
+    }
+
+    // For page 1 with pre-rendered content, just wire up buttons and add nav
     if (page === 1 && storiesTable.querySelector('.story-row')) {
-      // Wire up vote buttons on pre-rendered content
       storiesTable.querySelectorAll('.votebtn').forEach(btn => {
         btn.addEventListener('click', () => {
           btn.classList.toggle('upvoted');
@@ -129,7 +135,6 @@
           }
         });
       });
-      // Add navigation for pre-rendered page 1
       try {
         const manifestResp = await fetch('data-manifest.json?_=' + Date.now());
         if (manifestResp.ok) {
@@ -151,23 +156,18 @@
         return;
       }
       const data = await resp.json();
-      (data.stories || []).forEach(renderStory);
+      const stories = data.stories || [];
+      
+      // Calculate starting rank for this page
+      const startRank = (page - 1) * STORIES_PER_PAGE + 1;
+      
+      stories.forEach((story, idx) => renderStory(story, startRank + idx - 1));
 
-      // Determine total pages from manifest or allow next page attempt
-      try {
-        const manifestResp = await fetch('data-manifest.json?_=' + Date.now());
-        if (manifestResp.ok) {
-          const manifest = await manifestResp.json();
-          addPrevLink(page);
-          addMoreLink(page, manifest.total_pages || (page + 1));
-        } else {
-          addPrevLink(page);
-          addMoreLink(page, page + 1);
-        }
-      } catch (_) {
-        addPrevLink(page);
-        addMoreLink(page, page + 1);
-      }
+      const totalStories = data.total_stories || (stories.length * page);
+      const totalPages = Math.ceil(totalStories / STORIES_PER_PAGE) || page + 1;
+      
+      addPrevLink(page);
+      addMoreLink(page, totalPages);
     } catch (err) {
       showError('Could not load stories: ' + err.message);
       console.error(err);
