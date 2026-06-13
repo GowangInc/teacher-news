@@ -19,6 +19,7 @@ Environment variables:
     COMMENT_TRUNCATE            max chars for raw comment text (default 600)
     BATCH_SIZE                  comments per LLM prompt (default 5; 0 = all)
     CONCURRENCY                 stories processed in parallel (default 3)
+    TARGET_COMMENTS_PER_STORY    generate at least this many parody comments (default 30)
     OLLAMA_MODEL                default gemma4:e4b
     OPENAI_API_KEY / OPENAI_BASE_URL / OPENAI_MODEL
     DEEPSEEK_API_KEY            uses https://api.deepseek.com/v1 automatically
@@ -46,6 +47,7 @@ MAX_DEPTH = int(os.environ.get("MAX_DEPTH", "5"))
 COMMENT_TRUNCATE = int(os.environ.get("COMMENT_TRUNCATE", "600"))
 BATCH_SIZE = int(os.environ.get("BATCH_SIZE", "5"))
 CONCURRENCY = int(os.environ.get("CONCURRENCY", "3"))
+TARGET_COMMENTS_PER_STORY = int(os.environ.get("TARGET_COMMENTS_PER_STORY", "30"))
 
 OLLAMA_URL = os.environ.get("OLLAMA_URL", "http://localhost:11434/api/chat")
 OLLAMA_MODEL = os.environ.get("OLLAMA_MODEL", "gemma4:e4b")
@@ -75,6 +77,35 @@ def active_model_name() -> str:
     return OLLAMA_MODEL
 
 
+def algolia_to_comments(children: List[Dict], top_level_limit: int = MAX_TOP_LEVEL,
+                        depth_limit: int = MAX_DEPTH,
+                        replies_per_node: int = MAX_REPLIES_PER_NODE) -> List[Dict]:
+    """Convert Algolia's nested children array into our comment tree format."""
+    def _convert(children_list: List[Dict], depth: int) -> List[Dict]:
+        result = []
+        for child in children_list[:]:
+            if child.get("deleted") or child.get("dead"):
+                continue
+            text = clean_text(child.get("text", ""))
+            if not text:
+                continue
+            node = {
+                "id": child.get("id"),
+                "by": child.get("author"),
+                "text": text,
+                "time": child.get("created_at_i"),
+                "replies": [],
+            }
+            if depth < depth_limit:
+                grandkids = child.get("children", [])
+                node["replies"] = _convert(grandkids[:replies_per_node], depth + 1)
+            result.append(node)
+            if len(result) >= top_level_limit:
+                break
+        return result
+    return _convert(children, depth=0)
+
+
 def clean_text(text: str, max_len: int = COMMENT_TRUNCATE) -> str:
     """Strip HTML tags/entities and truncate to keep LLM prompts short."""
     if not text:
@@ -85,6 +116,9 @@ def clean_text(text: str, max_len: int = COMMENT_TRUNCATE) -> str:
     if len(text) > max_len:
         text = text[: max_len - 3].rsplit(" ", 1)[0] + "..."
     return text
+
+
+ALGOLIA_SESSION = requests.Session()
 
 
 def hn_get(path: str, timeout: int = 30) -> Any:
@@ -99,6 +133,22 @@ def hn_get(path: str, timeout: int = 30) -> Any:
         except Exception as e:
             last_err = e
             print(f"  ! HN fetch attempt {attempt}/3 failed for {url}: {e}", file=sys.stderr)
+            time.sleep(1)
+    raise last_err
+
+
+def algolia_get(story_id: int, timeout: int = 30) -> Any:
+    """Fetch a story with full nested comment tree via Algolia."""
+    url = f"https://hn.algolia.com/api/v1/items/{story_id}"
+    last_err = None
+    for attempt in range(1, 4):
+        try:
+            resp = ALGOLIA_SESSION.get(url, timeout=timeout)
+            resp.raise_for_status()
+            return resp.json()
+        except Exception as e:
+            last_err = e
+            print(f"  ! Algolia fetch attempt {attempt}/3 failed for {url}: {e}", file=sys.stderr)
             time.sleep(1)
     raise last_err
 
@@ -140,34 +190,31 @@ def build_comment_tree(item_id: int, depth: int = 0) -> Dict[str, Any]:
 
 
 def fetch_top_stories(n: int = TOP_N) -> List[Dict[str, Any]]:
-    """Fetch story metadata and recursively collect comments."""
+    """Fetch story metadata and recursively collect comments using Algolia."""
     ids = fetch_story_ids(n)
     stories = []
     for idx, story_id in enumerate(ids, 1):
         try:
-            data = hn_get(f"item/{story_id}")
+            data = algolia_get(story_id)
             if not data or data.get("deleted") or data.get("dead"):
                 continue
 
-            comments = []
-            for child_id in (data.get("kids") or [])[:MAX_TOP_LEVEL]:
-                c = build_comment_tree(child_id, depth=0)
-                if c:
-                    comments.append(c)
+            children = data.get("children", [])
+            comments = algolia_to_comments(children)
 
             stories.append(
                 {
                     "id": story_id,
                     "title": data.get("title"),
                     "url": data.get("url"),
-                    "by": data.get("by"),
-                    "score": data.get("score"),
-                    "descendants": data.get("descendants"),
-                    "time": data.get("time"),
+                    "by": data.get("author"),
+                    "score": data.get("points"),
+                    "descendants": data.get("num_comments"),
+                    "time": data.get("created_at_i"),
                     "comments": comments,
                 }
             )
-            print(f"  [{idx}/{len(ids)}] Fetched story {story_id}: {data.get('title','')[:60]}")
+            print(f"  [{idx}/{len(ids)}] Fetched story {story_id}: {data.get('title','')[:60]} ({len(comments)} top-level)")
         except Exception as exc:
             print(f"  [{idx}/{len(ids)}] Skipping story {story_id}: {exc}", file=sys.stderr)
             continue
@@ -268,20 +315,21 @@ Rules:
   conferences, accreditation visits, and cross-cultural classrooms—but keep it accessible to
   all educators.
 - Keep the Hacker News voice: concise, earnest, sometimes cranky, with threaded replies.
-- Use short usernames like "mrhenry", "drlopez", "msperkins", "adjunctanon", "deptchair",
-  "tenuredtom", "k12dev", "ibcoord", "expatteacher", "ealteacher", "counselor".
+- IMPORTANT: Keep each comment's 'by' field set to the ORIGINAL Hacker News username from the
+  input data. Do NOT replace it with a teacher-themed username — use the real HN username.
+- The submitter should also be the original story submitter's name.
 - The URL stays the same as the original; this is a parody overlay.
 - Return ONLY a valid JSON object with no markdown code fences, exactly this shape:
 
 {{
   "title": "parody headline",
-  "submitter": "teacher_username",
+  "submitter": "original_submitter_username",
   "comments": [
     {{
-      "by": "teacher_username",
+      "by": "original_hacker_news_username",
       "text": "rewritten comment text",
       "replies": [
-        {{"by": "teacher_username", "text": "reply text"}}
+        {{"by": "original_hacker_news_username", "text": "reply text"}}
       ]
     }}
   ]
@@ -308,15 +356,17 @@ Rewrite the next batch of comment threads as teachers/educators discussing educa
 The primary audience is international school teachers, so lean toward IB/DP/MYP, expat
 teaching, EAL, admissions, accreditation, and cross-cultural classrooms while staying
 accessible. Keep the Hacker News voice and nested replies.
+IMPORTANT: Keep each comment's 'by' field set to the ORIGINAL Hacker News username from the
+input data. Do NOT replace it with a teacher-themed username.
 Return ONLY a valid JSON object with no markdown code fences in this shape:
 
 {{
   "comments": [
     {{
-      "by": "teacher_username",
+      "by": "original_hacker_news_username",
       "text": "rewritten comment text",
       "replies": [
-        {{"by": "teacher_username", "text": "reply text"}}
+        {{"by": "original_hacker_news_username", "text": "reply text"}}
       ]
     }}
   ]
@@ -325,6 +375,44 @@ Return ONLY a valid JSON object with no markdown code fences in this shape:
 Next batch of comment threads:
 {json.dumps(batch, indent=2)}
 """
+
+
+def synthetic_prompt(story: Dict[str, Any], title: str, count: int, existing: List[Dict[str, Any]]) -> str:
+    """Prompt to generate additional synthetic comment threads."""
+    existing_sample = json.dumps(existing[:3], indent=2) if existing else "None"
+    return f'''You are continuing the "Teacher News" parody of this Hacker News story.
+
+The story already has some parodied comments below, but we need MORE discussion.
+Generate {count} new top-level comment threads (each with 1-2 replies) as if additional
+Hacker News users joined the conversation. The comments should be about the story topic
+from an international school teacher perspective (IB/DP/MYP, expat teaching, EAL,
+admissions, accreditation, cross-cultural classrooms). Keep the Hacker News voice:
+concise, earnest, sometimes cranky, with threaded replies.
+
+Use realistic, varied Hacker News-style usernames (like "johndoe", "techuser42", 
+"coder101", "random_walker", "quantum_leap", "northcountry", etc.). Do NOT use
+the same usernames across different stories. Each thread should have unique names.
+
+Parody title: {title}
+Story title: {story['title']}
+Original URL: {story['url']}
+
+Example of existing parody comments for style reference:
+{existing_sample}
+
+Return ONLY a valid JSON object with no markdown code fences in this shape:
+{{
+  "comments": [
+    {{
+      "by": "hacker_news_style_username",
+      "text": "synthetic comment text discussing the topic from an education angle",
+      "replies": [
+        {{"by": "another_username", "text": "reply text"}}
+      ]
+    }},
+    ... repeat for {count} top-level threads
+  ]
+}}'''
 
 
 def call_with_retry(prompt: str, context: str, attempt: int = 1) -> Dict[str, Any]:
@@ -357,18 +445,51 @@ def parody_story(story: Dict[str, Any]) -> Dict[str, Any]:
             parsed = call_with_retry(prompt, f"story {story['id']} batch {idx + 1}")
             all_comments.extend(parsed.get("comments", []))
 
+    # Expand with synthetic comments if we haven't reached the target
+    if len(all_comments) < TARGET_COMMENTS_PER_STORY and TARGET_COMMENTS_PER_STORY > 0:
+        needed = TARGET_COMMENTS_PER_STORY - len(all_comments)
+        print(f"  [synthetic] generating {needed} more top-level threads")
+        try:
+            syn_prompt = synthetic_prompt(story, title, needed, all_comments[-5:] if len(all_comments) >= 5 else all_comments)
+            parsed = call_with_retry(syn_prompt, f"story {story['id']} synthetic", attempt=1)
+            syn_comments = parsed.get("comments", [])
+            print(f"  [synthetic] got {len(syn_comments)} synthetic threads")
+            all_comments.extend(syn_comments)
+        except Exception as e:
+            print(f"  [synthetic] failed: {e}", file=sys.stderr)
+
     return {"title": title, "submitter": submitter, "comments": all_comments}
 
 
-def enrich_from_original(generated: List[Dict[str, Any]], originals: List[Dict[str, Any]]):
-    """Copy original metadata (id, time, author, text) onto generated comments."""
-    for g, o in zip(generated, originals):
-        g["id"] = o.get("id")
-        g["time"] = o.get("time")
-        g["original_by"] = o.get("by")
-        g["original_text"] = o.get("text")
-        if "replies" in g and "replies" in o:
-            enrich_from_original(g["replies"], o.get("replies", []))
+def enrich_from_original(generated: List[Dict[str, Any]], originals: List[Dict[str, Any]], story_id: int = 0):
+    """Copy original metadata (id, time, author, text) onto generated comments.
+    Synthetic comments beyond the originals list get a synthetic ID.
+    """
+    base_syn_id = 900000000 + (story_id * 1000)
+    for idx, g in enumerate(generated):
+        if idx < len(originals):
+            o = originals[idx]
+            g["id"] = o.get("id")
+            g["time"] = o.get("time")
+            g["original_by"] = o.get("by")
+            g["original_text"] = o.get("text")
+            # Use the original HN commenter's name instead of the teacher-themed fake
+            if o.get("by"):
+                g["by"] = o.get("by")
+            if "replies" in g and "replies" in o:
+                enrich_from_original(g["replies"], o.get("replies", []), story_id)
+        else:
+            # Synthetic comment — assign a dummy HN-style ID
+            g["id"] = base_syn_id + idx
+            g["time"] = int(time.time()) - (idx * 300)
+            g["original_by"] = "hn_user"
+            g["original_text"] = g.get("text", "")
+            if "replies" in g:
+                for ri, r in enumerate(g["replies"]):
+                    r["id"] = base_syn_id + idx + 1 + ri
+                    r["time"] = int(time.time()) - (idx * 300) - 60
+                    r["original_by"] = "hn_user"
+                    r["original_text"] = r.get("text", "")
 
 
 def process_story(story: Dict[str, Any]) -> Dict[str, Any]:
@@ -381,7 +502,10 @@ def process_story(story: Dict[str, Any]) -> Dict[str, Any]:
         return None
 
     generated_comments = p.get("comments", [])
-    enrich_from_original(generated_comments, story.get("comments", []))
+    enrich_from_original(generated_comments, story.get("comments", []), story_id=story["id"])
+    # Use the original HN submitter name, not a generated one
+    if story.get("by"):
+        p["submitter"] = story["by"]
 
     return {
         "id": story["id"],
@@ -399,13 +523,29 @@ def process_story(story: Dict[str, Any]) -> Dict[str, Any]:
 
 
 def generate_dataset():
-    print(
-        f"Fetching top {TOP_N} HN stories "
-        f"(up to {MAX_TOP_LEVEL} top-level comments, depth {MAX_DEPTH}, batch {BATCH_SIZE})..."
-    )
-    raw = fetch_top_stories(TOP_N)
-    Path("raw_hn.json").write_text(json.dumps(raw, indent=2), encoding="utf-8")
-    print(f"Saved raw_hn.json ({len(raw)} stories, {sum(len(s['comments']) for s in raw)} threads)")
+    raw_path = Path("raw_hn.json")
+    # Re-use existing raw_hn.json if it has at least TOP_N stories with comments
+    if raw_path.exists():
+        try:
+            cached = json.loads(raw_path.read_text(encoding="utf-8"))
+            if len(cached) >= TOP_N and sum(len(s.get("comments", [])) for s in cached) > 50:
+                raw = cached
+                print(f"Using cached raw_hn.json ({len(raw)} stories, {sum(len(s['comments']) for s in raw)} threads)")
+            else:
+                raise ValueError("not enough cached data")
+        except Exception:
+            raw = None
+    else:
+        raw = None
+
+    if raw is None:
+        print(
+            f"Fetching top {TOP_N} HN stories "
+            f"(up to {MAX_TOP_LEVEL} top-level comments, depth {MAX_DEPTH}, batch {BATCH_SIZE})..."
+        )
+        raw = fetch_top_stories(TOP_N)
+        raw_path.write_text(json.dumps(raw, indent=2), encoding="utf-8")
+        print(f"Saved raw_hn.json ({len(raw)} stories, {sum(len(s['comments']) for s in raw)} threads)")
 
     parodies = []
     with ThreadPoolExecutor(max_workers=CONCURRENCY) as executor:
