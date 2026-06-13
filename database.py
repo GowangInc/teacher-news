@@ -72,7 +72,10 @@ def _insert_comments(
     parent_id: int = None,
     depth: int = 0,
 ):
-    for c in comments:
+    for idx, c in enumerate(comments):
+        comment_id = c.get("id")
+        if comment_id is None:
+            comment_id = -(abs(hash((c.get("text", ""), idx, parent_id))) % (10 ** 10))
         cur.execute(
             """
             INSERT INTO comments (
@@ -82,7 +85,7 @@ def _insert_comments(
             ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
             """,
             (
-                c.get("id"),
+                comment_id,
                 generation_id,
                 story_id,
                 parent_id,
@@ -100,7 +103,7 @@ def _insert_comments(
             generation_id,
             story_id,
             c.get("replies", []),
-            parent_id=c.get("id"),
+            parent_id=comment_id,
             depth=depth + 1,
         )
 
