@@ -215,8 +215,14 @@ a:hover {
     font-size: 11pt;
   }
 
+  center {
+    display: block;
+    text-align: left;
+  }
+
   #hnmain {
     width: 100% !important;
+    min-width: auto !important;
   }
 
   .titleline {
@@ -254,7 +260,28 @@ a:hover {
     display: none;
   }
 
-  .votelinks {
+  .story-row .rank {
+    display: none;
+  }
+
+  .story-row td.votelinks {
     width: 24px;
+    min-width: 24px;
+  }
+
+  .itemlist td[colspan="2"] {
+    display: none;
+  }
+
+  .itemlist tr:not(.story-row) td:first-child {
+    display: none;
+  }
+
+  .itemlist tr:not(.story-row) td:nth-child(2) {
+    display: none;
+  }
+
+  .itemlist tr:not(.story-row) td:nth-child(3) {
+    padding-left: 24px;
   }
 }
