@@ -70,28 +70,20 @@
       return;
     }
     try {
-      // Try page 1 first
-      let resp = await fetch('data.json?_=' + Date.now());
-      let data = await resp.json();
-      let story = (data.stories || []).find(s => s.id === storyId);
-      
-      // If not found, try other pages
-      if (!story) {
-        const manifestResp = await fetch('data-manifest.json?_=' + Date.now());
-        if (manifestResp.ok) {
-          const manifest = await manifestResp.json();
-          const totalPages = manifest.total_pages || 1;
-          for (let p = 2; p <= totalPages; p++) {
-            resp = await fetch(`data-p${p}.json?_=` + Date.now());
-            if (resp.ok) {
-              data = await resp.json();
-              story = (data.stories || []).find(s => s.id === storyId);
-              if (story) break;
-            }
-          }
-        }
+      // First, check which page contains this story
+      let pageNum = 1;
+      const indexResp = await fetch('story-index.json?_=' + Date.now());
+      if (indexResp.ok) {
+        const index = await indexResp.json();
+        pageNum = index[String(storyId)] || 1;
       }
       
+      // Fetch only the page containing this story
+      const dataUrl = pageNum === 1 ? 'data.json?_=' + Date.now() : 'data-p' + pageNum + '.json?_=' + Date.now();
+      const resp = await fetch(dataUrl);
+      if (!resp.ok) throw new Error(`HTTP ${resp.status}`);
+      const data = await resp.json();
+      const story = (data.stories || []).find(s => s.id === storyId);
       if (!story) {
         showError('Story not found.');
         return;
