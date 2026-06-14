@@ -1,0 +1,32 @@
+{
+  "generated_at": "2026-06-14T07:06:13Z",
+  "page": 4,
+  "total_pages": 4,
+  "source": "https://news.ycombinator.com/",
+  "stories": [
+    {
+      "id": 48516372,
+      "title": "Looking Forward to Postgres 19: It's About Time",
+      "url": "https://news.ycombinator.com/item?id=48506372",
+      "by": "teacher",
+      "score": 3,
+      "time": 1781282687,
+      "comment_count": 0,
+      "original_title": "Looking Forward to Postgres 19: It's About Time",
+      "original_url": "",
+      "comments": []
+    },
+    {
+      "id": 48516575,
+      "title": "Gauntlet AI will fly you to Austin, train you in AI, give $200k+ job",
+      "url": "https://news.ycombinator.com/item?id=48506575",
+      "by": "teacher",
+      "score": 1,
+      "time": 1781283640,
+      "comment_count": 0,
+      "original_title": "Gauntlet AI will fly you to Austin, train you in AI, give $200k+ job",
+      "original_url": "",
+      "comments": []
+    }
+  ]
+}
