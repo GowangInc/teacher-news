@@ -11,7 +11,8 @@ Outputs:
     teacher_news.db    - SQLite archive of originals and parodies
 
 Environment variables:
-    TOP_N                       number of stories (default 5)
+    TOP_N                       number of stories to generate per run (default 10)
+    STORY_POOL_SIZE             fetch this many top stories and randomly sample TOP_N (default 50)
     MAX_AGE_HOURS               story window via Algolia fallback (default 12)
     MAX_TOP_LEVEL               top-level comments per story (default 0 = unlimited)
     MAX_REPLIES_PER_NODE        replies per comment node (default 0 = unlimited)
@@ -28,6 +29,7 @@ Environment variables:
 import html
 import json
 import os
+import random
 import re
 import sys
 import time
@@ -39,7 +41,8 @@ import requests
 
 from database import save_dataset
 
-TOP_N = int(os.environ.get("TOP_N", "5"))
+TOP_N = int(os.environ.get("TOP_N", "10"))
+STORY_POOL_SIZE = int(os.environ.get("STORY_POOL_SIZE", "50"))
 MAX_AGE_HOURS = int(os.environ.get("MAX_AGE_HOURS", "12"))
 MAX_TOP_LEVEL = int(os.environ.get("MAX_TOP_LEVEL", "0"))
 MAX_REPLIES_PER_NODE = int(os.environ.get("MAX_REPLIES_PER_NODE", "0"))
@@ -65,6 +68,12 @@ elif OPENAI_API_KEY:
 else:
     OPENAI_BASE_URL = os.environ.get("OPENAI_BASE_URL", "https://api.openai.com/v1")
 REQUEST_TIMEOUT = int(os.environ.get("REQUEST_TIMEOUT", "600"))
+RANDOM_SEED = os.environ.get("RANDOM_SEED", "").strip()
+if RANDOM_SEED:
+    try:
+        random.seed(int(RANDOM_SEED))
+    except ValueError:
+        random.seed(RANDOM_SEED)
 
 HN_SESSION = requests.Session()
 
@@ -156,12 +165,22 @@ def algolia_get(story_id: int, timeout: int = 30) -> Any:
     raise last_err
 
 
-def fetch_story_ids(n: int = TOP_N) -> List[int]:
-    """Fetch top story IDs from the HN front page (official Firebase API)."""
-    ids = hn_get("topstories")
-    if not ids:
-        return []
-    return ids[:n]
+def fetch_story_ids(pool_size: int = STORY_POOL_SIZE, top_n: int = TOP_N,
+                    exclude_ids: set = None) -> List[int]:
+    """Fetch top story IDs from HN and randomly sample top_n unarchived stories.
+
+    Fetches up to pool_size IDs, filters out any already in the archive (exclude_ids),
+    then randomly selects up to top_n. Falls back to fewer stories if not enough are available.
+    """
+    if exclude_ids is None:
+        exclude_ids = set()
+    all_ids = hn_get("topstories") or []
+    all_ids = [int(sid) for sid in all_ids[:pool_size]]
+    available = [sid for sid in all_ids if sid not in exclude_ids]
+    random.shuffle(available)
+    selected = available[:top_n]
+    print(f"Fetched {len(all_ids)} top stories; {len(available)} unarchived; selected {len(selected)} at random")
+    return selected
 
 
 def build_comment_tree(item_id: int, depth: int = 0) -> Dict[str, Any]:
@@ -192,9 +211,11 @@ def build_comment_tree(item_id: int, depth: int = 0) -> Dict[str, Any]:
     }
 
 
-def fetch_top_stories(n: int = TOP_N) -> List[Dict[str, Any]]:
-    """Fetch story metadata and recursively collect comments using Algolia."""
-    ids = fetch_story_ids(n)
+def fetch_top_stories(n: int = TOP_N, exclude_ids: set = None) -> List[Dict[str, Any]]:
+    """Fetch story metadata and recursively collect comments using Algolia.
+    Randomly samples from the configured story pool, excluding archived IDs.
+    """
+    ids = fetch_story_ids(STORY_POOL_SIZE, n, exclude_ids)
     stories = []
     for idx, story_id in enumerate(ids, 1):
         try:
@@ -313,10 +334,13 @@ Given the Hacker News story and the first batch of its comment threads below, pr
 Rules:
 - Change the headline only slightly so it fits primary, secondary, or tertiary education.
 - Rewrite every top-level comment and its nested replies as if they are written by teachers,
-  professors, administrators, TAs, or education staff. The primary audience is international
-  school teachers, so lean toward IB/DP/MYP, expat teaching, EAL/ESL, admissions, parent
-  conferences, accreditation visits, and cross-cultural classrooms—but keep it accessible to
-  all educators.
+  professors, administrators, TAs, or education staff. The primary audience is educators
+  across East and Southeast Asia: public school teachers, bilingual school staff, training
+  center instructors, and teachers in IB/IGCSE/A-level focused international schools. Lean
+  toward curriculum mapping, exam boards, parent conferences, classroom management in large
+  classes, edtech rollouts, accreditation visits, EAL/ESL, bilingual pedagogy, tuition culture,
+  hagwon/cram-school dynamics, ministry directives, and cross-cultural classrooms—but keep it
+  accessible to all educators.
 - Keep the Hacker News voice: concise, earnest, sometimes cranky, with threaded replies.
 - IMPORTANT: Keep each comment's 'by' field set to the ORIGINAL Hacker News username from the
   input data. Do NOT replace it with a teacher-themed username — use the real HN username.
@@ -356,9 +380,12 @@ Original story title: {story['title']}
 Original URL: {story['url']}
 
 Rewrite the next batch of comment threads as teachers/educators discussing education.
-The primary audience is international school teachers, so lean toward IB/DP/MYP, expat
-teaching, EAL, admissions, accreditation, and cross-cultural classrooms while staying
-accessible. Keep the Hacker News voice and nested replies.
+The primary audience is educators across East and Southeast Asia: public school teachers,
+bilingual school staff, training center instructors, and teachers in IB/IGCSE/A-level focused
+international schools. Lean toward curriculum mapping, exam boards, parent conferences,
+classroom management in large classes, edtech rollouts, accreditation visits, EAL/ESL,
+bilingual pedagogy, tuition culture, hagwon/cram-school dynamics, ministry directives, and
+cross-cultural classrooms while staying accessible. Keep the Hacker News voice and nested replies.
 IMPORTANT: Keep each comment's 'by' field set to the ORIGINAL Hacker News username from the
 input data. Do NOT replace it with a teacher-themed username.
 Return ONLY a valid JSON object with no markdown code fences in this shape:
@@ -395,8 +422,9 @@ def synthetic_prompt(story: Dict[str, Any], title: str, count: int, existing: Li
 The story already has some parodied comments below, but we need MORE discussion.
 Generate {count} new top-level comment threads (each with 1-2 replies) as if additional
 Hacker News users joined the conversation. The comments should be about the story topic
-from an international school teacher perspective (IB/DP/MYP, expat teaching, EAL,
-admissions, accreditation, cross-cultural classrooms). Keep the Hacker News voice:
+from an East/Southeast Asian educator perspective (public schools, bilingual schools,
+training centers, IB/IGCSE/A-level international schools, exam boards, tuition culture,
+ministry directives, EAL/ESL, bilingual pedagogy, cross-cultural classrooms). Keep the Hacker News voice:
 concise, earnest, sometimes cranky, with threaded replies.
 
 IMPORTANT: The "by" field is ignored — usernames are assigned automatically by the system.
@@ -646,33 +674,36 @@ def process_story(story: Dict[str, Any], name_pool: List[str]) -> Dict[str, Any]
 
 def generate_dataset():
     raw_path = Path("raw_hn.json")
-    # Re-use existing raw_hn.json only if it matches the current HN front page
+    # Load archive so we can exclude already-immortalized story IDs
+    all_stories = _load_existing_stories()
+    existing_ids = {s["id"] for s in all_stories}
+
+    # Re-use existing raw_hn.json only if it contains enough unarchived stories
+    # and overlaps with the current HN front page pool.
+    raw = None
     if raw_path.exists():
         try:
             cached = json.loads(raw_path.read_text(encoding="utf-8"))
-            current_ids = fetch_story_ids(TOP_N)
             cached_ids = {s["id"] for s in cached}
-            # Only reuse if the cached stories match the current HN front page
-            if all(sid in cached_ids for sid in current_ids) and len(cached) >= TOP_N:
-                raw = cached
-                print(f"Using cached raw_hn.json (matches current HN front page, {len(raw)} stories)")
-            else:
-                print(f"Cached raw_hn.json stale (different front page), re-fetching...")
-                raw = None
+            unarchived_in_cache = [s for s in cached if s["id"] not in existing_ids]
+            current_pool_ids = set(fetch_story_ids(STORY_POOL_SIZE, TOP_N, existing_ids)[:STORY_POOL_SIZE])
+            # If cache has unarchived stories and they are still in today's top pool, reuse it
+            if len(unarchived_in_cache) >= TOP_N and any(s["id"] in current_pool_ids for s in unarchived_in_cache):
+                raw = unarchived_in_cache[:TOP_N]
+                random.shuffle(raw)
+                raw = raw[:TOP_N]
+                print(f"Using cached raw_hn.json ({len(raw)} unarchived stories)")
         except FileNotFoundError:
-            raw = None
+            pass
         except json.JSONDecodeError as e:
             print(f"  ! raw_hn.json is corrupted, will refetch: {e}", file=sys.stderr)
-            raw = None
-    else:
-        raw = None
 
     if raw is None:
         print(
-            f"Fetching top {TOP_N} HN stories "
+            f"Fetching pool of {STORY_POOL_SIZE} HN stories and randomly selecting {TOP_N} "
             f"(up to {MAX_TOP_LEVEL} top-level comments, depth {MAX_DEPTH}, batch {BATCH_SIZE})..."
         )
-        raw = fetch_top_stories(TOP_N)
+        raw = fetch_top_stories(TOP_N, existing_ids)
         raw_path.write_text(json.dumps(raw, indent=2), encoding="utf-8")
         print(f"Saved raw_hn.json ({len(raw)} stories, {sum(len(s['comments']) for s in raw)} threads)")
 
@@ -696,8 +727,6 @@ def generate_dataset():
     # Prepend new stories to existing ones, like HN's front page.
     # Existing stories are immutable: if an ID is already in the archive,
     # the new parody is discarded so bookmarks and comment threads stay stable.
-    all_stories = _load_existing_stories()
-    existing_ids = {s["id"] for s in all_stories}
     new_parodies = [s for s in parodies if s["id"] not in existing_ids]
     skipped = [s["id"] for s in parodies if s["id"] in existing_ids]
     if skipped:
