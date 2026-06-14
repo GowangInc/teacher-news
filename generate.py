@@ -580,6 +580,32 @@ def _assign_synthetic_ids_and_names(comments: List[Dict], start_id: int,
                                              name_pool, used_names, story_id)
 
 
+def _normalize_comment_text(text: str) -> str:
+    """Normalize comment text for near-duplicate detection."""
+    text = (text or "").lower()
+    text = re.sub(r"[^\w\s]", "", text)
+    text = re.sub(r"\s+", " ", text).strip()
+    return text
+
+
+def _dedupe_comments(comments: List[Dict], seen: set = None) -> List[Dict]:
+    """Remove comments whose normalized text duplicates an earlier one.
+    Preserves the first occurrence and deduplicates across all nesting levels.
+    """
+    if seen is None:
+        seen = set()
+    result = []
+    for c in comments:
+        normalized = _normalize_comment_text(c.get("text", ""))
+        if not normalized or normalized in seen:
+            continue
+        seen.add(normalized)
+        if "replies" in c:
+            c["replies"] = _dedupe_comments(c["replies"], seen)
+        result.append(c)
+    return result
+
+
 def process_story(story: Dict[str, Any], name_pool: List[str]) -> Dict[str, Any]:
     """Parody a single story and return the dataset record."""
     print(f"[{story['id']}] Parodying: {story['title']} ({len(story.get('comments', []))} threads)")
@@ -593,6 +619,12 @@ def process_story(story: Dict[str, Any], name_pool: List[str]) -> Dict[str, Any]
     used_names = set()
     enrich_from_original(generated_comments, story.get("comments", []),
                          name_pool, used_names, story_id=story["id"])
+    # Remove near-duplicate parodied comments
+    before_dedupe = len(generated_comments)
+    generated_comments = _dedupe_comments(generated_comments)
+    removed = before_dedupe - len(generated_comments)
+    if removed:
+        print(f"  Removed {removed} near-duplicate top-level comments")
     # Use the original HN submitter name
     if story.get("by"):
         p["submitter"] = story["by"]
